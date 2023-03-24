@@ -7,11 +7,16 @@ import { ModalContext } from '@/providers/ModalProvider';
 import Button from '@/components/common/button/button';
 import TwitterLogo from '@/components/common/svg/TwitterLogo';
 import Or from '@/components/common/Or';
+import { objectValueSetter } from '@/helper/helperFunc/objectValueSetter';
+import Loader from '@/components/common/loader/Loader';
 
 export default function ModalSignInDiv() {
-    const [ modal, setModal ] = useContext(ModalContext)
-    const [ email, setEmail ] = useState("");
-    const [ password, setPassword ] = useState("");
+    const [modal, setModal] = useContext(ModalContext)
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
+
+    const [password, setPassword] = useState("");
 
     return (
         <div className={`${styles.signUpDiv} ${modal.showModal && styles.showSignIn}`}
@@ -69,42 +74,53 @@ export default function ModalSignInDiv() {
                 <form action=""
 
                     onSubmit={async (e) => {
+                        setLoading(true)
                         e.preventDefault();
                         console.log({ email, password })
 
                         try {
                             const res = await signIn("credentials", { redirect: false, email, password })
+
+                            setError(res.error);
+                            if (!res.error) {
+
+
+                                console.log(modal)
+                                setModal({ ...objectValueSetter(modal, false) })
+                            }
                             console.log(res)
                         } catch (e) {
                             console.log(e)
                         }
+                        setLoading(false)
 
                     }}
 
 
                 >
 
-                    <div className={styles[ "input-group" ]}>
+                    <div className={styles["input-group"]}>
                         <input
                             onChange={(e) => setEmail(e.target.value)}
 
-                            required type="email" name="email" placeholder='Hola' className={styles[ "input" ]} />
-                        <label className={styles[ "user-label" ]}>Email</label>
+                            required type="email" name="email" placeholder='Hola' className={styles["input"]} />
+                        <label className={styles["user-label"]}>Email</label>
                     </div>
-                    <div className={styles[ "input-group" ]}>
+                    <div className={styles["input-group"]}>
                         <input
                             onChange={(e) => setPassword(e.target.value)}
-                            required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles[ "input" ]} />
-                        <label className={styles[ "user-label" ]}>Password</label>
+                            required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles["input"]} />
+                        <label className={styles["user-label"]}>Password</label>
                     </div>
 
+                    {error && <p className={styles.error} style={{ color: "red" }}>{error}</p>}
 
-                    <input className='btn-primary' type="submit"
+                    {loading ? <Loader /> : <input className='btn-primary' type="submit"
                         style={{
                             paddingBlock: ".5rem",
                             backgroundColor: 'black'
                         }}
-                    />
+                    />}
                 </form>
             </>
             }

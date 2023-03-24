@@ -11,6 +11,8 @@
     width: 370px;
 }
 
+
+
 .signUpDiv>* {
     margin-bottom: 1.8rem;
 }
@@ -19,6 +21,29 @@
     margin-bottom: .8rem;
 
 }
+
+.signUpDiv>form>.error {
+    color: red;
+    font-size: .8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    animation: drop-down 200ms ease;
+}
+
+
+
+@keyframes drop-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 .signUpDiv>h1 {
     font-size: 1.8rem;

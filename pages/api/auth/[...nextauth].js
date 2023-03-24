@@ -27,24 +27,24 @@ export const authOptions = {
                 try {
 
                     await connectMongo();
-                    const user = await UserDB.findOne({
-                        email: email
-                    }).select("+password")
-
-                    if (!user) {
-                        throw new Error("User doesn't exist.")
-                    }
-                    const isPasswordCorrect = await compare(password, user.password)
-
-                    if (!isPasswordCorrect) {
-                        throw new Error("Password doesn't match.")
-                    }
-                    return user
                 }
                 catch (e) {
                     console.log(e)
                     throw new Error("Something went wrong.");
                 }
+                const user = await UserDB.findOne({
+                    email: email
+                }).select("+password")
+
+                if (!user) {
+                    throw new Error("User doesn't exist.")
+                }
+                const isPasswordCorrect = await compare(password, user.password)
+
+                if (!isPasswordCorrect) {
+                    throw new Error("Password doesn't match.")
+                }
+                return user
             }
 
         })
