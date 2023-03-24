@@ -1,0 +1,24 @@
+.right {
+    width: 400px;
+    padding: 1rem;
+}
+
+.right>div {
+    position: sticky;
+    top: 1rem;
+}
+
+
+.right>div>p {
+    padding: 1rem;
+    font-size: .85rem;
+    letter-spacing: normal;
+    color: var(--text-color-tertiary);
+}
+
+.right>div>p>a {
+    font-size: .85rem;
+    letter-spacing: normal;
+    color: var(--primary-color);
+    text-decoration: none;
+}

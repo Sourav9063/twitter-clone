@@ -1,0 +1,117 @@
+.tweet {
+    border-bottom: 1px var(--border-color) solid;
+    display: flex;
+    gap: .5rem;
+    padding: .5rem 1rem;
+
+}
+
+.tweet:hover {
+    background-color: var(--bg-hover);
+}
+
+
+.img {
+    width: 70px;
+    aspect-ratio: 1;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 1px var(--border-color) solid;
+    border-radius: 50%;
+
+
+}
+
+.body {
+    width: 100%;
+}
+
+
+.header {
+    /* height: 30px; */
+    display: flex;
+
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.tweetImg {
+    margin-top: .5rem;
+    width: 100%;
+}
+
+.tweetImg>img {
+    border-radius: 1rem;
+    max-width: 100%;
+    max-height: 70vh;
+}
+
+.likeNcommnet {
+    display: flex;
+    justify-content: flex-start;
+    width: 80%;
+}
+
+
+.likeNcommnet>div {
+    display: flex;
+    width: 20%;
+    margin-block: .5rem;
+    align-items: flex-start;
+    align-items: center;
+}
+
+.likeNcommnet>div>svg {
+    box-sizing: content-box;
+    width: 1.5rem;
+    padding: .5rem;
+}
+
+.name {
+    font-weight: 700;
+    /* margin-right: .3rem; */
+
+}
+
+.names>* {
+    font-size: 1.2rem;
+    margin-right: .3rem;
+}
+
+.username {
+    color: var(--text-color-tertiary);
+}
+
+.threeDot {
+    color: var(--text-color-tertiary);
+    fill: inherit;
+    width: 25px;
+}
+
+.likes:hover {
+    color: crimson;
+    fill: crimson;
+
+
+}
+
+.likes:hover>svg {
+    background-color: rgba(220, 20, 60, 0.253);
+    border-radius: 1000000px;
+
+}
+
+.comments:hover {
+    color: var(--primary-color);
+    fill: currentColor;
+    /* background-color: var(--hover-primary-trans-color);
+    border-radius: 1000000px; */
+}
+
+
+.comments:hover>svg {
+    background-color: var(--hover-primary-trans-color);
+    border-radius: 1000000px;
+
+}

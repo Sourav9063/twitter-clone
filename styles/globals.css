@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+
+:root {
+  --bg: #fff;
+  --bg-hover: #eff3f4;
+  --text-color-primary: #000;
+  --text-color-secondery: #0f1419;
+  --text-color-tertiary: rgb(82, 99, 111);
+  /* --border-color: #cfd9de; */
+  --border-color: #eff3f4;
+  --border-color-2: #cfd9de;
+  --primary-color: #1d9bf0;
+  --disabled-color: #536471;
+  --hover-primary-trans-color: rgba(29, 155, 240, .1);
+  --hover-secondary-trans-color: rgba(15, 20, 25, .1);
+  --hover-bg-color: rgb(26, 140, 216);
+
+  --line-height: 20px;
+
+  --main-width: 600px;
+}
+
+/* :root {
+  --bg: #fff;
+  --bg-hover: #d1e8d4;
+  --text-color-primary: #000;
+  --text-color-secondery: #0f1419;
+  --text-color-tertiary: rgb(82, 99, 111);
+
+  --border-color: #eff3f4;
+  --border-color-2: #cfd9de;
+  --primary-color: #40df72;
+  --disabled-color: #536471;
+  --hover-primary-trans-color: rgba(75, 255, 132, 0.199);
+  --hover-secondary-trans-color: rgba(15, 20, 25, .1);
+
+  --hover-bg-color: rgb(26, 140, 216);
+
+  --line-height: 20px;
+
+  --main-width: 600px;
+} */
+
+@media (prefers-color-scheme: dark) {
+  :root {}
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+  line-height: var(--line-height);
+  letter-spacing: .5px;
+  /* border: 1px solid salmon;
+  background-color: rgba(255, 0, 0, 0.068); */
+}
+
+html,
+body {
+  box-sizing: border-box;
+
+
+  /* overflow-y: hidden; */
+
+}
+
+
+.btn-primary {
+  color: white;
+  background-color: var(--primary-color);
+  border-radius: 100000px;
+  border: none;
+  width: 100%;
+  padding-block: 1rem;
+  font-size: 1rem;
+  font-weight: 700;
+
+}
+
+.btn-primary:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.btn:disabled {
+  background-color: var(--disabled-color);
+}
+
+.hover-effect {
+
+  color: var(--primary-color);
+  fill: currentColor;
+  box-sizing: content-box;
+  padding: .5rem;
+  border-radius: 10000px;
+}
+
+.hover-effect:hover {
+  background-color: var(--hover-primary-trans-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
