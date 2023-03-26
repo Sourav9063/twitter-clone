@@ -7,6 +7,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 
 
 
+
+
 export const authOptions = {
     session: {
         strategy: "jwt",
@@ -19,10 +21,9 @@ export const authOptions = {
 
             },
             async authorize(credentials, req) {
-                console.log(credentials);
-                console.log(req)
+
                 const { email, password } = credentials;
-                console.log(email, password)
+
 
                 try {
 
@@ -35,7 +36,8 @@ export const authOptions = {
                 const user = await UserDB.findOne({
                     email: email
                 }).select("+password")
-
+                console.log(user._id);
+                console.log(user.username)
                 if (!user) {
                     throw new Error("User doesn't exist.")
                 }
@@ -44,7 +46,8 @@ export const authOptions = {
                 if (!isPasswordCorrect) {
                     throw new Error("Password doesn't match.")
                 }
-                return user
+                return { id: "1", name: "J Smith", email: "jsmith@example.com" }
+                return { id: "id", name: "hola" };
             }
 
         })

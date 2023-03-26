@@ -4,8 +4,12 @@ import styles from "./HomeRight.module.css"
 
 import SignUpDiv from '@/components/common/signUpDiv/SignUpDiv'
 import Follow from './follow/Follow'
+import { useSession } from 'next-auth/react'
 
 export default function HomeRight() {
+    const session = useSession();
+
+    console.log(session.data)
 
     return (
         <section className={styles.right}>
