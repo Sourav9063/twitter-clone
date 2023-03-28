@@ -1,4 +1,4 @@
-const { Schema } = require("mongoose");
+const { Schema, model, models } = require("mongoose");
 
 const likesSchema = new Schema({
     userid: {
@@ -8,7 +8,7 @@ const likesSchema = new Schema({
     likedPost: [
         {
             type: Schema.Types.ObjectId,
-            ref: "postDB"
+            ref: "PostDB"
         }
     ]
 })

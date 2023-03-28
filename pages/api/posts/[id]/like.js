@@ -1,18 +1,60 @@
 import connectMongo from "@/db/dbConnect";
 import LikedDB from "@/db/models/likesModel";
+import PostDB from "@/db/models/postModel";
 
 
 export default async function handler(req, res) {
 
     console.log(req.query);
     if (req.method === "POST") {
-        const { userid, likedPost } = req.body;
+        const { userid, } = req.body;
+        const { id: likedPost } = req.query;
         console.log(userid)
-        await connectMongo()
-        const likedb = await LikedDB.create(
 
-        )
+        try {
+            await connectMongo()
+            let likedb = await LikedDB.findOne({ userid: userid });
+            const post = await PostDB.findById(likedPost)
+            console.log(post)
 
+            if (!likedb) {
+                likedb = await LikedDB.create(
+                    {
+                        userid: userid,
+                    }
+                )
+            }
+
+            if (likedb.likedPost.includes(likedPost)) {
+
+                //update PostDB likes to likes -1 
+
+                post.likes = post.likes - 1
+                await post.save()
+
+
+                likedb.likedPost = likedb.likedPost.filter((post) => post != likedPost)
+                await likedb.save()
+                res.status(200).json({ likedb, likes: post.likes })
+                return
+            }
+            else {
+                //update PostDB likes to likes +1
+                post.likes = post.likes + 1
+                await post.save()
+
+                likedb.likedPost.push(likedPost)
+                await likedb.save()
+                res.status(200).json({ likedb, likes: post.likes })
+                return
+            }
+
+
+        }
+        catch (e) {
+            console.log(e)
+            res.status(500).json({ msg: "Server error" })
+        }
 
     }
 

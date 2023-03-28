@@ -60,6 +60,7 @@
     margin-block: .5rem;
     align-items: flex-start;
     align-items: center;
+    cursor: pointer;
 }
 
 .likeNcommnet>div>svg {
@@ -112,6 +113,20 @@
 
 .comments:hover>svg {
     background-color: var(--hover-primary-trans-color);
+    border-radius: 1000000px;
+
+}
+
+
+.likedPost {
+    color: rgb(255, 0, 0);
+    fill: rgb(255, 0, 0);
+
+
+}
+
+.likedPost>svg {
+    background-color: rgba(255, 0, 0, 0.267);
     border-radius: 1000000px;
 
 }
