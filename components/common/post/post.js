@@ -8,9 +8,9 @@ import { useRouter } from 'next/router'
 
 export default function Post
     ({ width = "100%" }) {
-    const [ tweet, setTweet ] = useState("")
-    const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState("");
+    const [tweet, setTweet] = useState("")
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
     const session = useSession();
     const route = useRouter()
 
@@ -23,7 +23,7 @@ export default function Post
             <section className={style.body}>
 
 
-                <div className={style[ "privacy" ]}>Everyone
+                <div className={style["privacy"]}>Everyone
                     <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z"></path></g></svg>
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Tweet from '@/components/tweet/tweet'
 import style from "./HomeMain.module.css"
 import Post from '@/components/common/post/post'
