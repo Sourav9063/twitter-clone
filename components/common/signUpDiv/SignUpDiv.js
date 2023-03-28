@@ -1,11 +1,15 @@
 import React, { useContext } from 'react'
 import Button from '../button/button';
 import styles from "./SignUpDiv.module.css"
-import { ModalContext } from '@/providers/ModalProvider';
+// import { ModalContext } from '@/providers/ModalProvider';
 import TwitterLogo from '../svg/TwitterLogo';
+import { useRouter } from 'next/router';
+import { MODAL_QUERY_SIGNIN, MODAL_QUERY_SIGNUP } from '@/helper/constStrings';
+
 
 export default function SignUpDiv() {
-    const [ modal, setModal ] = useContext(ModalContext)
+    // const [ modal, setModal ] = useContext(ModalContext)
+    const router = useRouter();
     return (
         <div className={`${styles.signUpDiv}`}
 
@@ -17,9 +21,10 @@ export default function SignUpDiv() {
 
             <Button
                 onclick={() => {
-                    modal.showSignIn = true;
-                    modal.showModal = true
-                    setModal({ ...modal })
+                    router.push("/" + MODAL_QUERY_SIGNIN)
+                    // modal.showSignIn = true;
+                    // modal.showModal = true
+                    // setModal({ ...modal })
                 }}
                 style={{ paddingBlock: ".5rem", }}
             >Log in</Button>
@@ -32,9 +37,13 @@ export default function SignUpDiv() {
             <button
                 className={`${styles.btnOutline} btn-primary`}
                 onClick={() => {
-                    modal.showSignUp = true;
-                    setModal({ ...modal })
+                    // modal.showSignUp = true;
+                    // setModal({ ...modal })
+                    router.push("/" + MODAL_QUERY_SIGNUP)
+
+
                 }}
+
             // style={{
             //     backgroundColor: "White",
             //     color: "Black",
@@ -46,8 +55,10 @@ export default function SignUpDiv() {
             <button
                 className={`${styles.btnOutline} btn-primary`}
                 onClick={() => {
-                    modal.showSignUp = true;
-                    setModal({ ...modal })
+                    // modal.showSignUp = true;
+                    // setModal({ ...modal })
+                    router.push("/" + MODAL_QUERY_SIGNUP)
+
                 }}
             // style={{
             //     backgroundColor: "White",

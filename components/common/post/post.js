@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Avatar from '../avatar/avatar'
 import style from "./post.module.css"
 import Button from '../button/button'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 
 export default function Post
-    () {
+    ({ width = "100%" }) {
+    const [ tweet, setTweet ] = useState("")
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState("");
+    const session = useSession();
+    const route = useRouter()
+
     return (
-        <div className={style.post}>
+        <div className={style.post} style={{ width: "600px" }}>
 
             <section className={style.image}>
                 <Avatar image="https://sourav9063.github.io/my_portfolio/static/media/headRS1.aee7abddddb9c68b52c5.png"></Avatar>
@@ -20,7 +28,9 @@ export default function Post
                 </div>
 
                 <form action="">
-                    <textarea placeholder="What's happening?" type="text" />
+                    <textarea onChange={(e) => {
+                        setTweet(e.target.value)
+                    }} value={tweet} placeholder="What's happening?" type="text" />
 
                 </form>
 
@@ -37,8 +47,50 @@ export default function Post
                     </div>
                     <div>
                         <Button
+                            disabled={tweet == ''}
                             style={{
                                 paddingBlock: ".5rem",
+                            }}
+                            onclick={async () => {
+
+                                setLoading(true)
+
+
+                                const myHeaders = new Headers();
+                                myHeaders.append("Content-Type", "application/json");
+
+
+                                const raw = JSON.stringify({
+                                    owner: session.data.user.id,
+                                    postText: tweet,
+                                });
+
+
+
+                                const requestOptions = {
+                                    method: 'POST',
+                                    headers: myHeaders,
+                                    body: raw,
+                                    redirect: 'follow'
+                                };
+
+
+                                try {
+                                    const response = await fetch("http://localhost:3000/api/posts", requestOptions);
+
+                                    const result = await response.text();
+                                    route.replace('/')
+                                    console.log(result);
+                                } catch (error) {
+
+                                    console.log('error', error);
+                                }
+
+                                setLoading(true)
+
+                                console.log(session);
+                                console.log(tweet);
+                                setTweet("")
                             }}
                         ></Button>
                     </div>

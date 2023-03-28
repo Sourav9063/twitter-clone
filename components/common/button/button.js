@@ -1,11 +1,12 @@
 import React from 'react'
 
-export default function Button({ onclick = () => { }, width = "100%", children = "Tweet", style }) {
+export default function Button({ onclick = () => { }, width = "100%", children = "Tweet", style, disabled = false }) {
 
   return (
     <button className={`btn-primary`}
       onClick={onclick}
       style={style}
+      disabled={disabled}
     >
       {children}
 
@@ -26,8 +27,8 @@ export default function Button({ onclick = () => { }, width = "100%", children =
   background-color: var(--hover-bg-color);
 }
 
-.btn:disabled {
-  background-color: var(--disabled-color);
+.btn-primary:disabled {
+  background-color:var(--hover-primary-trans-color);
 }
                 
                 ` }</style>

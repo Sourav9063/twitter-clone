@@ -5,12 +5,12 @@ export const commentSchema = new Schema({
         type: String,
         required: [ true, "Comment cannot be empty." ],
     },
-    commenter: {
-        // type: Schema.Types.ObjectId,
-        type: String,
-        required: [ true, "Commenter Id needed." ]
-
+    commenterId: {
+        type: Schema.Types.ObjectId,
+        required: [ true, "Commenter ids needed." ],
+        ref: "UserDB"
     },
+
     commenterUsername: {
         type: String,
         required: [ true, "Commenter username needed." ]
@@ -21,13 +21,27 @@ export const commentSchema = new Schema({
         immutable: true,
         default: Date.now(),
     },
-    commentOf: {
-        type: String,
-        default: "the_post"
-    }
+    commentOfPostId: {
+        type: Schema.Types.ObjectId,
+        required: [ true, "Comment of post id needed." ],
+        ref: "postDB"
+
+    },
+    likes: {
+        type: Number,
+        default: 0,
+    },
+    replyIds: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "commentDB"
+        }
+
+    ]
+
 })
 
 
-const commentDB = models.commentDB || model("commentDB", commentSchema)
+const CommentDB = models.CommentDB || model("CommentDB", commentSchema)
 
-export default commentDB;
+export default CommentDB;

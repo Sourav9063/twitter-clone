@@ -2,16 +2,23 @@ import React, { useContext } from 'react'
 import style from "./HomeLeft.module.css"
 import TwitterLogo from '@/components/common/svg/TwitterLogo'
 import Button from '@/components/common/button/button'
-import { ModalContext } from '@/providers/ModalProvider'
+// import { ModalContext } from '@/providers/ModalProvider'
 import ProfilePill from '@/components/profilePill/ProfilePill'
+import { useRouter } from 'next/router'
+import { MODAL_QUERY_POST } from '@/helper/constStrings'
+import { useSession } from 'next-auth/react'
 
 export default function HomeLeft() {
-    const [ modal, setModal ] = useContext(ModalContext)
-
+    // const [ modal, setModal ] = useContext(ModalContext)
+    const router = useRouter()
+    const session = useSession()
     const onclick = () => {
-        modal.showPostEditor = true;
-        setModal({ ...modal })
-        console.log(modal);
+        // modal.showPostEditor = true;
+        // setModal({ ...modal })
+        // console.log(modal);
+
+        router.push("/" + MODAL_QUERY_POST)
+
     }
 
     return (
@@ -35,10 +42,10 @@ export default function HomeLeft() {
                         ></Button>
                     </section>
 
-                    <ProfilePill></ProfilePill>
+                    {session.status == "authenticated" && <ProfilePill data={session?.data?.user}></ProfilePill>}
                 </div>
             </div>
 
-        </section>
+        </section >
     )
 }

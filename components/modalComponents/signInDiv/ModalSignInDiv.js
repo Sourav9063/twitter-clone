@@ -1,5 +1,5 @@
 import { signIn } from 'next-auth/react';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import styles from "./ModalSignInDiv.module.css"
 import { ModalContext } from '@/providers/ModalProvider';
@@ -9,31 +9,35 @@ import TwitterLogo from '@/components/common/svg/TwitterLogo';
 import Or from '@/components/common/Or';
 import { objectValueSetter } from '@/helper/helperFunc/objectValueSetter';
 import Loader from '@/components/common/loader/Loader';
+import { useRouter } from 'next/router';
+import { MODAL_QUERY_SIGNUP } from '@/helper/constStrings';
+import Link from 'next/link';
 
 export default function ModalSignInDiv() {
-    const [modal, setModal] = useContext(ModalContext)
-    const [email, setEmail] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("")
+    // const [ modal, setModal ] = useContext(ModalContext)
+    const [ email, setEmail ] = useState("");
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState("")
+    const router = useRouter()
 
-    const [password, setPassword] = useState("");
+    const [ password, setPassword ] = useState("");
 
     return (
-        <div className={`${styles.signUpDiv} ${modal.showModal && styles.showSignIn}`}
+        <div className={`${styles.signUpDiv} ${styles.showSignIn}`}
 
 
         >
             <TwitterLogo></TwitterLogo>
             <h1>Sign in to Twitter</h1>
 
-            {modal.showSignIn || <Button
+            {/* {modal.showSignIn || <Button
                 onclick={() => {
                     modal.showSignIn = true;
                     modal.showModal = true
                     setModal({ ...modal })
                 }}
                 style={{ paddingBlock: ".5rem", }}
-            >Log in</Button>}
+            >Log in</Button>} */}
 
 
 
@@ -42,9 +46,15 @@ export default function ModalSignInDiv() {
 
             <button
                 className={`${styles.btnOutline} btn-primary`}
-                onClick={() => {
-                    modal.showSignUp = true;
-                    setModal({ ...modal })
+                onClick={async () => {
+                    // modal.showSignUp = true;
+                    // setModal({ ...modal })
+
+                    setLoading(true)
+                    const res = await signIn("github", { callbackUrl: "/" })
+                    setLoading(false)
+                    console.log(res)
+                    // router.replace("/" + MODAL_QUERY_SIGNUP)
                 }}
             // style={{
             //     backgroundColor: "White",
@@ -57,8 +67,11 @@ export default function ModalSignInDiv() {
             <button
                 className={`${styles.btnOutline} btn-primary`}
                 onClick={() => {
-                    modal.showSignUp = true;
-                    setModal({ ...modal })
+                    // modal.showSignUp = true;
+                    // setModal({ ...modal })
+
+                    router.replace("/" + MODAL_QUERY_SIGNUP)
+
                 }}
             // style={{
             //     backgroundColor: "White",
@@ -70,62 +83,65 @@ export default function ModalSignInDiv() {
             >Create account</button>
 
             <Or></Or>
-            {modal.showSignIn && <>
-                <form action=""
 
-                    onSubmit={async (e) => {
-                        setLoading(true)
-                        e.preventDefault();
-                        console.log({ email, password })
+            <form action=""
 
-                        try {
-                            const res = await signIn("credentials", { redirect: false, email, password })
+                onSubmit={async (e) => {
+                    setLoading(true)
+                    e.preventDefault();
+                    console.log({ email, password })
 
-                            setError(res.error);
-                            if (!res.error) {
+                    try {
+                        const res = await signIn("credentials", { redirect: false, email, password })
+
+                        setError(res.error);
+                        if (!res.error) {
 
 
-                                console.log(modal)
-                                setModal({ ...objectValueSetter(modal, false) })
-                            }
                             console.log(res)
-                        } catch (e) {
-                            console.log(e)
+                            // setModal({ ...objectValueSetter(modal, false) })
+                            router.replace('/')
+
                         }
-                        setLoading(false)
+                        console.log(res)
+                    } catch (e) {
+                        console.log(e)
+                    }
+                    setLoading(false)
 
-                    }}
+                }}
 
 
-                >
+            >
 
-                    <div className={styles["input-group"]}>
-                        <input
-                            onChange={(e) => setEmail(e.target.value)}
+                <div className={styles[ "input-group" ]}>
+                    <input
+                        onChange={(e) => setEmail(e.target.value)}
 
-                            required type="email" name="email" placeholder='Hola' className={styles["input"]} />
-                        <label className={styles["user-label"]}>Email</label>
-                    </div>
-                    <div className={styles["input-group"]}>
-                        <input
-                            onChange={(e) => setPassword(e.target.value)}
-                            required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles["input"]} />
-                        <label className={styles["user-label"]}>Password</label>
-                    </div>
+                        required type="email" name="email" placeholder='Hola' className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Email</label>
+                </div>
+                <div className={styles[ "input-group" ]}>
+                    <input
+                        onChange={(e) => setPassword(e.target.value)}
+                        required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Password</label>
+                </div>
 
-                    {error && <p className={styles.error} style={{ color: "red" }}>{error}</p>}
+                {error && <p className={styles.error} style={{ color: "red" }}>{error}</p>}
 
-                    {loading ? <Loader /> : <input className='btn-primary' type="submit"
+                {loading ? <Loader /> :
+
+                    <input className='btn-primary' type="submit"
                         style={{
                             paddingBlock: ".5rem",
                             backgroundColor: 'black'
                         }}
                     />}
-                </form>
-            </>
-            }
+            </form>
+
             {/* <p>By signing up, you agree to the <span>Terms of Service</span> and <span>Privacy Policy</span>, including <span>Cookie Use</span>.</p> */}
-            <p>{`Don't have an account?`} <a href="">Sign up</a></p>
+            <p>{`Don't have an account?`} <Link replace={true} href={"/" + MODAL_QUERY_SIGNUP}>Sign up</Link></p>
         </div>
     )
 }

@@ -9,16 +9,50 @@ import ModalComponent from '@/components/modal/ModalComponent'
 import HomeLeft from '@/components/home/homeLeft/HomeLeft'
 
 import Post from '@/components/common/post/post'
-import { ModalContext } from '@/providers/ModalProvider'
+// import { ModalContext } from '@/providers/ModalProvider'
 import HomeRight from '@/components/home/homeRight/HomeRight'
 import ModalSignInDiv from '@/components/modalComponents/signInDiv/ModalSignInDiv'
 import ModalSignUpDiv from '@/components/modalComponents/signInDiv/ModalSignUpDiv'
+import { useRouter } from 'next/router'
+import { HomeBottom } from '@/components/home/homeBottom/HomeBottom'
+import { useSession } from 'next-auth/react'
+import PostDB from '@/db/models/postModel'
+import connectMongo from '@/db/dbConnect'
+// import UserDB from '@/db/models/userModel'
 // import SignUpDiv from '@/components/common/signUpDiv/SignUpDiv'
 
 
-export default function Home() {
-  const [ modal, ] = useContext(ModalContext)
+export async function getServerSideProps(context) {
 
+  let posts = [];
+  let error = null;
+  try {
+    await connectMongo();
+    posts = await PostDB.find().populate('owner').sort({ createdDate: -1 });
+
+  } catch (e) {
+    console.log(e)
+    error = "Error"
+  }
+
+
+
+
+  return {
+    props: {
+      data: JSON.parse(JSON.stringify(posts)),
+      error: error
+    }
+  }
+
+}
+
+
+export default function Home({ data, error }) {
+
+  // const [ modal, ] = useContext(ModalContext)
+  const router = useRouter()
+  const session = useSession()
   return (
     <>
       <Head>
@@ -27,31 +61,28 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
-      <ModalComponent>
-        {/* <h1>Hiiiiiii</h1> */}
 
-        {modal.showPostEditor && <Post />}
-        {modal.showSignIn && <ModalSignInDiv />}
-        {modal.showSignUp && <ModalSignUpDiv></ModalSignUpDiv>}
-      </ModalComponent>
+
+      {router.query.modal == "signin" && <ModalComponent> <ModalSignInDiv></ModalSignInDiv> </ModalComponent>}
+      {router.query.modal == "signup" && <ModalComponent> <ModalSignUpDiv></ModalSignUpDiv> </ModalComponent>}
+      {router.query.modal == "post" && <ModalComponent> <Post></Post> </ModalComponent>}
+
+
+
       <main className={style.body}>
-        {/* <TwitterLogo></TwitterLogo> */}
-
-
-        {/* <section className={style.main} style={{ borderInline: "1px solid var( --border-color)" }}>
-
-          <Tweet tweet={tweet}></Tweet>
-          <Tweet tweet={tweet2}></Tweet>
-
-        </section> */}
+        {/* <div>{data}</div> */}
         <HomeLeft></HomeLeft>
-        {/* <div></div> */}
-        <HomeMain></HomeMain>
+        {error == null ? <HomeMain posts={data} ></HomeMain> : <div>{error}</div>}
         <HomeRight></HomeRight>
-
+        {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
       </main>
     </>
   )
 }
 
 
+{/* <ModalComponent>
+        {modal.showPostEditor && <Post />}
+        {modal.showSignIn && <ModalSignInDiv />}
+        {modal.showSignUp && <ModalSignUpDiv></ModalSignUpDiv>}
+      </ModalComponent> */}

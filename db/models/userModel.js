@@ -27,20 +27,34 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: [ true, "Password is required" ],
+        // required: [ true, "Password is required" ],
         select: false
     },
     image: {
         type: String,
         default: "https://api.dicebear.com/5.x/thumbs/svg?radius=50"
     },
-    follower: { type: [ follow ], default: [] },
-    following: { type: [ follow ], default: [] },
-    posts: {
-        type: [ Schema.Types.ObjectId ],
-        default: [],
-        ref: "postdbs"
-    }
+    follower: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "UserDB"
+        }
+
+    ],
+    following: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "UserDB"
+        }
+
+    ],
+    posts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "PostDB"
+        }
+
+    ]
 })
 
 const UserDB = models.UserDB || model("UserDB", userSchema)

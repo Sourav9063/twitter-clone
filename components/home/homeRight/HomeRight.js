@@ -9,14 +9,15 @@ import { useSession } from 'next-auth/react'
 export default function HomeRight() {
     const session = useSession();
 
-    console.log(session.data)
+    console.log(session)
 
     return (
         <section className={styles.right}>
 
             <div>
-                <SignUpDiv></SignUpDiv>
-                <Follow></Follow>
+                {session.status != "authenticated" ?
+                    <SignUpDiv></SignUpDiv> :
+                    <Follow></Follow>}
                 <p>Terms of Service
                     Privacy Policy
                     Cookie Policy

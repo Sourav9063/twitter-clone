@@ -29,9 +29,10 @@ import commentDB, { commentSchema } from './commentModel';
 // })
 
 const postSchema = new Schema({
-    owener: {
-        type: String,
-        required: [ true, "Post owener required" ]
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: "UserDB",
+        required: [ true, "Post owner required" ]
     },
     postImage: {
         type: String,
@@ -43,17 +44,20 @@ const postSchema = new Schema({
     },
     postText: {
         type: String,
+        required: [ true, "Post required" ]
 
     },
     likes: {
         type: Number,
         default: 0,
     },
-    comments: {
-        type: [ commentSchema ],
-        default: []
+    comments: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'CommentDB',
+        },
 
-    }
+    ]
 
 });
 

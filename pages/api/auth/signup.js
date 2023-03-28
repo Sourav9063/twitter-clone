@@ -7,12 +7,12 @@ export default async function handler(req, res) {
 
     if (req.method == "POST") {
         const { username, email, password } = req.body
-        await connectMongo()
+        const client = await connectMongo()
 
         console.log(password.trim().length < 6)
         if (!email || !email.includes("@") || !password || password.trim().length < 6) {
 
-            res.status(422).json({ msg: "Wrong credential" })
+            res.status(422).json({ msg: "Email is not valid or Password is too short" })
             return;
         }
 
@@ -23,7 +23,9 @@ export default async function handler(req, res) {
 
         if (existingUser) {
             res.status(422).json({ msg: "User already exist. Please log in." })
-            client.close()
+            // client.close()
+
+            // throw new Error("User exists!!")
             return
         }
 
