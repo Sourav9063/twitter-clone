@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Tweet from '@/components/tweet/tweet'
 import style from "./HomeMain.module.css"
 import Post from '@/components/common/post/post'
@@ -16,7 +16,7 @@ export default function HomeMain({ posts }) {
                     height: "100px"
                 }}></div> */}
                 <Post></Post>
-                {/* {posts.map((tweet, index) => <Tweet key={index} tweet={tweet}></Tweet>)} */}
+                {posts.map((tweet, index) => <Tweet key={index} tweet={tweet}></Tweet>)}
 
             </div>
 
