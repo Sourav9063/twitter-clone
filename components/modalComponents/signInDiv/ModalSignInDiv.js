@@ -15,12 +15,12 @@ import Link from 'next/link';
 
 export default function ModalSignInDiv() {
     // const [ modal, setModal ] = useContext(ModalContext)
-    const [ email, setEmail ] = useState("");
-    const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState("")
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("")
     const router = useRouter()
 
-    const [ password, setPassword ] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <div className={`${styles.signUpDiv} ${styles.showSignIn}`}
@@ -53,7 +53,7 @@ export default function ModalSignInDiv() {
                     setLoading(true)
                     const res = await signIn("github", { callbackUrl: "/" })
                     setLoading(false)
-                    console.log(res)
+
                     // router.replace("/" + MODAL_QUERY_SIGNUP)
                 }}
             // style={{
@@ -89,7 +89,7 @@ export default function ModalSignInDiv() {
                 onSubmit={async (e) => {
                     setLoading(true)
                     e.preventDefault();
-                    console.log({ email, password })
+
 
                     try {
                         const res = await signIn("credentials", { redirect: false, email, password })
@@ -98,14 +98,14 @@ export default function ModalSignInDiv() {
                         if (!res.error) {
 
 
-                            console.log(res)
+
                             // setModal({ ...objectValueSetter(modal, false) })
                             router.replace('/')
 
                         }
-                        console.log(res)
+
                     } catch (e) {
-                        console.log(e)
+
                     }
                     setLoading(false)
 
@@ -114,18 +114,18 @@ export default function ModalSignInDiv() {
 
             >
 
-                <div className={styles[ "input-group" ]}>
+                <div className={styles["input-group"]}>
                     <input
                         onChange={(e) => setEmail(e.target.value)}
 
-                        required type="email" name="email" placeholder='Hola' className={styles[ "input" ]} />
-                    <label className={styles[ "user-label" ]}>Email</label>
+                        required type="email" name="email" placeholder='Hola' className={styles["input"]} />
+                    <label className={styles["user-label"]}>Email</label>
                 </div>
-                <div className={styles[ "input-group" ]}>
+                <div className={styles["input-group"]}>
                     <input
                         onChange={(e) => setPassword(e.target.value)}
-                        required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles[ "input" ]} />
-                    <label className={styles[ "user-label" ]}>Password</label>
+                        required type="password" autoComplete='false' placeholder='Hola' name="password" className={styles["input"]} />
+                    <label className={styles["user-label"]}>Password</label>
                 </div>
 
                 {error && <p className={styles.error} style={{ color: "red" }}>{error}</p>}

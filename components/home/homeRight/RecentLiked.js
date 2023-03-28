@@ -26,7 +26,7 @@ export default function RecentLiked() {
             })
             const data = await res.json()
             if (data) {
-                // console.log(data.likedb.likedPost)
+                // 
 
                 setLiked(data.likedb.likedPost)
             }

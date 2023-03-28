@@ -15,7 +15,7 @@ export default function HomeLeft() {
     const onclick = () => {
         // modal.showPostEditor = true;
         // setModal({ ...modal })
-        // console.log(modal);
+        // 
 
         router.push("/" + MODAL_QUERY_POST)
 

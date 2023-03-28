@@ -36,14 +36,14 @@ export const authOptions = {
                     await connectMongo();
                 }
                 catch (e) {
-                    console.log(e)
+
                     throw new Error("Something went wrong.");
                 }
                 const user = await UserDB.findOne({
                     email: email
                 }).select("+password")
-                // console.log(user._id);
-                // console.log(user.username)
+                // 
+                // 
 
                 if (!user) {
                     throw new Error("User doesn't exist.")
@@ -56,7 +56,7 @@ export const authOptions = {
                 if (!isPasswordCorrect) {
                     throw new Error("Password doesn't match.")
                 }
-                console.log(user)
+
                 // user.name = user.username;
                 return user;
                 return { id: "1", name: "J Smith", email: "jsmith@example.com" }
@@ -74,9 +74,9 @@ export const authOptions = {
     callbacks: {
         async session(params) {
             console.error("session")
-            console.log(params)
+
             const user = await UserDB.findOne({ email: params.token.email });
-            console.log(user)
+
             params.session.user.id = user.id;
             params.session.user.username = params.token.username;
             return params.session
@@ -84,7 +84,7 @@ export const authOptions = {
         async jwt(params) {
             console.error("jwt")
 
-            console.log(params)
+
             if (params.user?.id) {
                 params.token.id = params.user.id;
                 params.token.username = params.user.username || params.user.name;
@@ -96,7 +96,7 @@ export const authOptions = {
 
 
             // UserDB.create()
-            console.log(user)
+
 
             await connectMongo();
             const tmpUser = await UserDB.findOne({
@@ -119,9 +119,9 @@ export const authOptions = {
 
             })
 
-            console.log(user2)
-            console.log(account)
-            console.log(profile)
+
+
+
             return true;
         }
     },

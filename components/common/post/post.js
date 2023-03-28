@@ -80,16 +80,16 @@ export default function Post
 
                                     const result = await response.text();
                                     route.replace('/')
-                                    console.log(result);
+
                                 } catch (error) {
 
-                                    console.log('error', error);
+
                                 }
 
                                 setLoading(true)
 
-                                console.log(session);
-                                console.log(tweet);
+
+
                                 setTweet("")
                             }}
                         ></Button>

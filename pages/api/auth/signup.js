@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         const { username, email, password } = req.body
         const client = await connectMongo()
 
-        console.log(password.trim().length < 6)
+
         if (!email || !email.includes("@") || !password || password.trim().length < 6) {
 
             res.status(422).json({ msg: "Email is not valid or Password is too short" })

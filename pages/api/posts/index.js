@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     // Get all posts
     else if (req.method === 'GET') {
 
-        console.log(req);
+
         try {
             await connectMongo();
 

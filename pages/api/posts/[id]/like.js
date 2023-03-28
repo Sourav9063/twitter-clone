@@ -5,17 +5,17 @@ import PostDB from "@/db/models/postModel";
 
 export default async function handler(req, res) {
 
-    console.log(req.query);
+
     if (req.method === "POST") {
         const { userid, } = req.body;
         const { id: likedPost } = req.query;
-        console.log(userid)
+
 
         try {
             await connectMongo()
             let likedb = await LikedDB.findOne({ userid: userid });
             const post = await PostDB.findById(likedPost)
-            console.log(post)
+
 
             if (!likedb) {
                 likedb = await LikedDB.create(
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
 
         }
         catch (e) {
-            console.log(e)
+
             res.status(500).json({ msg: "Server error" })
         }
 

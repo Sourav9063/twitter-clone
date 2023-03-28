@@ -23,7 +23,7 @@ function ModalComponent(props) {
         // const tmp = objectValueSetter(modal, false);
         // setModal({ ...tmp })
 
-        // console.log("outer click")
+        // 
     }
     return (
         <>

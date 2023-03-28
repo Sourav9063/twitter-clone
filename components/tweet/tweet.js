@@ -15,7 +15,7 @@ export default function Tweet(props) {
     const { owner, postImage, createdDate, postText, likes, comments, _id } = props.tweet;
     const [likesState, setLikesState] = useState(likes)
 
-    // console.log({ likedPost })
+    // 
     const session = useSession();
     const router = useRouter();
     const [liked, setLiked] = useContext(LikedPostsContext);
@@ -24,8 +24,7 @@ export default function Tweet(props) {
 
     return (
         <div className={style.tweet}>
-            {/* {console.log(liked._id)} */}
-            {/* {console.log(_id)} */}
+
             <section className={style.image}>
                 <Avatar image={owner?.image}></Avatar>
             </section>
@@ -47,10 +46,10 @@ export default function Tweet(props) {
                 {session.status == "authenticated" && <div className={style.likeNcommnet}>
                     <div className={`${likedPost ? style.likedPost : ""} ${style.likes}`}
                         onClick={async (e) => {
-                            console.log('click')
+
                             e.stopPropagation();
 
-                            console.log(router.query.modal)
+
 
                             try {
                                 const myHeaders = new Headers();
@@ -63,10 +62,10 @@ export default function Tweet(props) {
 
                                 });
                                 const data = await res.json();
-                                console.log(data)
+
                                 setLikesState(data.likes)
                             } catch (e) {
-                                console.log(e)
+
                             }
                             const res = await fetch(`/api/users/likedposts/${session.data.user.id}`, {
                                 method: "GET",
@@ -78,7 +77,7 @@ export default function Tweet(props) {
                             })
                             const data = await res.json()
                             if (data) {
-                                // console.log(data.likedb.likedPost)
+                                // 
 
                                 setLiked(data.likedb.likedPost)
                             }
@@ -101,7 +100,7 @@ export default function Tweet(props) {
 
                             });
 
-                            // console.log(router.query)
+                            // 
                         }}
 
                         className={style.comments}>
@@ -110,8 +109,8 @@ export default function Tweet(props) {
 
                     </div>
                 </div>}
-            </section>
+            </section >
 
-        </div>
+        </div >
     )
 }

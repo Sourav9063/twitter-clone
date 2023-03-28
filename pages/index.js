@@ -32,7 +32,7 @@ export async function getServerSideProps(context) {
     posts = await PostDB.find().populate('owner').sort({ createdDate: -1 });
 
   } catch (e) {
-    console.log(e)
+
     error = "Error"
   }
 

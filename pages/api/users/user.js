@@ -2,10 +2,10 @@ import connectMongo from "@/db/dbConnect";
 import UserDB from "@/db/models/userModel";
 
 export default async function handler(req, res) {
-    console.log(req);
+
     if (req.method === "GET") {
         const { id = "000000000000000000000000", email = "" } = req.body;
-        console.log(id, email)
+
         try {
             await connectMongo();
             const user = await UserDB.findOne({
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
         }
         catch (e) {
-            console.log(e)
+
             return res.status(500).json({ msg: "Server Error" })
         }
     }

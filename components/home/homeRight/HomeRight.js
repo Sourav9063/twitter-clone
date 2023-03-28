@@ -10,7 +10,7 @@ import RecentLiked from './RecentLiked'
 export default function HomeRight() {
     const session = useSession();
 
-    console.log(session)
+
 
     return (
         <section className={styles.right}>

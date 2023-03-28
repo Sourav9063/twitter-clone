@@ -3,7 +3,7 @@ import Tweet from '@/components/tweet/tweet'
 import style from "./HomeMain.module.css"
 import Post from '@/components/common/post/post'
 export default function HomeMain({ posts }) {
-    // console.log(posts)
+    // 
     return (
         <section className={style.main}
         // style={{ borderInline: "1px solid var( --border-color)" }}
