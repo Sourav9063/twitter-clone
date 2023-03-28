@@ -18,6 +18,7 @@ import { HomeBottom } from '@/components/home/homeBottom/HomeBottom'
 import { useSession } from 'next-auth/react'
 import PostDB from '@/db/models/postModel'
 import connectMongo from '@/db/dbConnect'
+import LikedPostsProvider from '@/providers/LikedPosts'
 // import UserDB from '@/db/models/userModel'
 // import SignUpDiv from '@/components/common/signUpDiv/SignUpDiv'
 
@@ -67,15 +68,18 @@ export default function Home({ data, error }) {
       {router.query.modal == "signup" && <ModalComponent> <ModalSignUpDiv></ModalSignUpDiv> </ModalComponent>}
       {router.query.modal == "post" && <ModalComponent> <Post></Post> </ModalComponent>}
 
+      {router.query.modal == "comment" && <ModalComponent><h1>{router.query.id}</h1></ModalComponent>}
 
 
-      <main className={style.body}>
-        {/* <div>{data}</div> */}
-        <HomeLeft></HomeLeft>
-        {error == null ? <HomeMain posts={data} ></HomeMain> : <div>{error}</div>}
-        <HomeRight></HomeRight>
-        {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
-      </main>
+      <LikedPostsProvider>
+        <main className={style.body}>
+          {/* <div>{data}</div> */}
+          <HomeLeft></HomeLeft>
+          {error == null ? <HomeMain posts={data} ></HomeMain> : <div>{error}</div>}
+          <HomeRight></HomeRight>
+          {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
+        </main>
+      </LikedPostsProvider>
     </>
   )
 }
