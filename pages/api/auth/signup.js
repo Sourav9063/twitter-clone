@@ -6,7 +6,7 @@ import { hashPassword } from "@/helper/encrypt/hashPassword";
 export default async function handler(req, res) {
 
     if (req.method == "POST") {
-        const { username, email, password } = req.body
+        const { username, email, password, image } = req.body
         const client = await connectMongo()
 
 
@@ -29,12 +29,17 @@ export default async function handler(req, res) {
             return
         }
 
+        const data = {
+            username,
+            email,
+            password: hashPass,
+        }
 
-        const result = await UserDB.create({
-            username: username,
-            email: email,
-            password: hashPass
-        })
+        if (image) {
+            data.image = image;
+        }
+
+        const result = await UserDB.create(data)
 
 
         res.status(201).json({ msg: "Sign Up Successful", result })
