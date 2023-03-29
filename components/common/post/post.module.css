@@ -99,12 +99,16 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    display: grid;
+    gap: .5rem;
+    grid-template-columns: 100px 1fr 100px;
 }
 
 
 .likeNcommnet>div {
     display: flex;
-    width: 20%;
+    /* width: 40%; */
+
     margin-block: .5rem;
     align-items: flex-start;
     align-items: center;
