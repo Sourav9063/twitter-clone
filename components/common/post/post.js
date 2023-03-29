@@ -8,11 +8,11 @@ import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css"
 
 export default function Post
     ({ width = "100%", placeholder = "What's happening?" }) {
-    const [ tweet, setTweet ] = useState("")
-    const [ loading, setLoading ] = useState(false);
-    const [ error, setError ] = useState("");
-    const [ imageLink, setImageLink ] = useState("");
-    const [ picInputShow, setPicInputShow ] = useState(false)
+    const [tweet, setTweet] = useState("")
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [imageLink, setImageLink] = useState("");
+    const [picInputShow, setPicInputShow] = useState(false)
     const session = useSession();
     const route = useRouter()
 
@@ -25,7 +25,7 @@ export default function Post
             <section className={style.body}>
 
 
-                <div className={style[ "privacy" ]}>Everyone
+                <div className={style["privacy"]}>Everyone
                     <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M3.543 8.96l1.414-1.42L12 14.59l7.043-7.05 1.414 1.42L12 17.41 3.543 8.96z"></path></g></svg>
                 </div>
 
@@ -59,14 +59,14 @@ export default function Post
                     </div>
                     {picInputShow ? <div
 
-                        className={styles[ "input-group" ]}>
+                        className={styles["input-group"]}>
                         <input
                             // style={{ marginBlock: "1rem" }}
 
                             onChange={(e) => setImageLink(e.target.value)}
 
-                            required type="email" name="Image" placeholder='Input Image Link' className={styles[ "input" ]} />
-                        <label className={styles[ "user-label" ]}>Image link</label>
+                            type="email" name="Image" placeholder='Input Image Link' className={styles["input"]} />
+                        <label className={styles["user-label"]}>Image link</label>
                     </div> : <div></div>}
                     <div>
                         <Button
