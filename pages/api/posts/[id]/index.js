@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         try {
             await connectMongo();
             // Get the post from the database
-            const post = await PostDB.findById(id);
+            const post = await PostDB.findById(id).populate("owner");
 
             if (!post) {
                 return res.status(404).json({ message: 'Post not found' });
@@ -27,33 +27,33 @@ export default async function handler(req, res) {
     }
 
     // Update a post
-    async function updatePost(req, res) {
-        const { id } = req.params;
-        const { postText } = req.body;
+    // async function updatePost(req, res) {
+    //     const { id } = req.params;
+    //     const { postText } = req.body;
 
-        try {
-            // Get the post from the database
-            const post = await PostDB.findById(id);
+    //     try {
+    //         // Get the post from the database
+    //         const post = await PostDB.findById(id);
 
-            if (!post) {
-                return res.status(404).json({ message: 'Post not found' });
-            }
+    //         if (!post) {
+    //             return res.status(404).json({ message: 'Post not found' });
+    //         }
 
-            // Update the post
-            post.postText = postText;
-            await post.save();
+    //         // Update the post
+    //         post.postText = postText;
+    //         await post.save();
 
-            return res.status(200).json({ post });
+    //         return res.status(200).json({ post });
 
-        } catch (error) {
-            console.error(error);
-            return res.status(500).json({ message: 'Internal server error' });
+    //     } catch (error) {
+    //         console.error(error);
+    //         return res.status(500).json({ message: 'Internal server error' });
 
-        }
-    }
+    //     }
+    // }
 
     // Delete a post
-    async function deletePost(req, res) {
+    if (req.method === "DELETE") {
         const { id } = req.params;
 
         try {
