@@ -12,6 +12,7 @@ import Button from '@/components/common/button/button';
 import Head from 'next/head';
 import CommentDB from '@/db/models/commentModel';
 import PostDB from '@/db/models/postModel';
+import Comments from '@/components/common/comment/Comments';
 
 
 
@@ -67,29 +68,14 @@ export default function PostId({ tweet, comments }) {
                     {tweetN && <CommentBox head={tweetN._id} ></CommentBox>}
                     {
                         commentN?.nodes?.map((comment, index) => {
-                            const owner = comment.owner;
-                            return <div className={style.tweet} key={comment._id}>
-                                <section className={style.image}>
-                                    <Avatar width='40px' image={owner?.image}></Avatar>
-                                </section>
-                                <section className={style.body}>
-                                    <div className={style["header"]}>
-                                        <div className={style.names}>
-                                            <span className={style["name"]}>{owner?.username}</span>
-                                            <span className={style["username"]}>{owner?.username}</span>
-                                            <span>·</span>
-                                        </div>
-                                        <svg viewBox="0 0 24 24" aria-hidden="true" className={style.threeDot} ><g><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path></g></svg>
-                                    </div>
-                                    <div className={style.mainTweet}>{comment.body}</div>
-                                    <Button style={{ width: "100px", paddingBlock: ".3rem", marginTop: "1rem" }} >Reply</Button>
-                                </section >
+                            return <div key={comment._id}> <Comments comment={comment}></Comments>
+                                <CommentBox marginLeft='3rem' head={comment._id} ></CommentBox>
                             </div>
                         })
                     }
-                    <div>{tweet}</div>
+                    {/* <div>{tweet}</div>
                     <hr />
-                    <div>{comments}</div>
+                    <div>{comments}</div> */}
                 </div>
                 <HomeRight></HomeRight>
                 <style jsx>{`
@@ -100,6 +86,16 @@ export default function PostId({ tweet, comments }) {
                         display: grid;
                         grid-template-columns: 1fr var(--main-width) 1fr;
                         column-gap: 1rem;
+                    }
+
+                    .vLine{
+                        margin-top: auto;
+                        margin-bottom:auto ;
+                        margin-left: auto;
+                        margin-right: auto;
+                        width: 2px;
+                        height: 70%;
+                        background-color: #1d9cf05d;
                     }
             
             
