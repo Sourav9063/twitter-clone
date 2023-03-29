@@ -1,19 +1,37 @@
 import { Schema, SchemaType, model, models } from 'mongoose';
 
 export const commentSchema = new Schema({
-    comment: {
-        type: String,
-        required: [ true, "Comment cannot be empty." ],
-    },
-    commenterId: {
+    head: {
         type: Schema.Types.ObjectId,
-        required: [ true, "Commenter ids needed." ],
+        // required: [ true, "Comment of post id needed." ],
+        ref: "PostDB",
+        // unique: true,
+    },
+    body: {
+        type: String,
+        // required: [ true, "Comment cannot be empty." ],
+    },
+    nodes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "CommentDB"
+        }
+
+    ],
+    owner: {
+        type: Schema.Types.ObjectId,
+        // required: [ true, "Commenter ids needed." ],
         ref: "UserDB"
     },
 
-    commenterUsername: {
+    ownerusername: {
         type: String,
-        required: [ true, "Commenter username needed." ]
+        // required: [ true, "Commenter username needed." ]
+
+    },
+    ownerimage: {
+        type: String,
+        // required: [ true, "Commenter image needed." ]
 
     },
     createdDate: {
@@ -21,22 +39,15 @@ export const commentSchema = new Schema({
         immutable: true,
         default: Date.now(),
     },
-    commentOfPostId: {
-        type: Schema.Types.ObjectId,
-        required: [ true, "Comment of post id needed." ],
-        ref: "postDB"
-
-    },
     likes: {
         type: Number,
         default: 0,
     },
-    replyIds: [
+    likedBy: [
         {
             type: Schema.Types.ObjectId,
-            ref: "commentDB"
+            ref: "UserDB"
         }
-
     ]
 
 })
