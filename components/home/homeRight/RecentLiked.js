@@ -9,7 +9,7 @@ export default function RecentLiked() {
 
     const session = useSession()
 
-    const [liked, setLiked] = useContext(LikedPostsContext);
+    const [ liked, setLiked ] = useContext(LikedPostsContext);
 
     useEffect(() => {
 
@@ -28,7 +28,8 @@ export default function RecentLiked() {
             if (data) {
                 // 
 
-                setLiked(data.likedb.likedPost)
+
+                data.likedb != null && setLiked(data.likedb?.likedPost)
             }
         }
 
@@ -39,15 +40,16 @@ export default function RecentLiked() {
         }
     }, [])
 
-
     return (
         <>
             {liked.length != 0 && <div className='follow'>
+
+
                 <h1>{header}</h1>
                 {
                     liked.map((tweet, index) => {
                         return (
-                            <div className='post' key={index} >
+                            <div className='post' key={tweet._id} >
                                 <div>{tweet.postText}</div>
                                 <p>{formatDistanceToNow(new Date(tweet.createdDate))} </p>
                             </div>

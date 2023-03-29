@@ -32,7 +32,7 @@ const postSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "UserDB",
-        required: [ true, "Post owner required" ]
+        required: [true, "Post owner required"]
     },
     postImage: {
         type: String,
@@ -44,20 +44,24 @@ const postSchema = new Schema({
     },
     postText: {
         type: String,
-        required: [ true, "Post required" ]
+        required: [true, "Post required"]
 
     },
     likes: {
         type: Number,
         default: 0,
     },
-    comments: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'CommentDB',
-        },
+    // comments: [
+    //     {
+    //         type: Schema.Types.ObjectId,
+    //         ref: 'CommentDB',
+    //     },
 
-    ]
+    // ],
+    commentNumber: {
+        type: Number,
+        default: 0
+    }
 
 });
 
