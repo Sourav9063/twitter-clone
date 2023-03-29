@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Tweet from '@/components/tweet/tweet'
 import style from "./HomeMain.module.css"
 import Post from '@/components/common/post/post'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { SelectedTweetContext } from '@/providers/SelectedTweet'
+
 export default function HomeMain({ posts }) {
+    const router = useRouter()
+    const [ , setTweet ] = useContext(SelectedTweetContext);
     // 
     return (
         <section className={style.main}
@@ -16,13 +22,51 @@ export default function HomeMain({ posts }) {
                     height: "100px"
                 }}></div> */}
                 <Post></Post>
-                {posts.map((tweet, index) => <Tweet key={index} tweet={tweet}></Tweet>)}
+                {posts.map((tweet, index) => <div key={tweet._id} onClick={() => {
+
+                    setTweet(tweet);
+
+                    router.push({
+                        pathname: router.pathname + "posts/" + tweet._id,
+
+
+                    });
+
+
+                }} >
+                    <Tweet tweet={tweet}></Tweet>
+                </div>)}
 
             </div>
 
         </section>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // const tweet = {
