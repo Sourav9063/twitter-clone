@@ -15,11 +15,12 @@ import { signIn } from 'next-auth/react';
 export default function ModalSignUpDiv() {
     // const [ modal, setModal ] = useContext(ModalContext)
 
-    const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("")
+    const [ userName, setUserName ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ image, setImage ] = useState("")
+    const [ loading, setLoading ] = useState(false);
+    const [ error, setError ] = useState("")
     const router = useRouter();
 
 
@@ -114,6 +115,11 @@ export default function ModalSignUpDiv() {
                         email: email,
                         password: password,
                     };
+                    if (image != "") {
+                        data.image = image;
+                    }
+
+                    console.log(data)
 
                     try {
                         const response = await fetch("/api/auth/signup", {
@@ -130,6 +136,7 @@ export default function ModalSignUpDiv() {
                             throw new Error(result.msg)
                         }
 
+                        router.replace("/")
 
                     } catch (error) {
 
@@ -139,30 +146,39 @@ export default function ModalSignUpDiv() {
                     setLoading(false)
 
 
+
                 }}
 
                 action="">
-                <div className={styles["input-group"]}>
+                <div className={styles[ "input-group" ]}>
                     <input
 
                         onChange={(e) => setUserName(e.target.value)}
 
-                        placeholder='Hola' required type="text" name="name" className={styles["input"]} />
-                    <label className={styles["user-label"]}>Username</label>
+                        placeholder='Hola' required type="text" name="name" className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Username</label>
                 </div>
 
-                <div className={styles["input-group"]}>
+                <div className={styles[ "input-group" ]}>
                     <input
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder='Hola' required type="email" name="email" className={styles["input"]} />
-                    <label className={styles["user-label"]}>Email</label>
+                        placeholder='Hola' required type="email" name="email" className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Email</label>
                 </div>
-                <div className={styles["input-group"]}>
+                <div className={styles[ "input-group" ]}>
                     <input
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder='Hola' required type="password" autoComplete='false' name="password" className={styles["input"]} />
-                    <label className={styles["user-label"]}>Password</label>
+                        placeholder='Hola' required type="password" autoComplete='false' name="password" className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Password</label>
                 </div>
+
+                <div className={styles[ "input-group" ]}>
+                    <input
+                        onChange={(e) => setImage(e.target.value)}
+                        placeholder='Hola' required type="text" autoComplete='false' name="image" className={styles[ "input" ]} />
+                    <label className={styles[ "user-label" ]}>Image link</label>
+                </div>
+
 
                 {error && <p className={styles.error} style={{ color: "red" }}>{error}</p>}
 
