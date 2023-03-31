@@ -36,6 +36,23 @@
     justify-content: space-between;
 }
 
+.day.day {
+    font-size: 1rem;
+
+}
+
+.username.username {
+    display: inline-block;
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+    text-align: center;
+    transform: translate(0%, 15%);
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .mainTweet {
     font-size: 1rem;
 }

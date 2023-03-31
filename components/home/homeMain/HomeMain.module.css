@@ -12,7 +12,7 @@
     left: 50%;
     transform: translateX(-50%); */
     background-color: #ffffffc0;
-
+    z-index: 2;
     padding: 1rem;
 }
 

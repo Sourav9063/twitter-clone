@@ -104,3 +104,8 @@ body {
     color-scheme: dark;
   }
 }
+
+a {
+  text-decoration: none;
+  color: var(--text-color-primary);
+}
