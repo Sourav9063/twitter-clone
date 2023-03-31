@@ -34,22 +34,23 @@ export default async function handler(req, res) {
 
 
 
-            const post = await PostDB.findById(head);
-            if (!post) {
-                post.commentNumber = headcomment.nodes.length;
-                post.save();
-            }
+            // const post = await PostDB.findById(headcomment.head);
+            // console.log(post)
+            // if (!post) {
+            //     post.commentNumber = 100;
+            //     post.save();
+            // }
 
 
 
-            return res.status(200).json({ msg: "Success", commentNumber: post.commentNumber, headcomment })
+            return res.status(200).json({ msg: "Success", headcomment })
 
 
 
         } catch (error) {
 
-
-            res.status(500).json({ msg: "Server error", error });
+            console.log(error)
+            return res.status(500).json({ msg: "Server error", error });
 
         }
     }

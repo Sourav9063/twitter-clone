@@ -3,7 +3,7 @@ import UserDB from "@/db/models/userModel";
 
 export default async function handler(req, res) {
 
-    if (req.method === "GET") {
+    if (req.method === "POST") {
         const { id = "000000000000000000000000", email = "" } = req.body;
 
         try {
