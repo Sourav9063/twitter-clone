@@ -59,8 +59,6 @@ export const authOptions = {
   },
   callbacks: {
     async session(params) {
-      console.error("session");
-
       const user = await UserDB.findOne({ email: params.token.email });
 
       params.session.user.id = user.id;
@@ -68,8 +66,6 @@ export const authOptions = {
       return params.session;
     },
     async jwt(params) {
-      console.error("jwt");
-
       if (params.user?.id) {
         params.token.id = params.user.id;
         params.token.username = params.user.username || params.user.name;

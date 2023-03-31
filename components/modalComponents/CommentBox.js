@@ -89,16 +89,12 @@ export default function CommentBox({
 
                   const result = await response.json();
                   // route.replace('/')
-                } catch (error) {
-                  console.log("aklffffffffffffffffffffffffffffffffffdadfslkjl");
-
-                  console.log(error);
-                }
+                } catch (error) {}
 
                 setLoading(false);
 
                 setComment("");
-                console.log("path");
+
                 router.replace(router.asPath);
               }}
             ></Button>

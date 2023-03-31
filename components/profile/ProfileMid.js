@@ -4,8 +4,6 @@ import ProfileMidFollowing from "./ProfileMidFollowing";
 import { useSession } from "next-auth/react";
 
 export default function ProfileMid({ data, posts }) {
-  console.log(data);
-
   const [showWhat, setShowWhat] = useState("POSTS");
   const session = useSession();
   return (

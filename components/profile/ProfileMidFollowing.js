@@ -47,10 +47,7 @@ export default function ProfileMidFollowing({
                       const result = await res.json();
 
                       setFollowState(result.data);
-                      console.log(result);
-                    } catch (error) {
-                      console.log(error);
-                    }
+                    } catch (error) {}
                   }}
                   style={{
                     paddingBlock: ".5rem",

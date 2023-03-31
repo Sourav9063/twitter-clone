@@ -16,8 +16,6 @@ import Comments from "@/components/common/comment/Comments";
 import mongoose from "mongoose";
 
 export async function getServerSideProps(context) {
-  console.log("gssp called");
-
   const { postid } = context.params;
 
   let post = null;
@@ -40,7 +38,7 @@ export async function getServerSideProps(context) {
       });
     }
   } catch (error) {
-    // console.log(error);
+    //
   }
 
   return {

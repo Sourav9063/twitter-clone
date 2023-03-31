@@ -18,7 +18,6 @@ export default async function handler(req, res) {
 
       return res.status(201).json({ post });
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ msg: "Internal server error" });
     }
   }
@@ -37,7 +36,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ posts });
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ msg: "Internal server error", ...error });
     }
   }

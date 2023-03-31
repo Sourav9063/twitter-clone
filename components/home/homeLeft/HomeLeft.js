@@ -29,13 +29,12 @@ export default function HomeLeft() {
             <div className={style.logos}>
               <div
                 onClick={() => {
-                  console.log("click"),
-                    router.push({
-                      pathname: "/profile",
-                      query: {
-                        id: session.data.user.id,
-                      },
-                    });
+                  router.push({
+                    pathname: "/profile",
+                    query: {
+                      id: session.data.user.id,
+                    },
+                  });
                 }}
               >
                 <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -62,8 +61,6 @@ export default function HomeLeft() {
           {session.status == "authenticated" && (
             <div
               onClick={() => {
-                console.log("click");
-
                 router.push({
                   pathname: "/profile",
                   query: {

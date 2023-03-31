@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       headcomment = await headcomment.save();
 
       // const post = await PostDB.findById(headcomment.head);
-      // console.log(post)
+      //
       // if (!post) {
       //     post.commentNumber = 100;
       //     post.save();
@@ -36,7 +36,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ msg: "Success", headcomment });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Server error", error });
     }
   }

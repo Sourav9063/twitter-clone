@@ -109,8 +109,6 @@ export default function ModalSignUpDiv() {
             data.image = image;
           }
 
-          console.log(data);
-
           try {
             const response = await fetch("/api/auth/signup", {
               method: "POST",

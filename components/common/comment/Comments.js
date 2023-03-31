@@ -14,7 +14,7 @@ export default function Comments({ comment }) {
 
   useEffect(() => {
     // fetch comments from "api/comments/"+comment._id
-    console.log("useeffect of comments");
+
     async function getNodes() {
       try {
         const response = await fetch(url, {
@@ -27,9 +27,7 @@ export default function Comments({ comment }) {
         if (data.comments) {
           setNodes(data.comments.nodes);
         }
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     }
 
     getNodes();
