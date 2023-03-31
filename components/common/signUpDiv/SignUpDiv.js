@@ -1,89 +1,75 @@
-import React, { useContext } from 'react'
-import Button from '../button/button';
-import styles from "./SignUpDiv.module.css"
+import React, { useContext } from "react";
+import Button from "../button/button";
+import styles from "./SignUpDiv.module.css";
 // import { ModalContext } from '@/providers/ModalProvider';
-import TwitterLogo from '../svg/TwitterLogo';
-import { useRouter } from 'next/router';
-import { MODAL_QUERY_SIGNIN, MODAL_QUERY_SIGNUP } from '@/helper/constStrings';
-
+import TwitterLogo from "../svg/TwitterLogo";
+import { useRouter } from "next/router";
+import { MODAL_QUERY_SIGNIN, MODAL_QUERY_SIGNUP } from "@/helper/constStrings";
 
 export default function SignUpDiv() {
-    // const [ modal, setModal ] = useContext(ModalContext)
-    const router = useRouter();
-    return (
-        <div className={`${styles.signUpDiv}`}
+  // const [ modal, setModal ] = useContext(ModalContext)
+  const router = useRouter();
+  return (
+    <div className={`${styles.signUpDiv}`}>
+      <TwitterLogo></TwitterLogo>
+      <h1>New to Twitter?</h1>
+      <p>Sign up now to get your own personalized timeline!</p>
 
+      <Button
+        onclick={() => {
+          router.push("/" + MODAL_QUERY_SIGNIN);
+          // modal.showSignIn = true;
+          // modal.showModal = true
+          // setModal({ ...modal })
+        }}
+        style={{ paddingBlock: ".5rem" }}
+      >
+        Log in
+      </Button>
 
-        >
-            <TwitterLogo></TwitterLogo>
-            <h1>New to Twitter?</h1>
-            <p>Sign up now to get your own personalized timeline!</p>
+      <button
+        className={`${styles.btnOutline} btn-primary`}
+        onClick={() => {
+          // modal.showSignUp = true;
+          // setModal({ ...modal })
+          router.push("/" + MODAL_QUERY_SIGNUP);
+        }}
 
-            <Button
-                onclick={() => {
-                    router.push("/" + MODAL_QUERY_SIGNIN)
-                    // modal.showSignIn = true;
-                    // modal.showModal = true
-                    // setModal({ ...modal })
-                }}
-                style={{ paddingBlock: ".5rem", }}
-            >Log in</Button>
+        // style={{
+        //     backgroundColor: "White",
+        //     color: "Black",
+        //     border: "1px var(--border-color) solid",
+        //     paddingBlock: ".5rem",
+        //     // marginBlock: "1rem"
+        // }}
+      >
+        Sign up with Github
+      </button>
+      <button
+        className={`${styles.btnOutline} btn-primary`}
+        onClick={() => {
+          // modal.showSignUp = true;
+          // setModal({ ...modal })
+          router.push("/" + MODAL_QUERY_SIGNUP);
+        }}
+        // style={{
+        //     backgroundColor: "White",
+        //     color: "Black",
+        //     border: "1px var(--border-color) solid",
+        //     paddingBlock: ".5rem",
+        //     // marginBlock: "1rem"
+        // }}
+      >
+        Create account
+      </button>
 
-
-
-
-
-
-            <button
-                className={`${styles.btnOutline} btn-primary`}
-                onClick={() => {
-                    // modal.showSignUp = true;
-                    // setModal({ ...modal })
-                    router.push("/" + MODAL_QUERY_SIGNUP)
-
-
-                }}
-
-            // style={{
-            //     backgroundColor: "White",
-            //     color: "Black",
-            //     border: "1px var(--border-color) solid",
-            //     paddingBlock: ".5rem",
-            //     // marginBlock: "1rem"
-            // }}
-            >Sign up with Github</button>
-            <button
-                className={`${styles.btnOutline} btn-primary`}
-                onClick={() => {
-                    // modal.showSignUp = true;
-                    // setModal({ ...modal })
-                    router.push("/" + MODAL_QUERY_SIGNUP)
-
-                }}
-            // style={{
-            //     backgroundColor: "White",
-            //     color: "Black",
-            //     border: "1px var(--border-color) solid",
-            //     paddingBlock: ".5rem",
-            //     // marginBlock: "1rem"
-            // }}
-            >Create account</button>
-
-            <p>By signing up, you agree to the <span>Terms of Service</span> and <span>Privacy Policy</span>, including <span>Cookie Use</span>.</p>
-        </div>
-    )
+      <p>
+        By signing up, you agree to the <span>Terms of Service</span> and
+        <span>Privacy Policy</span>, including <span>Cookie Use</span>.
+      </p>
+    </div>
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // import React, { useContext } from 'react'
 // import Button from '../button/button';
@@ -95,7 +81,6 @@ export default function SignUpDiv() {
 //     const [ modal, setModal ] = useContext(ModalContext)
 //     return (
 //         <div className={`${styles.signUpDiv} ${modal.showModal && styles.showSignIn}`}
-
 
 //         >
 //             <TwitterLogo></TwitterLogo>
@@ -110,11 +95,6 @@ export default function SignUpDiv() {
 //                 }}
 //                 style={{ paddingBlock: ".5rem", }}
 //             >Log in</Button>}
-
-
-
-
-
 
 //             <button
 //                 className={`${styles.btnOutline} btn-primary`}

@@ -1,61 +1,51 @@
-import React, { useContext } from 'react'
-import style from "../styles/Home.module.css"
-import Image from 'next/image'
-import TwitterLogo from '@/components/common/svg/TwitterLogo'
-import Head from 'next/head'
-import Tweet from '@/components/tweet/tweet'
-import HomeMain from '@/components/home/homeMain/HomeMain'
-import ModalComponent from '@/components/modal/ModalComponent'
-import HomeLeft from '@/components/home/homeLeft/HomeLeft'
+import React, { useContext } from "react";
+import style from "../styles/Home.module.css";
+import Image from "next/image";
+import TwitterLogo from "@/components/common/svg/TwitterLogo";
+import Head from "next/head";
+import Tweet from "@/components/tweet/tweet";
+import HomeMain from "@/components/home/homeMain/HomeMain";
+import ModalComponent from "@/components/modal/ModalComponent";
+import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 
-import Post from '@/components/common/post/post'
+import Post from "@/components/common/post/post";
 // import { ModalContext } from '@/providers/ModalProvider'
-import HomeRight from '@/components/home/homeRight/HomeRight'
-import ModalSignInDiv from '@/components/modalComponents/signInDiv/ModalSignInDiv'
-import ModalSignUpDiv from '@/components/modalComponents/signInDiv/ModalSignUpDiv'
-import { useRouter } from 'next/router'
-import { HomeBottom } from '@/components/home/homeBottom/HomeBottom'
-import { useSession } from 'next-auth/react'
-import PostDB from '@/db/models/postModel'
-import connectMongo from '@/db/dbConnect'
+import HomeRight from "@/components/home/homeRight/HomeRight";
+import ModalSignInDiv from "@/components/modalComponents/signInDiv/ModalSignInDiv";
+import ModalSignUpDiv from "@/components/modalComponents/signInDiv/ModalSignUpDiv";
+import { useRouter } from "next/router";
+import { HomeBottom } from "@/components/home/homeBottom/HomeBottom";
+import { useSession } from "next-auth/react";
+import PostDB from "@/db/models/postModel";
+import connectMongo from "@/db/dbConnect";
 
-import CommentBox from '@/components/modalComponents/CommentBox'
-import ModalTweet from '@/components/modalComponents/ModalTweet'
+import CommentBox from "@/components/modalComponents/CommentBox";
+import ModalTweet from "@/components/modalComponents/ModalTweet";
 // import UserDB from '@/db/models/userModel'
 // import SignUpDiv from '@/components/common/signUpDiv/SignUpDiv'
 
-
 export async function getServerSideProps(context) {
-
   let posts = [];
   let error = null;
   try {
     await connectMongo();
-    posts = await PostDB.find().populate('owner').sort({ createdDate: -1 });
-
+    posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
   } catch (e) {
-
-    error = "Error"
+    error = "Error";
   }
-
-
-
 
   return {
     props: {
       data: JSON.parse(JSON.stringify(posts)),
-      error: error
-    }
-  }
-
+      error: error,
+    },
+  };
 }
 
-
 export default function Home({ data, error }) {
-
   // const [ modal, ] = useContext(ModalContext)
-  const router = useRouter()
-  const session = useSession()
+  const router = useRouter();
+  const session = useSession();
   return (
     <>
       <Head>
@@ -68,31 +58,54 @@ export default function Home({ data, error }) {
       {/* <SelectedTweetProvider> */}
 
       {/* <LikedPostsProvider> */}
-      {router.query.modal == "signin" && <ModalComponent> <ModalSignInDiv></ModalSignInDiv> </ModalComponent>}
-      {router.query.modal == "signup" && <ModalComponent> <ModalSignUpDiv></ModalSignUpDiv> </ModalComponent>}
-      {router.query.modal == "post" && <ModalComponent> <Post></Post> </ModalComponent>}
+      {router.query.modal == "signin" && (
+        <ModalComponent>
+          <ModalSignInDiv></ModalSignInDiv>
+        </ModalComponent>
+      )}
+      {router.query.modal == "signup" && (
+        <ModalComponent>
+          <ModalSignUpDiv></ModalSignUpDiv>
+        </ModalComponent>
+      )}
+      {router.query.modal == "post" && (
+        <ModalComponent>
+          <Post></Post>
+        </ModalComponent>
+      )}
 
-      {router.query.modal == "comment" && <ModalComponent><CommentBox></CommentBox></ModalComponent>}
-      {router.query.modal == "tweet" && <ModalComponent><ModalTweet></ModalTweet></ModalComponent>}
-
-
+      {router.query.modal == "comment" && (
+        <ModalComponent>
+          <CommentBox></CommentBox>
+        </ModalComponent>
+      )}
+      {router.query.modal == "tweet" && (
+        <ModalComponent>
+          <ModalTweet></ModalTweet>
+        </ModalComponent>
+      )}
 
       <main className={style.body}>
         {/* <div>{data}</div> */}
         <HomeLeft></HomeLeft>
-        {error == null ? <HomeMain posts={data} ></HomeMain> : <div>{error}</div>}
+        {error == null ? (
+          <HomeMain posts={data}></HomeMain>
+        ) : (
+          <div>{error}</div>
+        )}
         <HomeRight></HomeRight>
         {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
       </main>
       {/* </LikedPostsProvider> */}
       {/* </SelectedTweetProvider> */}
     </>
-  )
+  );
 }
 
-
-{/* <ModalComponent>
+{
+  /* <ModalComponent>
         {modal.showPostEditor && <Post />}
         {modal.showSignIn && <ModalSignInDiv />}
         {modal.showSignUp && <ModalSignUpDiv></ModalSignUpDiv>}
-      </ModalComponent> */}
+      </ModalComponent> */
+}

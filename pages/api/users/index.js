@@ -5,7 +5,7 @@
 
 //     if (req.methode === "GET") {
 //         const { id = '', email = '' } = req.body;
-//         
+//
 //         try {
 //             await connectMongo();
 //             const user = await UserDB.findOne({

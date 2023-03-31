@@ -1,75 +1,48 @@
-import React, { useContext } from 'react'
-import Tweet from '@/components/tweet/tweet'
-import style from "./HomeMain.module.css"
-import Post from '@/components/common/post/post'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
+import React, { useContext } from "react";
+import Tweet from "@/components/tweet/tweet";
+import style from "./HomeMain.module.css";
+import Post from "@/components/common/post/post";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 // import { SelectedTweetContext } from '@/providers/SelectedTweet'
 
 export default function HomeMain({ posts }) {
-    const router = useRouter()
-    const session = useSession()
-    // const [ , setTweet ] = useContext(SelectedTweetContext);
-    // 
-    return (
-        <section className={style.main}
-        // style={{ borderInline: "1px solid var( --border-color)" }}
-        >
-            <div>
-                <div className={style.glassPortion}>
-                    <h1>Home</h1>
-                </div>
-                {/* <div style={{
+  const router = useRouter();
+  const session = useSession();
+  // const [ , setTweet ] = useContext(SelectedTweetContext);
+  //
+  return (
+    <section
+      className={style.main}
+      // style={{ borderInline: "1px solid var( --border-color)" }}
+    >
+      <div>
+        <div className={style.glassPortion}>
+          <h1>Home</h1>
+        </div>
+        {/* <div style={{
                     height: "100px"
                 }}></div> */}
-                {session.status == "authenticated" && <Post></Post>}
-                {posts.map((tweet, index) => <div key={tweet._id} onClick={() => {
+        {session.status == "authenticated" && <Post></Post>}
+        {posts.map((tweet, index) => (
+          <div
+            key={tweet._id}
+            onClick={() => {
+              // setTweet(tweet);
 
-                    // setTweet(tweet);
-
-                    router.push({
-                        pathname: router.pathname + "posts/" + tweet._id,
-
-
-                    });
-
-
-                }} >
-                    <Tweet tweet={tweet}></Tweet>
-                </div>)}
-
-            </div>
-
-        </section>
-    )
+              router.push({
+                pathname: router.pathname + "posts/" + tweet._id,
+              });
+            }}
+          >
+            <Tweet tweet={tweet}></Tweet>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // const tweet = {
 //     name: "name",
@@ -105,6 +78,5 @@ export default function HomeMain({ posts }) {
 //     tweetImg: "https://user-images.githubusercontent.com/53114581/148637656-447cdf3b-5267-4e43-99aa-7fb7237184b9.png"
 
 // }
-
 
 // const tweets = [ tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, ]

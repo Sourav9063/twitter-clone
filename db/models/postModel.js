@@ -1,5 +1,5 @@
-import { Schema, SchemaType, model, models } from 'mongoose';
-import commentDB, { commentSchema } from './commentModel';
+import { Schema, SchemaType, model, models } from "mongoose";
+import commentDB, { commentSchema } from "./commentModel";
 
 // const commentSchema = new Schema({
 //     comment: {
@@ -29,47 +29,43 @@ import commentDB, { commentSchema } from './commentModel';
 // })
 
 const postSchema = new Schema({
-    owner: {
-        type: Schema.Types.ObjectId,
-        ref: "UserDB",
-        required: [ true, "Post owner required" ]
-    },
-    postImage: {
-        type: String,
-    },
-    createdDate: {
-        type: Date,
-        immutable: true,
-        default: Date.now,
-    },
-    postText: {
-        type: String,
-        required: [ true, "Post required" ]
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "UserDB",
+    required: [true, "Post owner required"],
+  },
+  postImage: {
+    type: String,
+  },
+  createdDate: {
+    type: Date,
+    immutable: true,
+    default: Date.now,
+  },
+  postText: {
+    type: String,
+    required: [true, "Post required"],
+  },
+  likes: {
+    type: Number,
+    default: 0,
+  },
+  // comments: [
+  //     {
+  //         type: Schema.Types.ObjectId,
+  //         ref: 'CommentDB',
+  //     },
 
-    },
-    likes: {
-        type: Number,
-        default: 0,
-    },
-    // comments: [
-    //     {
-    //         type: Schema.Types.ObjectId,
-    //         ref: 'CommentDB',
-    //     },
-
-    // ],
-    commentNumber: {
-        type: Number,
-        default: 0
-    }
-
+  // ],
+  commentNumber: {
+    type: Number,
+    default: 0,
+  },
 });
 
-const PostDB = models.PostDB || model('PostDB', postSchema);
+const PostDB = models.PostDB || model("PostDB", postSchema);
 
 export default PostDB;
-
-
 
 // {
 //     commentBy: {
@@ -89,4 +85,4 @@ export default PostDB;
 //         default: 0,
 
 //     }
-// } 
+// }

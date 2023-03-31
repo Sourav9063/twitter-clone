@@ -78,7 +78,6 @@ export default function PostId({ tweet, comments }) {
           {commentN?.nodes?.map((comment, index) => {
             return (
               <div key={comment._id}>
-                {" "}
                 <Comments comment={comment}></Comments>
                 <CommentBox
                   placeholder="Reply"
