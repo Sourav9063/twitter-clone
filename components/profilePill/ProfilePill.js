@@ -1,10 +1,16 @@
 import React from 'react'
 import Avatar from '../common/avatar/avatar'
+import { useRouter } from 'next/router';
 
-
-export default function ProfilePill({ showOption = true, children, data = { username: "sourav", email: "@sourav", image: "https://sourav9063.github.io/my_portfolio/static/media/headRS1.aee7abddddb9c68b52c5.png" } }) {
+export default function ProfilePill({ borderRadius = "1000px", margin = "0 0 0 0", showOption = true, children, data = { _id: "64267f8ff436f703fb416b51", username: "sourav", email: "@sourav", image: "https://sourav9063.github.io/my_portfolio/static/media/headRS1.aee7abddddb9c68b52c5.png" } }) {
+    const router = useRouter()
     return (
-        <div className='pill'>
+        <div className='pill'
+
+            onClick={() => {
+                router.replace("/profile?id=" + data._id)
+            }}
+        >
 
 
             <Avatar width='60px' image={data.image}></Avatar>
@@ -21,7 +27,8 @@ export default function ProfilePill({ showOption = true, children, data = { user
             <style jsx>{`
                 .pill{
                     padding: .5rem;  
-               border-radius: 1000px;
+                    margin:${margin};
+               border-radius: ${borderRadius};
                position: relative;
                bottom: 0;
     
