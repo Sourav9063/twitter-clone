@@ -32,7 +32,7 @@ const postSchema = new Schema({
     owner: {
         type: Schema.Types.ObjectId,
         ref: "UserDB",
-        required: [true, "Post owner required"]
+        required: [ true, "Post owner required" ]
     },
     postImage: {
         type: String,
@@ -40,11 +40,11 @@ const postSchema = new Schema({
     createdDate: {
         type: Date,
         immutable: true,
-        default: Date.now(),
+        default: Date.now,
     },
     postText: {
         type: String,
-        required: [true, "Post required"]
+        required: [ true, "Post required" ]
 
     },
     likes: {

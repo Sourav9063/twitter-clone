@@ -37,14 +37,16 @@ const userSchema = new Schema({
     follower: [
         {
             type: Schema.Types.ObjectId,
-            ref: "UserDB"
+            ref: "UserDB",
+            unique: true
         }
 
     ],
     following: [
         {
             type: Schema.Types.ObjectId,
-            ref: "UserDB"
+            ref: "UserDB",
+            unique: true
         }
 
     ],
