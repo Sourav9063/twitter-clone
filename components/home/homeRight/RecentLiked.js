@@ -3,9 +3,10 @@ import { useSession } from 'next-auth/react'
 import React, { useContext, useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns';
 import { LikedPostsContext } from '@/providers/LikedPosts';
-
+import { useRouter } from 'next/router';
 export default function RecentLiked() {
     const header = "Recent Liked"
+    const router = useRouter()
 
     const session = useSession()
 
@@ -49,7 +50,13 @@ export default function RecentLiked() {
                 {
                     liked.map((tweet, index) => {
                         return (
-                            <div className='post' key={tweet._id} >
+                            <div onClick={() => {
+                                router.push({
+                                    pathname: "/posts/" + tweet._id,
+
+
+                                });
+                            }} className='post' key={tweet._id} >
                                 <div>{tweet.postText}</div>
                                 <p>{formatDistanceToNow(new Date(tweet.createdDate))} </p>
                             </div>
