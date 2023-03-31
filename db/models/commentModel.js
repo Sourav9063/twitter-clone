@@ -48,9 +48,12 @@ export const commentSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: "UserDB"
         }
-    ]
+    ],
 
-})
+
+},
+    { strict: false }
+)
 
 
 const CommentDB = models.CommentDB || model("CommentDB", commentSchema)

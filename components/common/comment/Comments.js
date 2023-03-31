@@ -2,38 +2,44 @@ import React, { useEffect, useState } from 'react'
 import Avatar from '../avatar/avatar';
 import CommentBox from '@/components/modalComponents/CommentBox';
 import style from "../../tweet/tweet.module.css"
-import Comment from './Comment';
-
+import CommentUI from '@/components/common/comment/Comment';
+import { useRouter } from 'next/router';
 export default function Comments({ comment }) {
     const owner = comment.owner;
 
+    const router = useRouter()
+    const url = "/api/comments/" + comment._id;
 
+    const [ nodes, setNodes ] = useState([])
 
-    const [nodes, setNodes] = useState([])
     useEffect(() => {
 
         // fetch comments from "api/comments/"+comment._id
-
+        console.log("useeffect of comments")
         async function getNodes() {
-            const response = await fetch("/api/comments/" + comment._id, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            try {
+                const response = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
 
-            });
-            const data = await response.json();
-            console.log(data)
-            if (data.comments) {
-                setNodes(data.comments.nodes);
+                });
+                const data = await response.json()
+                if (data.comments) {
+                    setNodes(data.comments.nodes);
+                }
+            } catch (e) {
+                console.log(e)
             }
         }
+
         getNodes();
 
         return () => {
 
         }
-    }, [])
+    }, [ router, url ])
 
 
     return (
@@ -49,18 +55,19 @@ export default function Comments({ comment }) {
                     }
                 </section>
                 <section className={style.body}>
-                    <div className={style["header"]}>
+                    <div className={style[ "header" ]}>
                         <div className={style.names}>
-                            <span className={style["name"]}>{owner?.username}</span>
-                            <span className={style["username"]}>{owner?.username}</span>
+                            <span className={style[ "name" ]}>{owner?.username}</span>
+                            <span className={style[ "username" ]}>{owner?.username}</span>
                             <span>·</span>
+
                         </div>
                         <svg viewBox="0 0 24 24" aria-hidden="true" className={style.threeDot} ><g><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path></g></svg>
                     </div>
                     <div className={style.mainTweet}>{comment.body}</div>
                     {nodes.length > 0 && <div className='replies' >
                         {nodes.map((node) => {
-                            return <Comment key={node._id} comment={node} />
+                            return <CommentUI key={node._id} comment={node} />
                         })}
                     </div>}
                     {/* <Button
