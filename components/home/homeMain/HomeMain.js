@@ -4,11 +4,13 @@ import style from "./HomeMain.module.css"
 import Post from '@/components/common/post/post'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { SelectedTweetContext } from '@/providers/SelectedTweet'
+import { useSession } from 'next-auth/react'
+// import { SelectedTweetContext } from '@/providers/SelectedTweet'
 
 export default function HomeMain({ posts }) {
     const router = useRouter()
-    const [ , setTweet ] = useContext(SelectedTweetContext);
+    const session = useSession()
+    // const [ , setTweet ] = useContext(SelectedTweetContext);
     // 
     return (
         <section className={style.main}
@@ -21,10 +23,10 @@ export default function HomeMain({ posts }) {
                 {/* <div style={{
                     height: "100px"
                 }}></div> */}
-                <Post></Post>
+                {session.status == "authenticated" && <Post></Post>}
                 {posts.map((tweet, index) => <div key={tweet._id} onClick={() => {
 
-                    setTweet(tweet);
+                    // setTweet(tweet);
 
                     router.push({
                         pathname: router.pathname + "posts/" + tweet._id,
