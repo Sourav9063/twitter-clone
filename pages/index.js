@@ -21,17 +21,18 @@ import connectMongo from "@/db/dbConnect";
 
 import CommentBox from "@/components/modalComponents/CommentBox";
 import ModalTweet from "@/components/modalComponents/ModalTweet";
-// import UserDB from '@/db/models/userModel'
-// import SignUpDiv from '@/components/common/signUpDiv/SignUpDiv'
+import UserDB from "@/db/models/userModel";
 
 export async function getServerSideProps(context) {
   let posts = [];
   let error = null;
   try {
     await connectMongo();
+    const user = await UserDB.find().limit(2);
     posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
   } catch (e) {
-    error = "Error";
+    console.log(e);
+    error = e.message;
   }
 
   return {
