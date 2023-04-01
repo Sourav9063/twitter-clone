@@ -16,7 +16,7 @@ function ModalComponent(props) {
   // const [ modal, setModal ] = useContext(ModalContext)
 
   const close = (e) => {
-    router.replace("/");
+    router.replace(props.returnTo || "/", undefined, { shallow: true });
     // const tmp = objectValueSetter(modal, false);
     // setModal({ ...tmp })
 

@@ -8,10 +8,11 @@ import Head from "next/head";
 import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import HomeRight from "@/components/home/homeRight/HomeRight";
 import Avatar from "@/components/common/avatar/avatar";
-import Tweet from "@/components/tweet/tweet";
 import Button from "@/components/common/button/button";
 import { signOut, useSession } from "next-auth/react";
 import ProfileMid from "@/components/profile/ProfileMid";
+import ModalComponent from "@/components/modal/ModalComponent";
+import EditProfile from "@/components/modalComponents/editProfile/EditProfile";
 
 export async function getServerSideProps(context) {
   const { id, email } = context.query;
@@ -69,7 +70,6 @@ export default function User({ data, posts }) {
 
   const [btnTex, setBtnTex] = useState(amIFollowing ? "Unfollow" : "Follow");
 
-  console.log(amIFollowingState);
   return (
     <>
       <Head>
@@ -79,6 +79,11 @@ export default function User({ data, posts }) {
         <link rel="icon" href="/fav2.ico" />
       </Head>
       <main className="main">
+        {router.query.modal == "edit-profile" && (
+          <ModalComponent returnTo={router.pathname}>
+            <EditProfile>Test</EditProfile>
+          </ModalComponent>
+        )}
         <HomeLeft></HomeLeft>
         {data && (
           <section className="mid">
@@ -88,10 +93,22 @@ export default function User({ data, posts }) {
                 <div className="avWrapper">
                   <Avatar width="180px" image={data.image}></Avatar>
                 </div>
+                <button
+                  className="edit-profile"
+                  onClick={() => {
+                    router.push({
+                      pathname: router.pathname,
+                      query: { id: data._id, modal: "edit-profile" },
+                    });
+                  }}
+                >
+                  Edit Profile
+                </button>
               </div>
               <section className="names">
                 {data.username && <div>{data.username}</div>}
                 {data.email && <div>@{data.email}</div>}
+                {data.bio && <div className="bio">{data.bio}</div>}
                 {session.data?.user.id != data._id ? (
                   <div className="followbtn">
                     <Button
@@ -159,14 +176,19 @@ export default function User({ data, posts }) {
           border-inline: 1px solid var(--border-color);
         }
         .profileMT {
-          height: 50vh;
+           {
+            /* height: 50vh; */
+          }
           background-color: aquamarine;
           background-color: var(--bg);
         }
         .cover {
           background-color: black;
           width: 100%;
-          height: 40%;
+          height: 30vh;
+          background-image: ${data.coverImage && `url("${data.coverImage}")`};
+          background-size: cover;
+          background-position: center;
         }
         .bottom {
           position: relative;
@@ -182,6 +204,23 @@ export default function User({ data, posts }) {
           border-radius: 10000px;
           left: 1rem;
           top: calc(-90px - 1rem);
+        }
+
+        .edit-profile {
+          position: absolute;
+          right: 1rem;
+          top: 1rem;
+
+          background-color: transparent;
+          border: 1px solid var(--border-color-2);
+          border-radius: 10000px;
+          padding: 0.5rem 1rem;
+          color: var(--text-color-tertiary);
+          font-size: 1rem;
+          cursor: pointer;
+        }
+        .edit-profile:hover {
+          background-color: var(--border-color-2);
         }
 
         .vLine {
@@ -203,6 +242,11 @@ export default function User({ data, posts }) {
 
         .username {
           color: var(--text-color-tertiary);
+        }
+        .bio {
+          text-align: center;
+          padding: 1rem;
+          border-bottom: 1px solid var(--border-color-2);
         }
       `}</style>
     </>

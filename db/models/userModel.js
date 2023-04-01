@@ -34,6 +34,16 @@ const userSchema = new Schema({
     type: String,
     default: "https://api.dicebear.com/5.x/thumbs/svg?radius=50",
   },
+  coverImage: {
+    type: String,
+    default: "https://api.dicebear.com/5.x/thumbs/svg?radius=50",
+  },
+  bio: {
+    type: String,
+    default: "This is my bio",
+    maxLength: [200, "Bio should be less than 100 characters"],
+  },
+
   follower: [
     {
       type: Schema.Types.ObjectId,
