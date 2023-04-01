@@ -9,7 +9,7 @@ export default function Avatar({ image, width = "70px" }) {
           width: ${width};
           aspect-ratio: 1;
           background-position: center;
-          background-size: contain;
+          background-size: cover;
           background-repeat: no-repeat;
           border: 1px var(--border-color) solid;
           border-radius: 50%;
