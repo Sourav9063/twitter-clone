@@ -21,7 +21,7 @@ export async function getServerSideProps(context) {
     const user = await UserDB.findOne({
       $or: [{ _id: id }, { email: email }],
     })
-      .populate("follower", "email username image")
+      .populate("follower", "email username image _id")
       .populate("following", "email username image _id");
 
     // .select({ follower: 0, following: 0 })
@@ -61,7 +61,15 @@ export async function getServerSideProps(context) {
 export default function User({ data, posts }) {
   const session = useSession();
   const router = useRouter();
-  const [btnTex, setBtnTex] = useState("Follow");
+  let amIFollowing = data.follower.find(
+    (follower) => follower._id == session.data?.user.id
+  );
+  amIFollowing = amIFollowing ? true : false;
+  const [amIFollowingState, setAmIFollowingState] = useState(amIFollowing);
+
+  const [btnTex, setBtnTex] = useState(amIFollowing ? "Unfollow" : "Follow");
+
+  console.log(amIFollowingState);
   return (
     <>
       <Head>
@@ -78,26 +86,22 @@ export default function User({ data, posts }) {
               <div className="cover"></div>
               <div className="bottom">
                 <div className="avWrapper">
-                  {" "}
                   <Avatar width="180px" image={data.image}></Avatar>
                 </div>
               </div>
               <section className="names">
                 {data.username && <div>{data.username}</div>}
                 {data.email && <div>@{data.email}</div>}
-
                 {session.data?.user.id != data._id ? (
                   <div className="followbtn">
-                    {" "}
                     <Button
                       onclick={async () => {
                         setBtnTex("Loading");
                         const body = {
                           owner: session.data.user.id,
                           who: data._id,
-                          what: "FOLLOW",
+                          what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
                         };
-
                         const res = await fetch("/api/follow", {
                           method: "POST",
                           headers: {
@@ -105,10 +109,13 @@ export default function User({ data, posts }) {
                           },
                           body: JSON.stringify(body),
                         });
-
                         const result = await res.json();
 
-                        setBtnTex(result.msg);
+                        const isFollowingNow =
+                          result.msg == "Following" ? true : false;
+                        amIFollowing = isFollowingNow;
+                        setAmIFollowingState(amIFollowing);
+                        setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
                       }}
                     >
                       {btnTex}
@@ -116,7 +123,6 @@ export default function User({ data, posts }) {
                   </div>
                 ) : (
                   <div className="followbtn">
-                    {" "}
                     <Button
                       onclick={async () => {
                         signOut({
@@ -130,22 +136,6 @@ export default function User({ data, posts }) {
                 )}
               </section>
             </div>
-
-            {/* {posts.map((tweet, index) => <div key={tweet._id} onClick={() => {
-
-                        // setTweet(tweet);
-
-                        router.push({
-                            pathname: '/' + "posts/" + tweet._id,
-
-
-                        });
-
-
-                    }} >
-                        <Tweet tweet={tweet}></Tweet>
-                    </div>)} */}
-
             <ProfileMid data={data} posts={posts}></ProfileMid>
           </section>
         )}
@@ -217,4 +207,21 @@ export default function User({ data, posts }) {
       `}</style>
     </>
   );
+}
+
+{
+  /* {posts.map((tweet, index) => <div key={tweet._id} onClick={() => {
+
+                        // setTweet(tweet);
+
+                        router.push({
+                            pathname: '/' + "posts/" + tweet._id,
+
+
+                        });
+
+
+                    }} >
+                        <Tweet tweet={tweet}></Tweet>
+                    </div>)} */
 }
