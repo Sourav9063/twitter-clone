@@ -59,18 +59,7 @@ export default function HomeLeft() {
           </section>
 
           {session.status == "authenticated" && (
-            <div
-              onClick={() => {
-                router.push({
-                  pathname: "/profile",
-                  query: {
-                    id: session.data.user.id,
-                  },
-                });
-              }}
-            >
-              <ProfilePill data={session?.data?.user}></ProfilePill>
-            </div>
+            <ProfilePill data={session.data.user}></ProfilePill>
           )}
         </div>
       </div>

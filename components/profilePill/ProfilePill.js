@@ -8,6 +8,7 @@ export default function ProfilePill({
   showOption = true,
   children,
   data = {
+    id: "64267f8ff436f703fb416b51",
     _id: "64267f8ff436f703fb416b51",
     username: "sourav",
     email: "@sourav",
@@ -15,12 +16,16 @@ export default function ProfilePill({
       "https://sourav9063.github.io/my_portfolio/static/media/headRS1.aee7abddddb9c68b52c5.png",
   },
 }) {
+  if (!data._id && data.id) {
+    data._id = data.id;
+  }
+
   const router = useRouter();
   return (
     <div
       className="pill"
       onClick={() => {
-        router.replace("/profile?id=" + data._id);
+        router.push("/profile?id=" + data._id);
       }}
     >
       <Avatar width="60px" image={data.image}></Avatar>
