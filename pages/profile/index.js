@@ -70,7 +70,7 @@ export async function getServerSideProps(context) {
 export default function User({ data, posts }) {
   const session = useSession();
   const router = useRouter();
-  let amIFollowing = data.follower.find(
+  let amIFollowing = data.follower?.find(
     (follower) => follower._id == session.data?.user.id
   );
   amIFollowing = amIFollowing ? true : false;
@@ -101,17 +101,19 @@ export default function User({ data, posts }) {
                 <div className="avWrapper">
                   <Avatar width="180px" image={data.image}></Avatar>
                 </div>
-                <button
-                  className="edit-profile"
-                  onClick={() => {
-                    router.push({
-                      pathname: router.pathname,
-                      query: { id: data._id, modal: "edit-profile" },
-                    });
-                  }}
-                >
-                  Edit Profile
-                </button>
+                {session.data?.user.id == data._id && (
+                  <button
+                    className="edit-profile"
+                    onClick={() => {
+                      router.push({
+                        pathname: router.pathname,
+                        query: { id: data._id, modal: "edit-profile" },
+                      });
+                    }}
+                  >
+                    Edit Profile
+                  </button>
+                )}
               </div>
               <section className="names">
                 {data.username && <div>{data.username}</div>}
