@@ -24,12 +24,18 @@ import ModalTweet from "@/components/modalComponents/ModalTweet";
 import UserDB from "@/db/models/userModel";
 
 export async function getServerSideProps(context) {
-  let posts = [];
+  let postsArray = [];
   let error = null;
   try {
     await connectMongo();
-    const user = await UserDB.find().limit(2);
-    posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
+    // const user = await UserDB.find().limit(2);
+    // posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
+
+    const [user, posts] = await Promise.all([
+      UserDB.find().limit(1),
+      PostDB.find().populate("owner").sort({ createdDate: -1 }),
+    ]);
+    postsArray = posts;
   } catch (e) {
     console.log(e);
     error = e.message;
@@ -37,7 +43,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      data: JSON.parse(JSON.stringify(posts)),
+      data: JSON.parse(JSON.stringify(postsArray)),
       error: error,
     },
   };

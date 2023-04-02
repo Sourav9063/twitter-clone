@@ -24,8 +24,10 @@ export default async function handler(req, res) {
         post.likes = post.likes - 1;
         await post.save();
 
-        likedb.likedPost = likedb.likedPost.filter((post) => post != likedPost);
+        // likedb.likedPost = likedb.likedPost.filter((post) => post != likedPost);
+        likedb.likedPost.pull(likedPost);
         await likedb.save();
+        console.log(likedb.likedPost.length);
         res.status(200).json({ likedb, likes: post.likes });
         return;
       } else {
@@ -35,6 +37,8 @@ export default async function handler(req, res) {
 
         likedb.likedPost.push(likedPost);
         await likedb.save();
+        console.log(likedb.likedPost.length);
+
         res.status(200).json({ likedb, likes: post.likes });
         return;
       }
