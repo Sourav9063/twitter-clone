@@ -20,14 +20,17 @@ export default async function handler(req, res) {
       return;
     }
 
-    const hashPass = await hashPassword(password);
-    const existingUser = await UserDB.findOne({ email: email });
+    // const hashPass = await hashPassword(password);
+    // const existingUser = await UserDB.findOne({ email: email });
+
+    const [hashPass, existingUser] = await Promise.all([
+      hashPassword(password),
+      UserDB.findOne({ email: email }),
+    ]);
 
     if (existingUser) {
       res.status(422).json({ msg: "User already exist. Please log in." });
-      // client.close()
 
-      // throw new Error("User exists!!")
       return;
     }
 

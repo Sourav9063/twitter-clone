@@ -80,26 +80,45 @@ export default function Tweet(props) {
                     body: JSON.stringify({ userid: session.data.user.id }),
                     headers: myHeaders,
                   });
-                  const data = await res.json();
 
-                  setLikesState(data.likes);
-                  props.tweet.likes = data.likes;
-                } catch (e) {}
-                const res = await fetch(
-                  `/api/users/likedposts/${session.data.user.id}`,
-                  {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
+                  const res1 = await fetch(
+                    `/api/users/likedposts/${session.data.user.id}`,
+                    {
+                      method: "GET",
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    }
+                  );
+
+                  // const [res, res1] = await Promise.all([
+                  //   fetch("/api/posts/" + _id + "/like", {
+                  //     method: "POST",
+                  //     body: JSON.stringify({ userid: session.data.user.id }),
+                  //     headers: myHeaders,
+                  //   }),
+                  //   fetch(`/api/users/likedposts/${session.data.user.id}`, {
+                  //     method: "GET",
+                  //     headers: {
+                  //       "Content-Type": "application/json",
+                  //     },
+                  //   }),
+                  // ]);
+
+                  const [data, data1] = await Promise.all([
+                    res.json(),
+                    res1.json(),
+                  ]);
+
+                  // const data1 = await res1.json();
+                  if (data1) {
+                    console.log(data1);
+                    setLikesState(data.likes);
+                    props.tweet.likes = data.likes;
+
+                    setLiked(data1.likedb.likedPost);
                   }
-                );
-                const data = await res.json();
-                if (data) {
-                  //
-
-                  setLiked(data.likedb.likedPost);
-                }
+                } catch (e) {}
               }}
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">

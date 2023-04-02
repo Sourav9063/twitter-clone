@@ -24,18 +24,38 @@ export async function getServerSideProps(context) {
     await connectMongo();
 
     if (postid) {
-      post = await PostDB.findById(postid).populate({
-        path: "owner",
-        select: { follower: 0, following: 0 },
-      });
+      // console.time("promise-start");
+      const start = Date.now();
+      // post = await PostDB.findById(postid).populate({
+      //   path: "owner",
+      //   select: { follower: 0, following: 0 },
+      // });
 
-      comments = await CommentDB.findOne({ head: postid }).populate({
-        path: "nodes",
-        populate: {
+      // comments = await CommentDB.findOne({ head: postid }).populate({
+      //   path: "nodes",
+      //   populate: {
+      //     path: "owner",
+      //     select: { follower: 0, following: 0 },
+      //   },
+      // });
+
+      const promises = await Promise.all([
+        PostDB.findById(postid).populate({
           path: "owner",
           select: { follower: 0, following: 0 },
-        },
-      });
+        }),
+        CommentDB.findOne({ head: postid }).populate({
+          path: "nodes",
+          populate: {
+            path: "owner",
+            select: { follower: 0, following: 0 },
+          },
+        }),
+      ]);
+
+      post = promises[0];
+      comments = promises[1];
+      console.log(Date.now() - start);
     }
   } catch (error) {
     //

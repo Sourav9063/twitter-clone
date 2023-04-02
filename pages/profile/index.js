@@ -19,11 +19,22 @@ export async function getServerSideProps(context) {
 
   try {
     await connectMongo();
-    const user = await UserDB.findOne({
-      $or: [{ _id: id }, { email: email }],
-    })
-      .populate("follower", "email username image _id")
-      .populate("following", "email username image _id");
+    // const user = await UserDB.findOne({
+    //   $or: [{ _id: id }, { email: email }],
+    // })
+    //   .populate("follower", "email username image _id")
+    //   .populate("following", "email username image _id");
+
+    // const posts = await PostDB.find({ owner: id }).sort({
+    //   createdDate: -1,
+    // });
+
+    const [user, posts] = await Promise.all([
+      UserDB.findOne({ $or: [{ _id: id }, { email: email }] })
+        .populate("follower", "email username image _id")
+        .populate("following", "email username image _id"),
+      PostDB.find({ owner: id }).sort({ createdDate: -1 }),
+    ]);
 
     // .select({ follower: 0, following: 0 })
 
@@ -31,9 +42,6 @@ export async function getServerSideProps(context) {
       throw new Error("Not found");
     }
 
-    const posts = await PostDB.find({ owner: user._id }).sort({
-      createdDate: -1,
-    });
     if (posts) {
       posts.forEach((element, i) => {
         posts[i].owner = user;
