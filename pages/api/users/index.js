@@ -26,9 +26,8 @@ export default async function handler(req, res) {
   if (req.method == "PATCH") {
     const session = await getServerSession(req, res, authOptions);
     console.log(session);
+    req.body._id = session.user.id;
     const { _id, bio, username, image, coverImage } = req.body;
-
-    _id = session.user._id;
 
     try {
       const user = await UserDB.findById(_id);
