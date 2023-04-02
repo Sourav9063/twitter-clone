@@ -10,16 +10,25 @@ export default async function handler(req, res) {
       await connectMongo;
       const { owner, what, who } = req.body;
 
-      let ownerDB = await UserDB.findById(owner).populate(
-        "following",
-        "email username image _id"
-      );
+      // let ownerDB = await UserDB.findById(owner).populate(
+      //   "following",
+      //   "email username image _id"
+      // );
+
+      // let whoDB = await UserDB.findById(who);
+
+      const [ownerDB, whoDB] = await Promise.all([
+        UserDB.findById(owner).populate(
+          "following",
+          "email username image _id"
+        ),
+        UserDB.findById(who),
+      ]);
+
       // if (!ownerDB) {
       //     ownerDB = await FollowDB.create({ owner: owner })
 
       // }
-
-      let whoDB = await UserDB.findById(who);
       // if (!whoDB) {
       //     whoDB = await FollowDB.create({ owner: who })
 
