@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import connectMongo from "@/db/dbConnect";
 import UserDB from "@/db/models/userModel";
@@ -71,11 +71,12 @@ export default function User({ data, posts }) {
   const session = useSession();
   const router = useRouter();
   let amIFollowing = data.follower?.find(
-    (follower) => follower._id == session.data?.user.id
+    (follower) => follower._id.toString() == session.data?.user.id
   );
   amIFollowing = amIFollowing ? true : false;
+  console.log(amIFollowing);
   const [amIFollowingState, setAmIFollowingState] = useState(amIFollowing);
-
+  console.log(amIFollowingState);
   const [btnTex, setBtnTex] = useState(amIFollowing ? "Unfollow" : "Follow");
 
   return (
