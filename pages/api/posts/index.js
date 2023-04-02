@@ -38,6 +38,26 @@ export default async function handler(req, res) {
     } catch (error) {
       return res.status(500).json({ msg: "Internal server error", ...error });
     }
+  } else if (req.method === "DELETE") {
+    await connectMongo();
+
+    const postId = req.params.id;
+
+    try {
+      // Check if the post exists in the database
+      const post = await PostDB.findById(postId);
+
+      if (!post) {
+        return res.status(404).json({ msg: "Post not found" });
+      }
+
+      // Delete the post from the database
+      await post.remove();
+
+      return res.status(200).json({ msg: "Post deleted successfully" });
+    } catch (error) {
+      return res.status(500).json({ msg: "Internal server error" });
+    }
   }
 
   return res.status(405).json({ msg: "Method not allowed" });
