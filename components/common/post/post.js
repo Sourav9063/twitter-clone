@@ -128,13 +128,9 @@ export default function Post({
                   redirect: "follow",
                 };
 
-<<<<<<< HEAD
                 if (tweetData.postText == "") {
                   try {
-                    const response = await fetch(
-                      "http://localhost:3000/api/posts",
-                      requestOptions
-                    );
+                    const response = await fetch("/api/posts", requestOptions);
 
                     const result = await response.json();
                     route.replace(returnTo);
@@ -142,7 +138,7 @@ export default function Post({
                 } else {
                   requestOptions.method = "PATCH";
                   const response = await fetch(
-                    "http://localhost:3000/api/posts/" + tweetData._id,
+                    "/api/posts/" + tweetData._id,
                     requestOptions
                   );
 
