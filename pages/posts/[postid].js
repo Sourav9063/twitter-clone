@@ -6,7 +6,7 @@ import Tweet from "@/components/tweet/tweet";
 import connectMongo from "@/db/dbConnect";
 
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import style from "../../components/tweet/tweet.module.css";
 import Button from "@/components/common/button/button";
 import Head from "next/head";
@@ -14,6 +14,10 @@ import CommentDB from "@/db/models/commentModel";
 import PostDB from "@/db/models/postModel";
 import Comments from "@/components/common/comment/Comments";
 import mongoose from "mongoose";
+import { useSession } from "next-auth/react";
+import PostOption from "@/components/home/homeRight/postOption/PostOption";
+import ModalComponent from "@/components/modal/ModalComponent";
+import Post from "@/components/common/post/post";
 
 export async function getServerSideProps(context) {
   const { postid } = context.params;
@@ -24,7 +28,7 @@ export async function getServerSideProps(context) {
     await connectMongo();
 
     if (postid) {
-      // console.time("promise-start");
+      //
       const start = Date.now();
       // post = await PostDB.findById(postid).populate({
       //   path: "owner",
@@ -55,7 +59,6 @@ export async function getServerSideProps(context) {
 
       post = promises[0];
       comments = promises[1];
-      console.log(Date.now() - start);
     }
   } catch (error) {
     //
@@ -68,9 +71,13 @@ export async function getServerSideProps(context) {
 
 export default function PostId({ tweet, comments }) {
   const router = useRouter();
+  const curPath = router.asPath;
+  console.log(router);
+  const [showEdit, setShowEdit] = useState(false);
+  const session = useSession();
   const tweetN = JSON.parse(tweet);
   const commentN = JSON.parse(comments);
-
+  console.log(session);
   return (
     <>
       <Head>
@@ -79,6 +86,11 @@ export default function PostId({ tweet, comments }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
+      {router.query.modal == "edit-tweet" && (
+        <ModalComponent returnTo={"/posts/" + tweetN._id}>
+          <Post eturnTo={"/posts/" + tweetN._id} tweetData={tweetN}></Post>
+        </ModalComponent>
+      )}
       <main className="main">
         <HomeLeft />
         <div>
@@ -109,7 +121,15 @@ export default function PostId({ tweet, comments }) {
                     <hr />
                     <div>{comments}</div> */}
         </div>
-        <HomeRight />
+        {tweetN && (
+          <HomeRight
+            show={tweetN.owner._id == session.data?.user.id && "PostOption"}
+          >
+            {tweetN.owner._id == session.data?.user.id && (
+              <PostOption postid={tweetN._id} tweet={tweetN}></PostOption>
+            )}
+          </HomeRight>
+        )}
         <style jsx>{`
           .glassPortion {
             display: inline-block;

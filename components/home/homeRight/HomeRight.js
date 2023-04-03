@@ -5,18 +5,21 @@ import SignUpDiv from "@/components/common/signUpDiv/SignUpDiv";
 import Follow from "./follow/Follow";
 import { useSession } from "next-auth/react";
 import RecentLiked from "./RecentLiked";
+import PostOption from "./postOption/PostOption";
 
-export default function HomeRight() {
+export default function HomeRight({show="Follow",children}) {
   const session = useSession();
-
+  console.log(show)
   return (
     <section className={styles.right}>
       <div>
         {session.status != "authenticated" ? (
           <SignUpDiv></SignUpDiv>
         ) : (
-          <Follow></Follow>
+           
+        show=="Follow" &&  <Follow></Follow>
         )}
+  {children}
 
         {session.status == "authenticated" && <RecentLiked></RecentLiked>}
         <p>
