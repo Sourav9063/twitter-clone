@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
     ]);
     postsArray = posts;
   } catch (e) {
-    console.log(e);
+    
     error = e.message;
   }
 

@@ -4,9 +4,11 @@ import CommentBox from "@/components/modalComponents/CommentBox";
 import style from "../../tweet/tweet.module.css";
 import CommentUI from "@/components/common/comment/Comment";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 export default function Comments({ comment }) {
   const owner = comment.owner;
-
+  console.log(comment);
+  const session = useSession();
   const router = useRouter();
   const url = "/api/comments/" + comment._id;
 
@@ -53,15 +55,17 @@ export default function Comments({ comment }) {
               <span className={style["username"]}>{owner?.username}</span>
               <span>·</span>
             </div>
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              className={style.threeDot}
-            >
-              <g>
-                <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
-              </g>
-            </svg>
+            {session.data?.user.id == owner._id && (
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                className={style.threeDot}
+              >
+                <g>
+                  <path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"></path>
+                </g>
+              </svg>
+            )}
           </div>
           <div className={style.mainTweet}>{comment.body}</div>
           {nodes.length > 0 && (

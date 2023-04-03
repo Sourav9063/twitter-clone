@@ -61,7 +61,6 @@ export default function EditProfile() {
 
             const result = await response.json();
 
-            console.log(result);
             if (!response.ok) {
               throw new Error(result.msg);
             }
@@ -75,7 +74,6 @@ export default function EditProfile() {
               });
             }
           } catch (error) {
-            console.log(error);
             setError(error.message);
           }
 
@@ -171,12 +169,6 @@ export default function EditProfile() {
         )}
       </form>
       {/* <p>By signing up, you agree to the <span>Terms of Service</span> and <span>Privacy Policy</span>, including <span>Cookie Use</span>.</p> */}
-      <p>
-        {`Already have an account?`}
-        <Link replace={true} href={"/" + MODAL_QUERY_SIGNIN}>
-          Log in
-        </Link>
-      </p>
     </div>
   );
 }
