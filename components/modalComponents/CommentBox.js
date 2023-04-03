@@ -82,10 +82,7 @@ export default function CommentBox({
                 };
 
                 try {
-                  const response = await fetch(
-                    "http://localhost:3000/api/comments",
-                    requestOptions
-                  );
+                  const response = await fetch("/api/comments", requestOptions);
 
                   const result = await response.json();
                   // route.replace('/')
