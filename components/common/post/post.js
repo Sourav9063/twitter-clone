@@ -126,10 +126,7 @@ export default function Post({
                 };
 
                 try {
-                  const response = await fetch(
-                    "http://localhost:3000/api/posts",
-                    requestOptions
-                  );
+                  const response = await fetch("/api/posts", requestOptions);
 
                   const result = await response.json();
                   route.replace("/");
