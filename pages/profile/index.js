@@ -74,10 +74,22 @@ export default function User({ data, posts }) {
     (follower) => follower._id.toString() == session.data?.user.id
   );
   amIFollowing = amIFollowing ? true : false;
-  console.log(amIFollowing);
+  
   const [amIFollowingState, setAmIFollowingState] = useState(amIFollowing);
-  console.log(amIFollowingState);
+  
+ 
   const [btnTex, setBtnTex] = useState(amIFollowing ? "Unfollow" : "Follow");
+
+ 
+  useEffect(() => {
+    
+    setAmIFollowingState(amIFollowing)
+  
+    return () => {
+      
+    }
+  }, [amIFollowing])
+  
 
   return (
     <>
