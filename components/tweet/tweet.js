@@ -57,8 +57,10 @@ export default function Tweet(props) {
             </svg>
           </div>
         </Link>
-        <div className={style.mainTweet}>{postText}</div>
-        {postImage && (
+        <div className={style.mainTweet}>
+          <p>{postText}</p>
+        </div>
+        {postImage && postImage != "" && (
           <div className={style.tweetImg}>
             <img src={postImage} alt="" />
           </div>
@@ -112,7 +114,6 @@ export default function Tweet(props) {
 
                   // const data1 = await res1.json();
                   if (data1) {
-                    console.log(data1);
                     setLikesState(data.likes);
                     props.tweet.likes = data.likes;
 

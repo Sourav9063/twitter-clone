@@ -55,11 +55,21 @@
 
 .mainTweet {
     font-size: 1rem;
+   max-width: 490px;
+   overflow-wrap: break-word;
+   word-wrap: break-word;
+   hyphens: auto;
 }
+/* .mainTweet>p{
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+} */
 
 .tweetImg {
     margin-top: .5rem;
     width: 100%;
+    text-overflow: ellipsis;
 }
 
 .tweetImg>img {
