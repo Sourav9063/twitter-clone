@@ -9,11 +9,13 @@ import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
 export default function Post({
   width = "100%",
   placeholder = "What's happening?",
+  tweetData = { postText: "", postImage: "" },
+  returnTo = "/",
 }) {
-  const [tweet, setTweet] = useState("");
+  const [tweet, setTweet] = useState(tweetData.postText);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [imageLink, setImageLink] = useState("");
+  const [imageLink, setImageLink] = useState(tweetData.postImage);
   const [picInputShow, setPicInputShow] = useState(false);
   const session = useSession();
   const route = useRouter();
@@ -90,6 +92,7 @@ export default function Post({
                 name="Image"
                 placeholder="Input Image Link"
                 className={styles["input"]}
+                value={imageLink}
               />
               <label className={styles["user-label"]}>Image link</label>
             </div>
@@ -125,15 +128,26 @@ export default function Post({
                   redirect: "follow",
                 };
 
-                try {
+                if (tweetData.postText == "") {
+                  try {
+                    const response = await fetch(
+                      "http://localhost:3000/api/posts",
+                      requestOptions
+                    );
+
+                    const result = await response.json();
+                    route.replace(returnTo);
+                  } catch (error) {}
+                } else {
+                  requestOptions.method = "PATCH";
                   const response = await fetch(
-                    "http://localhost:3000/api/posts",
+                    "http://localhost:3000/api/posts/" + tweetData._id,
                     requestOptions
                   );
-
                   const result = await response.json();
-                  route.replace("/");
-                } catch (error) {}
+                  console.log(result);
+                  route.replace(returnTo);
+                }
 
                 setLoading(false);
 

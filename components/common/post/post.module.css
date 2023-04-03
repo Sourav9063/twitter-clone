@@ -52,7 +52,7 @@
 }
 
 .body>form>textarea:focus-visible {
-    height: 110px;
+    height: 105px;
 }
 
 .privacyShow {
