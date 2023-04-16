@@ -1,5 +1,5 @@
 import connectMongo from "@/db/dbConnect";
-import UserDB from "@/db/models/userModel";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -7,7 +7,8 @@ export default async function handler(req, res) {
 
     try {
       await connectMongo();
-      const user = await UserDB.findOne({
+      console.log({ id, email });
+      const user = await UserDBV2.findOne({
         $or: [{ _id: id }, { email: email }],
       });
 

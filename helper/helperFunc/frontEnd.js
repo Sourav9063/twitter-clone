@@ -8,7 +8,7 @@ export async function getUserbyEmailorID(email, id) {
     id: id,
   });
   const requestOptions = {
-    method: "GET",
+    method: "POST",
     headers: myHeaders,
     body: raw,
     redirect: "follow",
@@ -17,7 +17,7 @@ export async function getUserbyEmailorID(email, id) {
   // Use try-catch to handle errors
   try {
     // Use await to wait for the fetch response
-    const response = await fetch("/api/v1/users/user", requestOptions);
+    const response = await fetch("/api/v2/users/user", requestOptions);
 
     return await response.json();
   } catch (error) {

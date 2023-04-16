@@ -1,0 +1,66 @@
+.list{
+  border-inline: 1px solid var(--border-color);
+  width: 400px;
+  margin-left: 1rem;
+}
+
+.header{
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+.glassPortion {
+  display: inline-block;
+  backdrop-filter: blur(4px);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  /* height: 100px; */
+  /* left: 0;
+  height: 100px;
+  width: 100%;
+  width: calc(var(--main-width) - 2px);
+  left: 50%;
+  transform: translateX(-50%); */
+  background-color: var(--bg-op);
+  /* opacity: 3; */
+  z-index: 2;
+  padding: 1rem;
+}
+
+
+.logos {
+  width: 30%;
+  display: flex;
+}
+.title{
+  font-weight: 700;
+  font-size: 1.3rem;
+}
+
+.logos div {
+  box-sizing: content-box;
+  border-radius: 10000px;
+  padding: .5rem .5rem;
+  font-size: 1rem;
+  align-items: center;
+}
+
+
+.logos div:hover {
+  background-color: var(--hover-secondary-trans-color);
+
+}
+
+.logos div>svg {
+  width: 1.6rem;
+  height: 1.6rem;
+  color: var(--text-color-primary);
+}
+
+.input{
+  border-radius: 1000px;
+}
