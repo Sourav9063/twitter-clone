@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import connectMongo from "@/db/dbConnect";
-import UserDB from "@/db/models/userModel";
-import PostDB from "@/db/models/postModel";
-
+// import UserDB from "@/db/models/userModel";
+// import PostDB from "@/db/models/postModel";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
+import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
 import Head from "next/head";
 import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import HomeRight from "@/components/home/homeRight/HomeRight";
@@ -30,10 +31,12 @@ export async function getServerSideProps(context) {
     // });
 
     const [user, posts] = await Promise.all([
-      UserDB.findOne({ $or: [{ _id: id }, { email: email }] })
+      UserDBV2.findOne({ $or: [{ _id: id }, { email: email }] })
         .populate("follower", "email username image _id")
         .populate("following", "email username image _id"),
-      PostDB.find({ owner: id }).sort({ createdDate: -1 }),
+      TweetDBV2.find({ owner: id, type: { $in: ["tweet", "retweet"] } }).sort({
+        createdDate: -1,
+      }),
     ]);
 
     // .select({ follower: 0, following: 0 })
@@ -60,8 +63,9 @@ export async function getServerSideProps(context) {
     };
   } catch (e) {
     return {
-      props: {
-        data: null,
+      redirect: {
+        destination: "/",
+        permanent: false,
       },
     };
   }
@@ -74,22 +78,19 @@ export default function User({ data, posts }) {
     (follower) => follower._id.toString() == session.data?.user.id
   );
   amIFollowing = amIFollowing ? true : false;
-  
+
   const [amIFollowingState, setAmIFollowingState] = useState(amIFollowing);
-  
- 
+
   const [btnTex, setBtnTex] = useState(amIFollowing ? "Unfollow" : "Follow");
 
- 
+  const [userData, setUserData] = useState(data);
+
   useEffect(() => {
-    
-    setAmIFollowingState(amIFollowing)
-  
-    return () => {
-      
-    }
-  }, [amIFollowing])
-  
+    setAmIFollowingState(amIFollowing);
+    setBtnTex(amIFollowing ? "Unfollow" : "Follow");
+    setUserData({ ...data });
+    return () => {};
+  }, [amIFollowing, data]);
 
   return (
     <>
@@ -142,7 +143,7 @@ export default function User({ data, posts }) {
                           who: data._id,
                           what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
                         };
-                        const res = await fetch("/api/follow", {
+                        const res = await fetch("/api/v2/users/follow", {
                           method: "POST",
                           headers: {
                             "Content-Type": "application/json",
@@ -156,6 +157,16 @@ export default function User({ data, posts }) {
                         amIFollowing = isFollowingNow;
                         setAmIFollowingState(amIFollowing);
                         setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
+                        if (result.msg == "Following") {
+                          userData.follower.push(result.data);
+                          setUserData({ ...userData });
+                        } else {
+                          userData.follower = userData.follower.filter(
+                            (f) => f._id != result.data._id
+                          );
+
+                          setUserData({ ...userData });
+                        }
                       }}
                     >
                       {btnTex}
@@ -176,7 +187,11 @@ export default function User({ data, posts }) {
                 )}
               </section>
             </div>
-            <ProfileMid data={data} posts={posts}></ProfileMid>
+            <ProfileMid
+              userData={userData}
+              setData={setUserData}
+              posts={posts}
+            ></ProfileMid>
           </section>
         )}
 

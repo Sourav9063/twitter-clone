@@ -1,26 +1,38 @@
 import Button from "@/components/common/button/button";
 import ProfilePill from "@/components/profilePill/ProfilePill";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
 
-export default function PostOption({ header = "Post Options", postid, tweet }) {
+export default function PostOption({
+  header = "Post Options",
+  postid,
+  tweet,
+  onClick,
+}) {
   const router = useRouter();
   // useState(initialState)
+  const [FeedData, setFeedData] = useContext(FeedTweetsContext);
+
   const [deletePost, setDeletePost] = useState(false);
   const [error, setError] = useState("");
-
+  const tmpFn = () => {
+    router.push({
+      pathname: "/posts/" + router.query.postid,
+      query: { modal: "edit-tweet" },
+    });
+  };
+  onClick = onClick ?? tmpFn;
   const deletePostFunc = async () => {
     try {
       setError("Loading");
 
-      const res = await fetch("/api/posts/" + postid, {
+      const res = await fetch("/api/v2/posts/" + postid, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
       });
-
-      console.log(res);
 
       const data = await res.json();
 
@@ -29,28 +41,19 @@ export default function PostOption({ header = "Post Options", postid, tweet }) {
       } else {
         setError("Post deleted");
 
-        router.replace("/");
+        setFeedData(FeedData.filter((e) => e._id != postid));
+        // router.replace("/");
       }
     } catch (error) {
-      console.log(error);
       setError(error.message);
     }
   };
 
   return (
-    <div className="delete-post">
+    <div className="delete-post" onClick={(e) => e.stopPropagation()}>
       <h1>{header}</h1>
 
-      <button
-        onClick={() => {
-          router.push({
-            pathname: "/posts/" + router.query.postid,
-            query: { modal: "edit-tweet" },
-          });
-        }}
-      >
-        Edit Post
-      </button>
+      <button onClick={onClick}>Edit Post</button>
 
       <button
         className="delete"

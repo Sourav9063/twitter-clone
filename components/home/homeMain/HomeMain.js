@@ -1,15 +1,58 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Tweet from "@/components/tweet/tweet";
 import style from "./HomeMain.module.css";
 import Post from "@/components/common/post/post";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
+import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
+import Button from "@/components/common/button/button";
+import { useOnScreen } from "@/helper/hooks/useOnScreen";
+import Loader from "@/components/common/loader/Loader";
+import { NO_MORE_TWEETS, TWEET_LIMIT, TWEET_SKIP } from "@/helper/constStrings";
+import Or from "@/components/common/Or";
 // import { SelectedTweetContext } from '@/providers/SelectedTweet'
-
 export default function HomeMain({ posts }) {
   const router = useRouter();
   const session = useSession();
+  const [FeedTweets, setFeedTweets] = useContext(FeedTweetsContext);
+  const [btnText, setBtnText] = useState("Load More.");
+  const btnRef = useRef(null);
+  const onScreen = useOnScreen(btnRef);
+  useEffect(() => {
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    async function fetchPosts() {
+      const TWEET_SKIP = FeedTweets.length;
+
+      try {
+        let response = await fetch(
+          `http://localhost:3000/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,
+          requestOptions
+        );
+        let result = await response.json();
+
+        if (response.ok) {
+          if (result.posts.length > 0) {
+            setFeedTweets([...FeedTweets, ...result.posts]);
+          } else {
+            // btnRef.current.style.display = "none";
+            setBtnText(NO_MORE_TWEETS);
+          }
+        }
+      } catch (error) {}
+    }
+
+    if (onScreen) {
+      setBtnText("Loading");
+      fetchPosts();
+    }
+    return () => {};
+  }, [onScreen]);
+
   // const [ , setTweet ] = useContext(SelectedTweetContext);
   //
   return (
@@ -25,7 +68,7 @@ export default function HomeMain({ posts }) {
                     height: "100px"
                 }}></div> */}
         {session.status == "authenticated" && <Post></Post>}
-        {posts.map((tweet, index) => (
+        {FeedTweets.map((tweet, index) => (
           <div
             key={tweet._id}
             onClick={() => {
@@ -39,6 +82,13 @@ export default function HomeMain({ posts }) {
             <Tweet tweet={tweet}></Tweet>
           </div>
         ))}
+        {btnText != NO_MORE_TWEETS ? (
+          <div className={style.load} ref={btnRef}>
+            {onScreen ? <Loader /> : <Button>{btnText}</Button>}
+          </div>
+        ) : (
+          <Or text={btnText} height="200px" padding="1rem"></Or>
+        )}
       </div>
     </section>
   );

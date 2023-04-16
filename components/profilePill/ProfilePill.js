@@ -53,6 +53,7 @@ export default function ProfilePill({
           border-radius: ${borderRadius};
           position: relative;
           bottom: 0;
+          cursor: pointer;
         }
         .pill:hover {
           background-color: var(--hover-secondary-trans-color);
@@ -67,7 +68,7 @@ export default function ProfilePill({
         }
         .threeDot {
           color: var(--text-color-tertiary);
-          fill: inherit;
+          fill: currentColor;
           width: 25px;
         }
         .names {

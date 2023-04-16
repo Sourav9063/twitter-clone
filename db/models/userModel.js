@@ -1,14 +1,5 @@
 import { Schema, model, models } from "mongoose";
 
-const follow = new Schema({
-  id: {
-    type: Schema.Types.ObjectId,
-  },
-  username: {
-    type: String,
-  },
-});
-
 const userSchema = new Schema({
   email: {
     type: String,
@@ -18,6 +9,10 @@ const userSchema = new Schema({
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Invalid email address",
     ],
+  },
+  emailVerified: {
+    type: Schema.Types.Boolean,
+    default: false,
   },
   username: {
     type: String,
@@ -40,7 +35,7 @@ const userSchema = new Schema({
   },
   bio: {
     type: String,
-    default: "This is my bio",
+    default: "Say something about you.",
     maxLength: [200, "Bio should be less than 100 characters"],
   },
 

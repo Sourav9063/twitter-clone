@@ -17,7 +17,7 @@ export async function getUserbyEmailorID(email, id) {
   // Use try-catch to handle errors
   try {
     // Use await to wait for the fetch response
-    const response = await fetch("/api/users/user", requestOptions);
+    const response = await fetch("/api/v1/users/user", requestOptions);
 
     return await response.json();
   } catch (error) {

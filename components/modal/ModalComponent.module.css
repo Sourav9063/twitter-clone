@@ -12,7 +12,7 @@
     display: grid;
     justify-content: center;
     align-items: center;
-    animation: outerAnimation 0.4s ease-out forwards;
+    animation: outerAnimation 0.3s ease-out forwards;
     overflow-y: scroll;
 }
 
@@ -40,8 +40,9 @@
     border: 0px;
     /* font-size: 2.5rem; */
     text-align: center;
-    animation: innerAnimation 0.4s ease-out forwards;
+    animation: innerAnimation 0.3s ease-out forwards;
     background-color: rgb(255, 255, 255);
+    background-color: var(--bg);
     z-index: 200;
     /* overflow: scroll; */
 

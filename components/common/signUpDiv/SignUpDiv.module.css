@@ -37,7 +37,7 @@
 }
 
 .btnOutline {
-    background-color: white;
+    background-color:var(--bg);
     color: var(--text-color-primary);
     border: 1px var(--border-color) solid;
     padding-block: .5rem;

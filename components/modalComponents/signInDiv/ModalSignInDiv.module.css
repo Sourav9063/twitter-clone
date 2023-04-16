@@ -68,7 +68,7 @@
 }
 
 .btnOutline {
-    background-color: white;
+    background-color: var(--bg);
     color: var(--text-color-primary);
     border: 1px var(--border-color-2) solid;
     padding-block: .5rem;
@@ -197,3 +197,23 @@
     padding: 0 .2em;
 
 }
+
+
+
+
+.picSVG{
+    width: 2.3rem;
+    color: var(--primary-color);
+    fill: currentColor;
+    box-sizing: content-box;
+    padding: .5rem;
+    border-radius: 10000px;
+}
+.picSVG:hover {
+    background-color: var(--hover-primary-trans-color);
+}
+.uploadPic{
+    width: 100%;
+    border-radius: 1rem;
+}
+

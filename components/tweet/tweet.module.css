@@ -1,15 +1,18 @@
 .tweet {
     border-bottom: 1px var(--border-color) solid;
-    display: flex;
     gap: .5rem;
     padding: .5rem 1rem;
-
+    width: 100%;
 }
 
 .tweet:hover {
     background-color: var(--bg-hover);
 }
 
+.tweetInner{
+    display: flex;
+
+}
 
 .img {
     width: 70px;
@@ -23,8 +26,12 @@
 
 }
 
+.image{
+    margin-right: .5rem;
+}
 .body {
     width: 100%;
+    position: relative;
 }
 
 
@@ -34,7 +41,12 @@
 
     align-items: baseline;
     justify-content: space-between;
+    width: 100%;
 }
+/* .header {
+display: grid;
+grid-template-columns: 1fr 25px;
+} */
 
 .day.day {
     font-size: 1rem;
@@ -55,10 +67,18 @@
 
 .mainTweet {
     font-size: 1rem;
-   max-width: 490px;
-   overflow-wrap: break-word;
-   word-wrap: break-word;
-   hyphens: auto;
+    max-width: 95%;
+    /* overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-lines: 2; */
+    white-space: pre-wrap;        
+   white-space: -moz-pre-wrap;
+   white-space: -pre-wrap;    
+   white-space: -o-pre-wrap;   
+   word-wrap: break-word;     
+
+
 }
 /* .mainTweet>p{
     overflow-wrap: break-word;
@@ -80,7 +100,8 @@
 
 .likeNcommnet {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
+    align-items: flex-start;
     width: 80%;
 }
 
@@ -106,7 +127,9 @@
     /* margin-right: .3rem; */
 
 }
-
+.names{
+   margin-bottom: 1rem;
+}
 .names>* {
     font-size: 1.2rem;
     margin-right: .3rem;
@@ -118,7 +141,8 @@
 
 .threeDot {
     color: var(--text-color-tertiary);
-    fill: inherit;
+    fill: currentColor;
+    display: inline-block;
     width: 25px;
 }
 
@@ -134,6 +158,20 @@
     border-radius: 1000000px;
 
 }
+.retweet:hover {
+    color:rgb(28, 193, 137);
+    fill: currentColor;
+    /* background-color: var(--hover-primary-trans-color);
+    border-radius: 1000000px; */
+}
+
+
+.retweet:hover>svg {
+    background-color:rgba(28, 193, 138, 0.25);
+    border-radius: 1000000px;
+
+}
+
 
 .comments:hover {
     color: var(--primary-color);
@@ -161,4 +199,52 @@
     background-color: rgba(255, 0, 0, 0.267);
     border-radius: 1000000px;
 
+}
+
+.date{
+    margin-block: .8rem;
+}
+
+
+
+.wrapper {
+    display: flex;
+    /* position: relative; */
+    align-items: center;
+    overflow: hidden;
+    justify-content: center;
+    max-width: 100%;
+    min-height: 110px;
+    border-radius: 1rem;
+    border: 1px var(--border-color-2) solid;
+  }
+
+
+.commentsList{
+    /* margin-left: 1rem; */
+    padding: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    /* animation: grow 300ms ease-in    ; */
+}
+.commentsList:hover{
+    background-color: var(--bg-hover);
+}
+.commentsList>h2{
+    margin-block: 1rem;
+}
+.commentsList>div{
+    border: 1px solid var(--border-color-2);
+    border-radius: 1rem;
+
+}
+@keyframes grow {
+    0%{
+        height: 0;
+    }
+    100%{
+        height: fit-content;
+    }
+    
 }

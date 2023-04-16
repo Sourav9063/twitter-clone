@@ -3,7 +3,7 @@ import ProfileMidPosts from "./ProfileMidPosts";
 import ProfileMidFollowing from "./ProfileMidFollowing";
 import { useSession } from "next-auth/react";
 
-export default function ProfileMid({ data, posts }) {
+export default function ProfileMid({ setData, userData, posts }) {
   const [showWhat, setShowWhat] = useState("POSTS");
   const session = useSession();
   return (
@@ -53,14 +53,14 @@ export default function ProfileMid({ data, posts }) {
       {showWhat == "POSTS" && <ProfileMidPosts posts={posts} />}
       {showWhat == "FOLLOWING" && (
         <ProfileMidFollowing
-          showUnfollow={session.data?.user.id == data._id}
-          following={data.following}
+          showUnfollow={session.data?.user.id == userData._id}
+          following={userData.following}
         ></ProfileMidFollowing>
       )}
       {showWhat == "FOLLOWER" && (
         <ProfileMidFollowing
           header="Follower"
-          following={data.follower}
+          following={userData.follower}
         ></ProfileMidFollowing>
       )}
 

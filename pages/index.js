@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import style from "../styles/Home.module.css";
 import Image from "next/image";
 import TwitterLogo from "@/components/common/svg/TwitterLogo";
@@ -16,12 +16,16 @@ import ModalSignUpDiv from "@/components/modalComponents/signInDiv/ModalSignUpDi
 import { useRouter } from "next/router";
 import { HomeBottom } from "@/components/home/homeBottom/HomeBottom";
 import { useSession } from "next-auth/react";
-import PostDB from "@/db/models/postModel";
 import connectMongo from "@/db/dbConnect";
-
 import CommentBox from "@/components/modalComponents/CommentBox";
 import ModalTweet from "@/components/modalComponents/ModalTweet";
-import UserDB from "@/db/models/userModel";
+// import PostDB from "@/db/models/postModel";
+// import UserDB from "@/db/models/userModel";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
+import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
+import { RandomContext } from "@/providers/RandomProvider";
+import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
+import { TWEET_LIMIT } from "@/helper/constStrings";
 
 export async function getServerSideProps(context) {
   let postsArray = [];
@@ -32,12 +36,35 @@ export async function getServerSideProps(context) {
     // posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
 
     const [user, posts] = await Promise.all([
-      UserDB.find().limit(1),
-      PostDB.find().populate("owner").sort({ createdDate: -1 }),
+      UserDBV2.find().limit(1),
+      TweetDBV2.find({ type: { $in: ["tweet", "retweet"] } })
+        .populate({
+          path: "owner",
+          select: "username email image",
+        })
+        .populate({
+          path: "head",
+          populate: {
+            path: "owner",
+            select: "username email image",
+
+            // select: {},
+          },
+        })
+        .populate({
+          path: "commentsList",
+          // select: "tweetText",
+          populate: {
+            path: "owner",
+            select: "username image email _id",
+          },
+          options: { sort: { createdAt: -1 }, limit: 20 },
+        })
+        .sort({ createdAt: -1 })
+        .limit(TWEET_LIMIT),
     ]);
     postsArray = posts;
   } catch (e) {
-    
     error = e.message;
   }
 
@@ -53,6 +80,14 @@ export default function Home({ data, error }) {
   // const [ modal, ] = useContext(ModalContext)
   const router = useRouter();
   const session = useSession();
+  const [random] = useContext(RandomContext);
+  const [FeedTweets, setFeedTweets] = useContext(FeedTweetsContext);
+
+  useEffect(() => {
+    setFeedTweets([...data]);
+    return () => {};
+  }, []);
+
   return (
     <>
       <Head>
@@ -77,7 +112,7 @@ export default function Home({ data, error }) {
       )}
       {router.query.modal == "post" && (
         <ModalComponent>
-          <Post></Post>
+          <Post width="600px"></Post>
         </ModalComponent>
       )}
 
@@ -92,6 +127,15 @@ export default function Home({ data, error }) {
         </ModalComponent>
       )}
 
+      {router.query.modal == "edit-tweet" && (
+        <ModalComponent returnTo={"/"}>
+          <Post
+            returnTo={"/"}
+            width="600px"
+            tweetData={random.editTweet}
+          ></Post>
+        </ModalComponent>
+      )}
       <main className={style.body}>
         {/* <div>{data}</div> */}
         <HomeLeft></HomeLeft>

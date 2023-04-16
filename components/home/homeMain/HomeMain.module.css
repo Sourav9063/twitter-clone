@@ -11,7 +11,8 @@
     width: calc(var(--main-width) - 2px);
     left: 50%;
     transform: translateX(-50%); */
-    background-color: #ffffffc0;
+    background-color: var(--bg-op);
+    /* opacity: 3; */
     z-index: 2;
     padding: 1rem;
 }
@@ -22,6 +23,11 @@
     display: inline-block;
     overflow: scroll;
     scrollbar-width: none; */
+}
+.load{
+
+    width: 100%;
+    text-align: center;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

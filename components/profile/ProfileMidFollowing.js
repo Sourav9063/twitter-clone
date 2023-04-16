@@ -36,7 +36,7 @@ export default function ProfileMidFollowing({
                         what: "UNFOLLOW",
                       };
 
-                      const res = await fetch("/api/follow", {
+                      const res = await fetch("/api/v2/users/follow", {
                         method: "POST",
                         headers: {
                           "Content-Type": "application/json",

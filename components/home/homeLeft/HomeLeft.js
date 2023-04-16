@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./HomeLeft.module.css";
 import TwitterLogo from "@/components/common/svg/TwitterLogo";
 import Button from "@/components/common/button/button";
@@ -7,6 +7,7 @@ import ProfilePill from "@/components/profilePill/ProfilePill";
 import { useRouter } from "next/router";
 import { MODAL_QUERY_POST } from "@/helper/constStrings";
 import { useSession } from "next-auth/react";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 export default function HomeLeft() {
   // const [ modal, setModal ] = useContext(ModalContext)
@@ -52,6 +53,7 @@ export default function HomeLeft() {
                 </svg>
                 Settings
               </div>
+              <ThemeToggle></ThemeToggle>
             </div>
             {session.status == "authenticated" && (
               <Button onclick={onclick}></Button>

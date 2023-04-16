@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../button/button";
 import styles from "./SignUpDiv.module.css";
 // import { ModalContext } from '@/providers/ModalProvider';
 import TwitterLogo from "../svg/TwitterLogo";
 import { useRouter } from "next/router";
 import { MODAL_QUERY_SIGNIN, MODAL_QUERY_SIGNUP } from "@/helper/constStrings";
+import { signIn } from "next-auth/react";
 
 export default function SignUpDiv() {
   // const [ modal, setModal ] = useContext(ModalContext)
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   return (
     <div className={`${styles.signUpDiv}`}>
       <TwitterLogo></TwitterLogo>
@@ -29,10 +31,13 @@ export default function SignUpDiv() {
 
       <button
         className={`${styles.btnOutline} btn-primary`}
-        onClick={() => {
+        onClick={async () => {
           // modal.showSignUp = true;
           // setModal({ ...modal })
-          router.push("/" + MODAL_QUERY_SIGNUP);
+          // router.push("/" + MODAL_QUERY_SIGNUP);
+          setLoading(true);
+          const res = await signIn("github", { callbackUrl: "/" });
+          setLoading(false);
         }}
 
         // style={{
@@ -43,7 +48,7 @@ export default function SignUpDiv() {
         //     // marginBlock: "1rem"
         // }}
       >
-        Sign up with Github
+        {loading ? "Loading" : "Sign up with Github"}
       </button>
       <button
         className={`${styles.btnOutline} btn-primary`}

@@ -10,26 +10,26 @@ import React, { useState } from "react";
 import style from "../../components/tweet/tweet.module.css";
 import Button from "@/components/common/button/button";
 import Head from "next/head";
-import CommentDB from "@/db/models/commentModel";
-import PostDB from "@/db/models/postModel";
+// import CommentDB from "@/db/models/commentModel";
 import Comments from "@/components/common/comment/Comments";
 import mongoose from "mongoose";
 import { useSession } from "next-auth/react";
 import PostOption from "@/components/home/homeRight/postOption/PostOption";
 import ModalComponent from "@/components/modal/ModalComponent";
 import Post from "@/components/common/post/post";
+import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
+// import PostDB from "@/db/models/postModel";
 
 export async function getServerSideProps(context) {
   const { postid } = context.params;
-
+  // const postid = "6433b1a3f29fc1fe4788ccbf";
   let post = null;
   let comments = null;
   try {
     await connectMongo();
 
-    if (postid) {
+    if (postid != "undefined") {
       //
-      const start = Date.now();
       // post = await PostDB.findById(postid).populate({
       //   path: "owner",
       //   select: { follower: 0, following: 0 },
@@ -43,26 +43,43 @@ export async function getServerSideProps(context) {
       //   },
       // });
 
-      const promises = await Promise.all([
-        PostDB.findById(postid).populate({
-          path: "owner",
-          select: { follower: 0, following: 0 },
-        }),
-        CommentDB.findOne({ head: postid }).populate({
-          path: "nodes",
+      // const promises = await Promise.all([
+      //   TweetDBV2.findById(postid).populate({
+      //     path: "owner",
+      //     select: { follower: 0, following: 0 },
+      //   }),
+      //   TweetDBV2.findo({
+      //     head: postid,
+      //     type: "comment",
+      //   })
+      //     .populate({
+      //     path: "commentsList",
+      //     populate: {
+      //       path: "owner",
+      //       select: { follower: 0, following: 0 },
+      //     },
+      //   }),
+      // ]);
+
+      const postDB = await TweetDBV2.findById(postid)
+        .populate({ path: "owner", select: "_id username email image" })
+        .populate({
+          path: "commentsList",
+          // select: "tweetText",
           populate: {
             path: "owner",
-            select: { follower: 0, following: 0 },
+            select: "username image email _id",
           },
-        }),
-      ]);
-
-      post = promises[0];
-      comments = promises[1];
+          sort: { createdAt: -1 },
+          limit: 20,
+          options: { sort: { createdAt: -1 }, limit: 20 },
+        });
+      // post = promises[0];
+      // comments = promises[1];
+      comments = postDB.commentsList;
+      post = postDB;
     }
-  } catch (error) {
-    //
-  }
+  } catch (error) {}
 
   return {
     props: { tweet: JSON.stringify(post), comments: JSON.stringify(comments) },
@@ -72,12 +89,11 @@ export async function getServerSideProps(context) {
 export default function PostId({ tweet, comments }) {
   const router = useRouter();
   const curPath = router.asPath;
-  console.log(router);
   const [showEdit, setShowEdit] = useState(false);
   const session = useSession();
   const tweetN = JSON.parse(tweet);
   const commentN = JSON.parse(comments);
-  console.log(session);
+
   return (
     <>
       <Head>
@@ -88,14 +104,19 @@ export default function PostId({ tweet, comments }) {
       </Head>
       {router.query.modal == "edit-tweet" && (
         <ModalComponent returnTo={"/posts/" + tweetN._id}>
-          <Post eturnTo={"/posts/" + tweetN._id} tweetData={tweetN}></Post>
+          <Post returnTo={"/posts/" + tweetN._id} tweetData={tweetN}></Post>
         </ModalComponent>
       )}
       <main className="main">
         <HomeLeft />
         <div>
           <div className="glassPortion">
-            {tweetN && <h2>Tweet of {tweetN.owner.username}</h2>}
+            {tweetN && (
+              <h2>
+                {tweetN.type.charAt(0).toUpperCase() + tweetN.type.slice(1)} of{" "}
+                {tweetN.owner.username}
+              </h2>
+            )}
           </div>
           {tweetN && (
             <Tweet
@@ -104,16 +125,13 @@ export default function PostId({ tweet, comments }) {
               tweet={tweetN}
             ></Tweet>
           )}
-          {tweetN && <CommentBox head={tweetN._id}></CommentBox>}
-          {commentN?.nodes?.map((comment, index) => {
+          {tweetN && (
+            <CommentBox btnTxt="Comment" head={tweetN._id}></CommentBox>
+          )}
+          {commentN?.map((comment, index) => {
             return (
               <div key={comment._id}>
                 <Comments comment={comment}></Comments>
-                <CommentBox
-                  placeholder="Reply"
-                  marginLeft="3rem"
-                  head={comment._id}
-                ></CommentBox>
               </div>
             );
           })}
@@ -144,7 +162,7 @@ export default function PostId({ tweet, comments }) {
     width: calc(var(--main-width) - 2px);
     left: 50%;
     transform: translateX(-50%); */
-            background-color: #ffffffc0;
+            background-color: var(--bg-op);
             z-index: 2;
 
             padding: 1rem;
