@@ -19,22 +19,24 @@ export default function Messages({ _id, email }) {
 
   return (
     <section className={style.messages}>
-      <div className={styleList.glassPortion}>
-        <div className={styleList.header}>
-          {profile.user.username && <h3>{profile.user.username} </h3>}
-        </div>
-      </div>
       {profile ? (
         profile.user ? (
-          <section className={style.description}>
-            <Avatar image={profile.user.image}></Avatar>
-            <div className={style.name}>{profile.user.username}</div>
-            <p className={style.email}>@{profile.user.email}</p>
-            <p>{profile.user.bio}</p>
-            {profile.user.createdAt && (
-              <p>Joined {profile.user.createdAt.slice(0, 10)}</p>
-            )}
-          </section>
+          <>
+            <div className={styleList.glassPortion}>
+              <div className={styleList.header}>
+                {profile.user && <h3>{profile.user.username} </h3>}
+              </div>
+            </div>
+            <section className={style.description}>
+              <Avatar image={profile.user.image}></Avatar>
+              <div className={style.name}>{profile.user.username}</div>
+              <p className={style.email}>@{profile.user.email}</p>
+              <p>{profile.user.bio}</p>
+              {profile.user.createdAt && (
+                <p>Joined {profile.user.createdAt.slice(0, 10)}</p>
+              )}
+            </section>
+          </>
         ) : (
           <div>{profile.msg}</div>
         )
