@@ -8,7 +8,7 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
   const session = useSession();
   async function getUsers(number = 8) {
     try {
-      const res = await fetch("api/v2/users?number=" + number, {
+      const res = await fetch("/api/v2/users?number=" + number, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
