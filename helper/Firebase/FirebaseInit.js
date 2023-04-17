@@ -1,5 +1,6 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -16,5 +17,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const app = initializeApp(firebaseConfig);
+let app;
+let messaging
+try{ app = initializeApp(firebaseConfig);
 
+ messaging = getMessaging(app)
+} catch (e) {
+  console.log(e)
+ }
+export {app,messaging}
