@@ -14,7 +14,7 @@ const postMessages = async (req, res) => {
     const receiver = await UserDBV2.findOne({ email: receiverEmail });
     console.log(receiver.username);
 
-    const newMessage = await MessageDBV2.create({
+    const newMessage = await MessageDBV2({
       sender: sender._id,
       receiver: receiver._id,
       messages: [
@@ -38,7 +38,8 @@ const postMessages = async (req, res) => {
       .save()
       .then(() => console.log("message created"));
 
-    res.status(201).json({ status: true, data: savedMessage });
+    res.status(200).json({ status: true, data: savedMessage });
+    console.log(savedMessage);
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
