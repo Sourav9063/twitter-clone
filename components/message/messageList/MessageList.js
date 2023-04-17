@@ -28,7 +28,12 @@ export default function MessageList() {
       </div>
       <div
         className={styles["input-group"]}
-        style={{ boxSizing: "border-box", width: "90%", marginInline: "auto" }}
+        style={{
+          boxSizing: "border-box",
+          width: "90%",
+          marginInline: "auto",
+          marginTop: ".5rem",
+        }}
       >
         <input
           onChange={(e) => setSearch(e.target.value)}
