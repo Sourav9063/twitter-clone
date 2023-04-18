@@ -20,10 +20,40 @@ export default function Messages({ _id, email }) {
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
-    const msg = e.target.value;
-    setMessages(msg);
-    
-  }
+
+    console.log(messages);
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      senderEmail: "edge@gmail.com",
+      receiverEmail: "user@gmail.com",
+      body: messages,
+    });
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    async function sendRequest() {
+      try {
+        var response = await fetch(
+          "http://localhost:3000/api/v2/messages",
+          requestOptions
+        );
+        var result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    await sendRequest();
+  };
 
   return (
     <section className={style.messages}>
