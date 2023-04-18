@@ -1,10 +1,9 @@
-.messages{
+.messages {
   border-right: 1px solid var(--border-color);
   width: var(--main-width);
-
 }
 
-.description{
+.description {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -14,9 +13,9 @@
   padding: 0 1rem;
   /* background-color: #aeaeae; */
 }
-.description>p{
-  margin-bottom:1rem;
-  color: var( --text-color-tertiary);
+.description > p {
+  margin-bottom: 1rem;
+  color: var(--text-color-tertiary);
 }
 
 /* maruf */
@@ -67,15 +66,42 @@
 
 .input {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  padding-inline: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+.input :focus {
+  color: #374151;
+}
+.input textarea {
+  color: #374151;
+  border: none;
+  border-style: none;
+  overflow: hidden;
+  outline: none;
+  resize: none;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.005em;
+  color: #374151;
+  height: 45px;
+  width: 100%;
+  padding-top: 10px;
+  margin-block: 5px;
+  margin-inline: 10px;
 }
 
-.input textarea {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-  height: 150px;
-  margin-bottom: 10px;
+.picSVG {
+  width: 1.8rem;
+  color: var(--primary-color);
+  fill: currentColor;
+  box-sizing: content-box;
+  padding: 0.5rem;
+  border-radius: 10000px;
+}
+.picSVG:hover {
+  background-color: var(--hover-primary-trans-color);
+}
+.uploadPic {
+  width: 300px;
 }
