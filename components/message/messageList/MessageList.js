@@ -78,7 +78,7 @@ export default function MessageList({ setselectedID }) {
                 className={style.convo}
                 onClick={(e) => {
                   e.preventDefault();
-                  setselectedID(user._id);
+                  setselectedID(user);
                 }}
               >
                 <div className={style.convoAvatar}>

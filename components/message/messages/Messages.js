@@ -7,17 +7,20 @@ import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
 export default function Messages({ _id, email }) {
   console.log(_id);
-  const [profile, setProfile] = useState(null);
+  const [profile, setProfile] = useState(_id);
+
   const [messages, setMessages] = useState("");
   const session = useSession();
 
   useEffect(() => {
-    const getProfile = async () => {
-      const profile = await getUserbyEmailorID(null, _id);
-      console.log(profile);
-      setProfile(profile);
-    };
-    getProfile();
+    // const getProfile = async () => {
+    //   const profile = await getUserbyEmailorID(null, _id);
+    //   console.log(profile);
+    //   setProfile(profile);
+    // };
+    // getProfile();
+    setProfile({ ..._id });
+
     return () => {};
   }, [_id]);
 
@@ -26,22 +29,23 @@ export default function Messages({ _id, email }) {
 
     console.log(messages);
 
-    var myHeaders = new Headers();
+    const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
+    const raw = JSON.stringify({
       senderEmail: session.data.user.email,
       receiverEmail: profile.email,
       body: messages,
     });
 
-    var requestOptions = {
+    const requestOptions = {
       method: "POST",
       headers: myHeaders,
       body: raw,
       redirect: "follow",
     };
 
+    console.log(raw);
     async function sendRequest() {
       try {
         var response = await fetch(
@@ -61,20 +65,20 @@ export default function Messages({ _id, email }) {
   return (
     <section className={style.messages}>
       {profile ? (
-        profile.user ? (
+        profile ? (
           <>
             <div className={styleList.glassPortion}>
               <div className={styleList.header}>
-                {profile.user && <h3>{profile.user.username} </h3>}
+                {profile && <h3>{profile.username} </h3>}
               </div>
             </div>
             <section className={style.description}>
-              <Avatar image={profile.user.image}></Avatar>
-              <div className={style.name}>{profile.user.username}</div>
-              <p className={style.email}>@{profile.user.email}</p>
-              <p>{profile.user.bio}</p>
-              {profile.user.createdAt && (
-                <p>Joined {profile.user.createdAt.slice(0, 10)}</p>
+              <Avatar image={profile.image}></Avatar>
+              <div className={style.name}>{profile.username}</div>
+              <p className={style.email}>@{profile.email}</p>
+              <p>{profile.bio}</p>
+              {profile.createdAt && (
+                <p>Joined {profile.createdAt.slice(0, 10)}</p>
               )}
             </section>
 
