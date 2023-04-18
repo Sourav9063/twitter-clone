@@ -2,30 +2,26 @@ import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import MessageList from "@/components/message/messageList/MessageList";
 import Messages from "@/components/message/messages/Messages";
 
-import { messaging } from "@/helper/Firebase/FirebaseInit";
+// import { messaging } from "@/helper/Firebase/FirebaseInit";
 import { getToken } from "firebase/messaging";
 import { useSession } from "next-auth/react";
-
-// import UserDBV2 from "@/db/modelsV2/userModelV2";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-
+import { getMessaging, onMessage } from "firebase/messaging";
 export default function Message() {
- const session= useSession()
-
-  
+  const session = useSession();
+  const [selectedID, setselectedID] = useState(null);
 
   useEffect(() => {
     async function requestPermission() {
       const permission = await Notification.requestPermission();
+      const messaging = getMessaging();
       if (permission === "granted") {
         // Generate Token
         const token = await getToken(messaging, {
-          vapidKey:
-            process.env.FCM_VAPID_KEY,
+          vapidKey: process.env.FCM_VAPID_KEY,
         });
-   
-     
+
         try {
           const res = await fetch("/api/v2/users/token", {
             method: "PATCH",
@@ -34,15 +30,15 @@ export default function Message() {
             },
             body: JSON.stringify({
               _id: session.data.user._id,
-              token
-            })
-          })
-          const result =await  res.json()
-          console.log(result)
-          
+              token,
+            }),
+          });
+
+          const result = await res.json();
+
+          console.log(result);
         } catch (error) {
-          console.log(error)
-          
+          console.log(error);
         }
         // Send this token  to server ( db)
         //
@@ -51,8 +47,10 @@ export default function Message() {
         alert("You denied for the notification");
       }
     }
-    
-   if(session.data?.user._id){ requestPermission();}
+
+    if (session.data?.user._id) {
+      requestPermission();
+    }
   }, [session.data]);
   return (
     <>
@@ -64,8 +62,8 @@ export default function Message() {
       </Head>
       <main className="body">
         <HomeLeft></HomeLeft>
-        <MessageList></MessageList>
-        <Messages _id={"64326d06498c08c135977357"}></Messages>
+        <MessageList setselectedID={setselectedID}></MessageList>
+        <Messages _id={selectedID}></Messages>
       </main>
       <style jsx>{`
         .body {

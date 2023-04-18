@@ -4,44 +4,81 @@ import styleList from "../messageList/MessageList.module.css";
 import Loader from "@/components/common/loader/Loader";
 import { getUserbyEmailorID } from "@/helper/helperFunc/frontEnd";
 import Avatar from "@/components/common/avatar/avatar";
+import { useSession } from "next-auth/react";
 export default function Messages({ _id, email }) {
-  const [profile, setProfile] = useState(null);
+  console.log(_id);
+  const [profile, setProfile] = useState(_id);
+
   const [messages, setMessages] = useState("");
+  const session = useSession();
 
   useEffect(() => {
-    const getProfile = async () => {
-      const profile = await getUserbyEmailorID(null, _id);
-      console.log(profile);
-      setProfile(profile);
-    };
-    getProfile();
+    // const getProfile = async () => {
+    //   const profile = await getUserbyEmailorID(null, _id);
+    //   console.log(profile);
+    //   setProfile(profile);
+    // };
+    // getProfile();
+    setProfile({ ..._id });
+
     return () => {};
-  }, []);
+  }, [_id]);
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
-    const msg = e.target.value;
-    setMessages(msg);
-    
-  }
+
+    console.log(messages);
+
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      senderEmail: session.data.user.email,
+      receiverEmail: profile.email,
+      body: messages,
+    });
+
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow",
+    };
+
+    console.log(raw);
+    async function sendRequest() {
+      try {
+        var response = await fetch(
+          "http://localhost:3000/api/v2/messages",
+          requestOptions
+        );
+        var result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.log("error", error);
+      }
+    }
+
+    await sendRequest();
+  };
 
   return (
     <section className={style.messages}>
       {profile ? (
-        profile.user ? (
+        profile ? (
           <>
             <div className={styleList.glassPortion}>
               <div className={styleList.header}>
-                {profile.user && <h3>{profile.user.username} </h3>}
+                {profile && <h3>{profile.username} </h3>}
               </div>
             </div>
             <section className={style.description}>
-              <Avatar image={profile.user.image}></Avatar>
-              <div className={style.name}>{profile.user.username}</div>
-              <p className={style.email}>@{profile.user.email}</p>
-              <p>{profile.user.bio}</p>
-              {profile.user.createdAt && (
-                <p>Joined {profile.user.createdAt.slice(0, 10)}</p>
+              <Avatar image={profile.image}></Avatar>
+              <div className={style.name}>{profile.username}</div>
+              <p className={style.email}>@{profile.email}</p>
+              <p>{profile.bio}</p>
+              {profile.createdAt && (
+                <p>Joined {profile.createdAt.slice(0, 10)}</p>
               )}
             </section>
 

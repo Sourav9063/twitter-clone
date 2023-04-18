@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { getMessaging } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -13,16 +12,17 @@ const firebaseConfig = {
   storageBucket: "twitter-clone-c26b8.appspot.com",
   messagingSenderId: "774651560168",
   appId: "1:774651560168:web:db763f5679c7c4bfcb095d",
-  measurementId: "G-W4LJ30BMT2"
+  measurementId: "G-W4LJ30BMT2",
 };
 
 // Initialize Firebase
 let app;
-let messaging
-try{ app = initializeApp(firebaseConfig);
+let messaging;
+try {
+  app = initializeApp(firebaseConfig);
 
- messaging = getMessaging(app)
+  messaging = getMessaging(app);
 } catch (e) {
-  console.log(e)
- }
-export {app,messaging}
+  console.count("error");
+}
+export { app, messaging, firebaseConfig };
