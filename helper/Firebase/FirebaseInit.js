@@ -23,6 +23,6 @@ try {
 
   messaging = getMessaging(app);
 } catch (e) {
-  console.log(e);
+  console.count("error");
 }
 export { app, messaging, firebaseConfig };

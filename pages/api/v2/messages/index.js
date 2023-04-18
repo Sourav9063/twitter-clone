@@ -34,19 +34,20 @@ const postMessages = async (req, res) => {
       receiver: receiver._id,
     });
 
+    const mainData = {
+      sender: sender._id,
+      receiver: receiver._id,
+      senderUsername: sender.username,
+      senderEmail,
+      senderImage: sender.image,
+      receiverUsername: receiver.username,
+      receiverEmail,
+      receiverImage: receiver.image,
+      body: body,
+      //image,
+    };
     if (existingMessage) {
-      existingMessage.messages.push({
-        sender: sender._id,
-        receiver: receiver._id,
-        senderUsername: sender.username,
-        senderEmail,
-        senderImage: sender.image,
-        receiverUsername: receiver.username,
-        receiverEmail,
-        receiverImage: receiver.image,
-        body: body,
-        //image,
-      });
+      existingMessage.messages.push(mainData);
       await existingMessage.save();
 
       // res.status(200).json(existingMessage);
@@ -54,20 +55,7 @@ const postMessages = async (req, res) => {
       existingMessage = await MessageDBV2.create({
         sender: sender._id,
         receiver: receiver._id,
-        messages: [
-          {
-            sender: sender._id,
-            receiver: receiver._id,
-            senderUsername: sender.username,
-            senderEmail,
-            senderImage: sender.image,
-            receiverUsername: receiver.username,
-            receiverEmail,
-            receiverImage: receiver.image,
-            body: body,
-            //image,
-          },
-        ],
+        messages: [mainData],
       });
     }
     if (receiver.token) {
@@ -86,7 +74,7 @@ const postMessages = async (req, res) => {
         data: {
           key: "value",
           name: "sourav",
-          message: body,
+          message: JSON.stringify(mainData),
         },
         webpush: {
           headers: {
@@ -101,6 +89,7 @@ const postMessages = async (req, res) => {
     }
     res.status(201).json(existingMessage);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
 };

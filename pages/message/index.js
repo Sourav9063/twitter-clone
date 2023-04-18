@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
 export default function Message() {
   const session = useSession();
+
   useEffect(() => {
     async function requestPermission() {
       const permission = await Notification.requestPermission();

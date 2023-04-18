@@ -3,10 +3,17 @@
 // - the user clicks on an app notification created by a service worker
 //   `messaging.onBackgroundMessage` handler.
 import { getMessaging, onMessage } from "firebase/messaging";
-import { messaging } from "./FirebaseInit";
 
+// const messaging = getMessaging();
 
-onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
-  // ...
-});
+// messaging.onMessage(function (payload) {
+//   console.log(payload);
+// });
+
+export const onMessageListener = (messaging) =>
+  new Promise((resolve) => {
+    onMessage(messaging, (payload) => {
+      console.log("first");
+      resolve(payload);
+    });
+  });
