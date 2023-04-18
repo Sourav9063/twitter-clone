@@ -1,28 +1,57 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./Message.module.css";
 import styleList from "../messageList/MessageList.module.css";
 import Loader from "@/components/common/loader/Loader";
 import { getUserbyEmailorID } from "@/helper/helperFunc/frontEnd";
 import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
+import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 export default function Messages({ _id, email }) {
   console.log(_id);
   const [profile, setProfile] = useState(_id);
 
-  const [messages, setMessages] = useState("");
+  const [messages, setMessages] = useState();
+  const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
   const session = useSession();
+  console.log(profile);
+  useEffect(
+    () => {
+      // const getProfile = async () => {
+      //   const profile = await getUserbyEmailorID(null, _id);
+      //   console.log(profile);
+      //   setProfile(profile);
+      // };
+      // getProfile();
 
-  useEffect(() => {
-    // const getProfile = async () => {
-    //   const profile = await getUserbyEmailorID(null, _id);
-    //   console.log(profile);
-    //   setProfile(profile);
-    // };
-    // getProfile();
-    setProfile({ ..._id });
+      const requestOptions = {
+        method: "GET",
+        redirect: "follow",
+      };
 
-    return () => {};
-  }, [_id]);
+      async function getMessages() {
+        try {
+          const response = await fetch(
+            `http://localhost:3000/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
+            requestOptions
+          );
+          const result = await response.json();
+          console.log(result);
+          setRecentMessages(result.messages);
+        } catch (error) {
+          console.log("error", error);
+        }
+      }
+
+      if (session.data && _id) {
+        getMessages();
+      }
+      setProfile({ ..._id });
+
+      return () => {};
+    },
+    [_id],
+    session.data
+  );
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
@@ -113,6 +142,13 @@ export default function Messages({ _id, email }) {
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
             </div> */}
+            {recentMessgaes.map((msg) => {
+              return (
+                <div className={style.msg} key={msg._id}>
+                  {msg.body}
+                </div>
+              );
+            })}
             <div className={style.input}>
               <svg
                 className={style.picSVG}

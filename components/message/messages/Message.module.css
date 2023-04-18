@@ -110,3 +110,10 @@
 .uploadPic {
   width: 300px;
 }
+
+
+.msg{
+  margin: .5rem;
+  background-color: var(--border-color);
+  padding: 1rem;
+}

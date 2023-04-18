@@ -39,7 +39,7 @@ export default function HomeLeft() {
     onMessage(messaging, (payload) => {
       // recentMessage.push();
       const msg = JSON.parse(payload.data.message);
-      setRecentMessage([msg, ...recentMessage]);
+      setRecentMessage((state) => [msg, ...state]);
     });
 
     return () => {};
