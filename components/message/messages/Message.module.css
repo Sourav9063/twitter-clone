@@ -1,10 +1,9 @@
-.messages{
+.messages {
   border-right: 1px solid var(--border-color);
   width: var(--main-width);
-
 }
 
-.description{
+.description {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -14,7 +13,95 @@
   padding: 0 1rem;
   /* background-color: #aeaeae; */
 }
-.description>p{
-  margin-bottom:1rem;
-  color: var( --text-color-tertiary);
+.description > p {
+  margin-bottom: 1rem;
+  color: var(--text-color-tertiary);
+}
+
+/* maruf */
+.chatsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.msgOwn {
+  display: flex;
+  align-items: flex-start;
+  max-width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #d6eaf8;
+  border-radius: 10px 10px 0 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+}
+
+.msgOther {
+  display: flex;
+  max-width: 60%;
+  align-items: flex-end;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f1f1f1;
+  border-radius: 10px 10px 10px 0;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-right: auto;
+}
+
+.msgTimeOwn {
+  font-size: 0.8rem;
+  color: var(--text-color-tertiary);
+  margin-left: auto;
+}
+
+.msgTimeOther {
+  font-size: 0.8rem;
+  color: var(--text-color-tertiary);
+  margin-right: auto;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  padding-inline: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+.input :focus {
+  color: #374151;
+}
+.input textarea {
+  color: #374151;
+  border: none;
+  border-style: none;
+  overflow: hidden;
+  outline: none;
+  resize: none;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.005em;
+  color: #374151;
+  height: 45px;
+  width: 100%;
+  padding-top: 10px;
+  margin-block: 5px;
+  margin-inline: 10px;
+}
+
+.picSVG {
+  width: 1.8rem;
+  color: var(--primary-color);
+  fill: currentColor;
+  box-sizing: content-box;
+  padding: 0.5rem;
+  border-radius: 10000px;
+}
+.picSVG:hover {
+  background-color: var(--hover-primary-trans-color);
+}
+.uploadPic {
+  width: 300px;
 }
