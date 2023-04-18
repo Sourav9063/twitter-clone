@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
 export default function Message() {
   const session = useSession();
+  const [selectedID, setselectedID] = useState(null);
 
   useEffect(() => {
     async function requestPermission() {
@@ -61,8 +62,8 @@ export default function Message() {
       </Head>
       <main className="body">
         <HomeLeft></HomeLeft>
-        <MessageList></MessageList>
-        <Messages _id={"64326d06498c08c135977357"}></Messages>
+        <MessageList setselectedID={setselectedID}></MessageList>
+        <Messages _id={selectedID}></Messages>
       </main>
       <style jsx>{`
         .body {

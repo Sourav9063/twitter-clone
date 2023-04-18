@@ -4,9 +4,12 @@ import styleList from "../messageList/MessageList.module.css";
 import Loader from "@/components/common/loader/Loader";
 import { getUserbyEmailorID } from "@/helper/helperFunc/frontEnd";
 import Avatar from "@/components/common/avatar/avatar";
+import { useSession } from "next-auth/react";
 export default function Messages({ _id, email }) {
+  console.log(_id);
   const [profile, setProfile] = useState(null);
   const [messages, setMessages] = useState("");
+  const session = useSession();
 
   useEffect(() => {
     const getProfile = async () => {
@@ -16,7 +19,7 @@ export default function Messages({ _id, email }) {
     };
     getProfile();
     return () => {};
-  }, []);
+  }, [_id]);
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
@@ -27,8 +30,8 @@ export default function Messages({ _id, email }) {
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      senderEmail: "edge@gmail.com",
-      receiverEmail: "user@gmail.com",
+      senderEmail: session.data.user.email,
+      receiverEmail: profile.email,
       body: messages,
     });
 

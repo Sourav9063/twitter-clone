@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./MessageList.module.css";
 import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import Avatar from "@/components/common/avatar/avatar";
 
-export default function MessageList() {
+export default function MessageList({ setselectedID }) {
+  const [users, setUsers] = useState([]);
+  const session = useSession();
+  async function getUsers(number = 10000) {
+    try {
+      const res = await fetch("/api/v2/users?number=" + number, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const result = await res.json();
+
+      res.ok && setUsers(result.users);
+    } catch (error) {}
+  }
+  useEffect(() => {
+    getUsers();
+
+    return () => {};
+  }, []);
+
   return (
     <>
       <section className={style.list}>
@@ -48,34 +71,71 @@ export default function MessageList() {
           <label className={styles["user-label"]}>Search</label>
         </div>
         <div className={style.convoList}>
-          <div className={style.convo}>
-            <div className={style.convoAvatar}>
-              <Image
-                width={50}
-                height={50}
-                src="/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg"
-                alt="Avatar"
-                style={{
-                  borderRadius: "50%",
+          {users.map((user) => {
+            return (
+              <div
+                key={user._id}
+                className={style.convo}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setselectedID(user._id);
                 }}
-              ></Image>
-            </div>
-            <div className={style.convoDetails}>
-              <div className={style.convoHeader}>
-                <span className={style.convoName}>FARHAN MAHII</span>
-                <span className={style.convoUsername}>@farhanmahi</span>
-                <div class={style.dotCircle}></div>
+              >
+                <div className={style.convoAvatar}>
+                  {/* <img
+                    width={50}
+                    height={50}
+                    src={user.image}
+                    alt="Avatar"
+                    style={{
+                      borderRadius: "50%",
+                    }}
+                  ></img> */}
+                  <Avatar image={user.image} width="50px"></Avatar>
+                </div>
+                <div className={style.convoDetails}>
+                  <div className={style.convoHeader}>
+                    <span className={style.convoName}>{user.username}</span>
+                    <span className={style.convoUsername}>{user.email}</span>
+                    <div class={style.dotCircle}></div>
 
-                <span className={style.convoTime}>2s</span>
+                    {/* <span className={style.convoTime}>2s</span> */}
+                  </div>
+                  <div className={style.convoContent}>
+                    {/* <span>Hey, how are you?</span> */}
+                  </div>
+                </div>
               </div>
-              <div className={style.convoContent}>
-                <span>Hey, how are you?</span>
-              </div>
-            </div>
-          </div>
-          
+            );
+          })}
         </div>
       </section>
     </>
   );
 }
+
+// <div className={style.convo}>
+//             <div className={style.convoAvatar}>
+//               <Image
+//                 width={50}
+//                 height={50}
+//                 src="/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg"
+//                 alt="Avatar"
+//                 style={{
+//                   borderRadius: "50%",
+//                 }}
+//               ></Image>
+//             </div>
+//             <div className={style.convoDetails}>
+//               <div className={style.convoHeader}>
+//                 <span className={style.convoName}>FARHAN MAHII</span>
+//                 <span className={style.convoUsername}>@farhanmahi</span>
+//                 <div class={style.dotCircle}></div>
+
+//                 <span className={style.convoTime}>2s</span>
+//               </div>
+//               <div className={style.convoContent}>
+//                 <span>Hey, how are you?</span>
+//               </div>
+//             </div>
+//           </div>

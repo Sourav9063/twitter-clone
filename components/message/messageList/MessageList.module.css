@@ -74,6 +74,8 @@
   background-color: #fff;
   padding: 10px;
   border-radius: 10px;
+  overflow-y: scroll;
+  max-height: 80vh;
   
 }
 
@@ -104,6 +106,7 @@
 
 .convoHeader {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
