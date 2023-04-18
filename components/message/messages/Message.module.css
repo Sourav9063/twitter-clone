@@ -18,3 +18,64 @@
   margin-bottom:1rem;
   color: var( --text-color-tertiary);
 }
+
+/* maruf */
+.chatsContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.msgOwn {
+  display: flex;
+  align-items: flex-start;
+  max-width: 60%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #d6eaf8;
+  border-radius: 10px 10px 0 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+}
+
+.msgOther {
+  display: flex;
+  max-width: 60%;
+  align-items: flex-end;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f1f1f1;
+  border-radius: 10px 10px 10px 0;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin-right: auto;
+}
+
+.msgTimeOwn {
+  font-size: 0.8rem;
+  color: var(--text-color-tertiary);
+  margin-left: auto;
+}
+
+.msgTimeOther {
+  font-size: 0.8rem;
+  color: var(--text-color-tertiary);
+  margin-right: auto;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+.input textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  height: 150px;
+  margin-bottom: 10px;
+}
