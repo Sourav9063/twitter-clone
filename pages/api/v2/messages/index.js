@@ -7,11 +7,13 @@ const getAllMessages = async (req, res) => {
   try {
     const { senderId, receiverId } = req.query;
 
+    console.log(senderId, receiverId);
     // Find messages that match the sender ID and receiver ID
     const messages = await MessageDBV2.find({
-      "sender._id": senderId,
-      "receiver._id": receiverId,
-    });
+      sender: senderId,
+      receiver: receiverId,
+    }).sort({ createdAt: -1 });
+
     res.status(200).json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -75,7 +77,33 @@ const postMessages = async (req, res) => {
 };
 
 //Delete Message
-const deleteMessages = async (req, res) => {};
+const deleteMessages = async (req, res) => {
+  try {
+    const { messageId } = req.query;
+    const { senderId, receiverId } = req.body;
+
+    const message = await MessageDBV2.findOne({
+      "messages._id": messageId,
+      sender: senderId,
+      receiver: receiverId,
+    });
+    console.log(message.sender, message.receiver);
+
+    if (!message) {
+      return res.status(404).json({ error: "Message not found" });
+    }
+    //console.log(message);
+    message.messages = message.messages.filter(
+      (msg) => msg._id.toString() !== messageId
+    );
+
+    await message.save();
+
+    res.status(200).json({ message: "Message deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 export default async function handler(req, res) {
   await connectMongo();
