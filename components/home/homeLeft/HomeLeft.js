@@ -93,7 +93,18 @@ export default function HomeLeft() {
                 <Button onclick={onclick}></Button>
                 <div>
                   {recentMessage.map((msg, index) => {
-                    return <div key={index}>{msg.body}</div>;
+                    console.log(msg);
+                    return (
+                      <ProfilePill
+                        key={index}
+                        data={{
+                          _id: index,
+                          username: msg.senderUsername,
+                          email: msg.body,
+                          image: msg.senderImage,
+                        }}
+                      ></ProfilePill>
+                    );
                   })}
                 </div>
               </>
