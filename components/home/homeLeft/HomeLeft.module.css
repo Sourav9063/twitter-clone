@@ -54,3 +54,35 @@
     margin-right: 1rem;
     color: var(--text-color-primary);
 }
+.recentMessages{
+
+    max-height: 45vh;
+    overflow-y: scroll;
+}
+.recentMessages::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recentMessages {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+
+.recentMessage{
+    width: 100%;
+    border: 1px solid var(--border-color-2) ;
+    margin-block: .5rem;
+    border-radius: 1rem;
+
+}
+
+.recentMessage>p{
+      overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    max-lines: 2; 
+    padding: 1rem;
+}
