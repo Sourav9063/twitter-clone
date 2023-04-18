@@ -1,6 +1,8 @@
 import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import MessageDBV2 from "@/db/modelsV2/messageModelV2";
+import service from "./service.json";
+import * as admin from "firebase-admin";
 
 //Get Messages
 const getAllMessages = async (req, res) => {
@@ -25,9 +27,9 @@ const postMessages = async (req, res) => {
     const sender = await UserDBV2.findOne({ email: senderEmail });
     console.log(sender.username);
     const receiver = await UserDBV2.findOne({ email: receiverEmail });
-    console.log(receiver.username);
-
-    const existingMessage = await MessageDBV2.findOne({
+    console.log(receiver.token);
+    console.log(receiver);
+    let existingMessage = await MessageDBV2.findOne({
       sender: sender._id,
       receiver: receiver._id,
     });
@@ -46,9 +48,10 @@ const postMessages = async (req, res) => {
         //image,
       });
       await existingMessage.save();
-      res.status(200).json(existingMessage);
+
+      // res.status(200).json(existingMessage);
     } else {
-      const newMessage = await MessageDBV2.create({
+      existingMessage = await MessageDBV2.create({
         sender: sender._id,
         receiver: receiver._id,
         messages: [
@@ -66,9 +69,30 @@ const postMessages = async (req, res) => {
           },
         ],
       });
-
-      res.status(201).json(newMessage);
     }
+    if (receiver.token) {
+      if (admin.apps.length == 0) {
+        admin.initializeApp({
+          credential: admin.credential.cert(service),
+        });
+      }
+      const messaging = admin.messaging();
+      const msg = await messaging.send({
+        token: receiver.token,
+        data: {
+          key: "value",
+          name: "sourav",
+          message: body,
+        },
+        webpush: {
+          headers: {
+            Urgency: "high",
+          },
+        },
+      });
+      console.log(msg);
+    }
+    res.status(201).json(existingMessage);
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
