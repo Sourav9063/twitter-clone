@@ -80,8 +80,8 @@ const userSchemaV2 = new Schema(
       },
     ],
     token: {
-      type:String
-    }
+      type: String,
+    },
   },
   { timestamps: true }
 );

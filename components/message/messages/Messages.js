@@ -82,7 +82,7 @@ export default function Messages({ _id, email }) {
               )}
             </section>
 
-            <div className={style.chatsContainer}>
+            {/* <div className={style.chatsContainer}>
               <div className={style.msgOwn}>
                 Lorem ipsum dolor sit amet consectetur
               </div>
@@ -92,7 +92,7 @@ export default function Messages({ _id, email }) {
                 possimus.
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
-              {/* 2 */}
+
               <div className={style.msgOwn}>
                 Lorem ipsum dolor sit amet consectetur
               </div>
@@ -102,7 +102,7 @@ export default function Messages({ _id, email }) {
                 possimus.
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
-              {/* 3 */}
+
               <div className={style.msgOwn}>
                 Lorem ipsum dolor sit amet consectetur
               </div>
@@ -112,7 +112,7 @@ export default function Messages({ _id, email }) {
                 possimus.
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
-            </div>
+            </div> */}
             <div className={style.input}>
               <svg
                 className={style.picSVG}

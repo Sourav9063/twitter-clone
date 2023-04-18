@@ -99,7 +99,7 @@ export default function HomeLeft() {
                         key={index}
                         data={{
                           _id: index,
-                          username: msg.senderUsername,
+                          text: msg.senderUsername,
                           email: msg.body,
                           image: msg.senderImage,
                         }}
