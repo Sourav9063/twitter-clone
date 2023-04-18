@@ -79,6 +79,10 @@ const postMessages = async (req, res) => {
       const messaging = admin.messaging();
       const msg = await messaging.send({
         token: receiver.token,
+        notification: {
+          title: `${sender.username} sent you a message`,
+          body: `${body}`,
+        },
         data: {
           key: "value",
           name: "sourav",
@@ -87,6 +91,9 @@ const postMessages = async (req, res) => {
         webpush: {
           headers: {
             Urgency: "high",
+          },
+          fcm_options: {
+            link: "http://localhost:3000/message",
           },
         },
       });
