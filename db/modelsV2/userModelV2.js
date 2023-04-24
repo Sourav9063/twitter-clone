@@ -79,6 +79,9 @@ const userSchemaV2 = new Schema(
         ref: "TweetDBV2",
       },
     ],
+    token: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

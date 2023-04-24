@@ -9,11 +9,15 @@ import { MODAL_QUERY_POST } from "@/helper/constStrings";
 import { useSession } from "next-auth/react";
 import ThemeToggle from "@/components/common/ThemeToggle";
 import Link from "next/link";
+import { getMessaging, onMessage } from "firebase/messaging";
+import { onMessageListener } from "@/helper/Firebase/OnMessage";
+import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 
 export default function HomeLeft() {
   // const [ modal, setModal ] = useContext(ModalContext)
   const router = useRouter();
   const session = useSession();
+  const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
   const onclick = () => {
     // modal.showPostEditor = true;
     // setModal({ ...modal })
@@ -21,6 +25,25 @@ export default function HomeLeft() {
 
     router.push("/" + MODAL_QUERY_POST);
   };
+  useEffect(() => {
+    const messaging = getMessaging();
+
+    // onMessageListener(messaging)
+    //   .then((payload) => {
+    //     console.log(JSON.parse(payload.data.message));
+    //     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    onMessage(messaging, (payload) => {
+      // recentMessage.push();
+      const msg = JSON.parse(payload.data.message);
+      setRecentMessage((state) => [msg, ...state]);
+    });
+
+    return () => {};
+  }, []);
 
   return (
     <section className={style.left}>
@@ -67,7 +90,26 @@ export default function HomeLeft() {
               <ThemeToggle></ThemeToggle>
             </div>
             {session.status == "authenticated" && (
-              <Button onclick={onclick}></Button>
+              <>
+                <Button onclick={onclick}></Button>
+                <div className={style.recentMessages}>
+                  {recentMessage.map((msg, index) => {
+                    return (
+                      <div key={index} className={style.recentMessage}>
+                        <ProfilePill
+                          data={{
+                            _id: index,
+                            username: msg.senderUsername,
+                            // text: msg.body,
+                            image: msg.senderImage,
+                          }}
+                        ></ProfilePill>
+                        <p>{msg.body}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
             )}
           </section>
 
