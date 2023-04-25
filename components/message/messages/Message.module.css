@@ -2,10 +2,15 @@
   border-right: 1px solid var(--border-color);
   width: var(--main-width);
   height: 100vh;
-  overflow-y: scroll;
+  position: relative;
 }
 .messagesWraper{
-  margin-bottom: 100px;
+  margin-bottom: 200px;
+}
+.messagePortion{
+  height: 100vh;
+  overflow-y: scroll;
+
 }
 .description {
   display: flex;
@@ -30,7 +35,7 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  height: 400px;
+ 
   overflow-y: scroll;
 }
 
@@ -72,12 +77,16 @@
   color: var(--text-color-tertiary);
   position: relative;
   text-align: center;
+  margin-block: .5rem;
 }
 
 .input {
   position: absolute;
+  z-index: 10;
   bottom: 0;
-  width:calc( var(--main-width) - 5px);
+  left: 0;
+  /* width:calc( var(--main-width) - 5px); */
+  width: 100%;
   display: flex;
   
   justify-content: center;
@@ -87,8 +96,8 @@
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   background-color: var(--hover-primary-trans-color);
   border-radius: 1000px;
-  /* position: fixed;
-  bottom: 0; */
+  background-color: rgb(133 54 212 / 63%);
+ 
 }
 .input :focus {
 

@@ -113,75 +113,46 @@ export default function Messages({ _id, email }) {
                 {profile && <h3>{profile.username} </h3>}
               </div>
             </div>
-            <section className={style.description}>
-              <Avatar image={profile.image}></Avatar>
-              <div className={style.name}>{profile.username}</div>
-              <p className={style.email}>@{profile.email}</p>
-              <p>{profile.bio}</p>
-              {profile.createdAt && (
-                <p>Joined {profile.createdAt.slice(0, 10)}</p>
-              )}
-            </section>
 
-            {/* <div className={style.chatsContainer}>
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-            </div> */}
             {recentmessages.messages && (
-              <div className={style.messagesWraper} ref={messagesWraper}>
-                {recentmessages.messages.map((msg, index) => {
-                  index > 0 &&
-                    console.log(
-                      new Date(recentmessages.messages[index].createdAt) -
-                        new Date(recentmessages.messages[index - 1].createdAt)
-                    );
-                  return (
-                    <div key={msg._id}>
-                      {index > 0 &&
+              <div className={style.messagePortion}>
+                <section className={style.description}>
+                  <Avatar image={profile.image}></Avatar>
+                  <div className={style.name}>{profile.username}</div>
+                  <p className={style.email}>@{profile.email}</p>
+                  <p>{profile.bio}</p>
+                  {profile.createdAt && (
+                    <p>Joined {profile.createdAt.slice(0, 10)}</p>
+                  )}
+                </section>
+                <div className={style.messagesWraper} ref={messagesWraper}>
+                  {recentmessages.messages.map((msg, index) => {
+                    index > 0 &&
+                      console.log(
                         new Date(recentmessages.messages[index].createdAt) -
-                          new Date(
-                            recentmessages.messages[index - 1].createdAt
-                          ) >
-                          5 * 60 * 1000 && (
-                          <div className={`${style.msgTimeOther} `}>
-                            {/* {new Date(msg.createdAt)} */}
-                            {format(
-                              new Date(msg.createdAt),
-                              "dd/MM/yy hh:mm a"
-                            ).toString()}
-                          </div>
-                        )}
-                      <MessageComponent message={msg}></MessageComponent>
-                    </div>
-                  );
-                })}
+                          new Date(recentmessages.messages[index - 1].createdAt)
+                      );
+                    return (
+                      <div key={msg._id}>
+                        {index > 0 &&
+                          new Date(recentmessages.messages[index].createdAt) -
+                            new Date(
+                              recentmessages.messages[index - 1].createdAt
+                            ) >
+                            5 * 60 * 1000 && (
+                            <div className={`${style.msgTimeOther} `}>
+                              {/* {new Date(msg.createdAt)} */}
+                              {format(
+                                new Date(msg.createdAt),
+                                "dd/MM/yy hh:mm a"
+                              ).toString()}
+                            </div>
+                          )}
+                        <MessageComponent message={msg}></MessageComponent>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
             <div className={style.input}>
@@ -226,4 +197,38 @@ export default function Messages({ _id, email }) {
       )}
     </section>
   );
+}
+
+{
+  /* <div className={style.chatsContainer}>
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+            </div> */
 }
