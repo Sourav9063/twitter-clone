@@ -48,9 +48,18 @@ const getAllMessages = async (req, res) => {
 const postMessages = async (req, res) => {
   try {
     const { senderEmail, receiverEmail, body } = req.body;
-    const sender = await UserDBV2.findOne({ email: senderEmail });
+    const sender = await UserDBV2.findOne({ email: senderEmail }).select({
+      username: 1,
+      _id: 1,
+      image: 1,
+    });
     console.log(sender.username);
-    const receiver = await UserDBV2.findOne({ email: receiverEmail });
+    const receiver = await UserDBV2.findOne({ email: receiverEmail }).select({
+      username: 1,
+      _id: 1,
+      image: 1,
+      token: 1,
+    });
     console.log(receiver.token);
     console.log(receiver);
     let existingMessage = await MessageDBV2.findOne({
