@@ -162,4 +162,5 @@ margin-left: auto;
 .msgComponentNotMy{
   background-color: var(--primary-color);
   border-bottom-left-radius: .2rem;
+  color: white;
 }
