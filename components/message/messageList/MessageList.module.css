@@ -145,3 +145,8 @@
   margin-right: 5px;
 
 }
+
+.noti-bg{
+  background-color:var( --noti-bg-color);
+
+}

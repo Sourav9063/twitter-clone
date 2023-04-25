@@ -90,7 +90,9 @@ export default function Messages({ _id, email }) {
         );
         var result = await response.json();
         // console.log(result);
+        console.log(recentmessages);
         setRecentMessages((state) => {
+          console.log({ state });
           return { ...state, messages: result.messages };
         });
       } catch (error) {
