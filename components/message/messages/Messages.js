@@ -7,6 +7,7 @@ import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import MessageComponent from "./messageComponent";
+import { format } from "date-fns";
 export default function Messages({ _id, email }) {
   const [profile, setProfile] = useState(_id);
   const messagesWraper = useRef(null);
@@ -153,12 +154,30 @@ export default function Messages({ _id, email }) {
             </div> */}
             {recentmessages.messages && (
               <div className={style.messagesWraper} ref={messagesWraper}>
-                {recentmessages.messages.map((msg) => {
+                {recentmessages.messages.map((msg, index) => {
+                  index > 0 &&
+                    console.log(
+                      new Date(recentmessages.messages[index].createdAt) -
+                        new Date(recentmessages.messages[index - 1].createdAt)
+                    );
                   return (
-                    <MessageComponent
-                      message={msg}
-                      key={msg._id}
-                    ></MessageComponent>
+                    <div key={msg._id}>
+                      {index > 0 &&
+                        new Date(recentmessages.messages[index].createdAt) -
+                          new Date(
+                            recentmessages.messages[index - 1].createdAt
+                          ) >
+                          5 * 60 * 1000 && (
+                          <div className={`${style.msgTimeOther} `}>
+                            {/* {new Date(msg.createdAt)} */}
+                            {format(
+                              new Date(msg.createdAt),
+                              "dd/MM/yy hh:mm a"
+                            ).toString()}
+                          </div>
+                        )}
+                      <MessageComponent message={msg}></MessageComponent>
+                    </div>
                   );
                 })}
               </div>

@@ -61,13 +61,17 @@
 .msgTimeOwn {
   font-size: 0.8rem;
   color: var(--text-color-tertiary);
-  margin-left: auto;
+  position: relative;
+  left: 50%;
+  top: 50%;
 }
 
 .msgTimeOther {
+  width: 100%;
   font-size: 0.8rem;
   color: var(--text-color-tertiary);
-  margin-right: auto;
+  position: relative;
+  text-align: center;
 }
 
 .input {

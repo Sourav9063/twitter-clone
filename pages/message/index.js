@@ -59,7 +59,7 @@ export default function Message() {
       <main className="body">
         <HomeLeft></HomeLeft>
         <MessageList setselectedID={setselectedID}></MessageList>
-        <Messages _id={selectedID}></Messages>
+        {selectedID && <Messages _id={selectedID}></Messages>}
       </main>
       <style jsx>{`
         .body {
