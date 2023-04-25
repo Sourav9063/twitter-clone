@@ -25,7 +25,7 @@ export default function HomeLeft() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-      console.log(recentMessage);
+
       setRecentMessage((state) => {
         return {
           showNotification: true,

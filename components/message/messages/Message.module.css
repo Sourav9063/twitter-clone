@@ -3,15 +3,23 @@
   width: var(--main-width);
   height: 100vh;
   position: relative;
+  overflow: hidden;
 }
 .messagesWraper{
-  margin-bottom: 200px;
+
+ 
 }
 .messagePortion{
+  position: absolute;
+  top: 0;
+  left : 0;
+  right: 0;
   height: 100vh;
   overflow-y: scroll;
+  padding-block: 150px;
 
 }
+
 .description {
   display: flex;
   flex-direction: column;
@@ -85,6 +93,8 @@
   z-index: 10;
   bottom: 0;
   left: 0;
+  backdrop-filter: blur(4px);
+
   /* width:calc( var(--main-width) - 5px); */
   width: 100%;
   display: flex;
@@ -97,6 +107,7 @@
   background-color: var(--hover-primary-trans-color);
   border-radius: 1000px;
   background-color: rgb(133 54 212 / 63%);
+  border-bottom-right-radius: 0px;
  
 }
 .input :focus {

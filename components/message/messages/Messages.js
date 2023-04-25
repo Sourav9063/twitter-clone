@@ -18,13 +18,8 @@ export default function Messages({ _id, email }) {
 
   useEffect(
     () => {
-      // const getProfile = async () => {
-      //   const profile = await getUserbyEmailorID(null, _id);
-      //
-      //   setProfile(profile);
-      // };
-      // getProfile();
       messagesWraper.current?.scrollIntoView({ behavior: "smooth" });
+
       const requestOptions = {
         method: "GET",
         redirect: "follow",
@@ -89,10 +84,9 @@ export default function Messages({ _id, email }) {
           requestOptions
         );
         var result = await response.json();
-        // console.log(result);
-        console.log(recentmessages);
+        //
+
         setRecentMessages((state) => {
-          console.log({ state });
           return { ...state, messages: result.messages };
         });
       } catch (error) {
@@ -127,11 +121,6 @@ export default function Messages({ _id, email }) {
                 </section>
                 <div className={style.messagesWraper} ref={messagesWraper}>
                   {recentmessages.messages.map((msg, index) => {
-                    index > 0 &&
-                      console.log(
-                        new Date(recentmessages.messages[index].createdAt) -
-                          new Date(recentmessages.messages[index - 1].createdAt)
-                      );
                     return (
                       <div key={msg._id}>
                         {index > 0 &&

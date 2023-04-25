@@ -67,6 +67,7 @@ export default function Message() {
           height: 100vh;
           height: 100dvh;
           display: flex;
+          overflow: hidden;
         }
         .left {
           margin-right: 1rem;
