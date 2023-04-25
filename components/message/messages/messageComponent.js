@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import style from "./Message.module.css";
 import Avatar from "@/components/common/avatar/avatar";
 export default function MessageComponent({ message }) {
-  console.log(message);
+  //console.log(message);
   const session = useSession();
   const [isMy, setIsMy] = useState(false);
   useEffect(() => {
-    console.log("effect");
+    //console.log("effect");
     setIsMy(session.data?.user.id === message.sender);
-    console.log(session.data.user.id);
-    console.log(message);
+    //console.log(session.data.user.id);
+    //console.log(message);
 
     return () => {};
   }, [session.data, message.sender]);

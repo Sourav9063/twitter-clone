@@ -8,22 +8,27 @@ import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import MessageComponent from "./messageComponent";
 export default function Messages({ _id, email }) {
+  const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
+  const session = useSession();
+  const id = {
+    _id: recentMessgaes[0]?.receiver,
+    email: recentMessgaes[0]?.receiverEmail,
+    username: recentMessgaes[0]?.receiverUsername,
+    image: recentMessgaes[0]?.receiverImage,
+  };
+  //_id = id;
+  console.log(id);
   console.log(_id);
-  const [profile, setProfile] = useState(_id);
+  const [profile, setProfile] = useState(id);
+  //setProfile({ ...recentMessgaes[0]?.receiver });
   const messagesWraper = useRef(null);
 
   const [messages, setMessages] = useState();
-  const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
-  const session = useSession();
-  console.log(profile);
+
+  //console.log(profile);
+
   useEffect(
     () => {
-      // const getProfile = async () => {
-      //   const profile = await getUserbyEmailorID(null, _id);
-      //   console.log(profile);
-      //   setProfile(profile);
-      // };
-      // getProfile();
       messagesWraper.current?.scrollIntoView({ behavior: "smooth" });
       const requestOptions = {
         method: "GET",
@@ -37,10 +42,10 @@ export default function Messages({ _id, email }) {
             requestOptions
           );
           const result = await response.json();
-          console.log(result);
+          //console.log(result);
           setRecentMessages(result.messages);
         } catch (error) {
-          console.log("error", error);
+          //console.log("error", error);
         }
       }
 
@@ -116,37 +121,6 @@ export default function Messages({ _id, email }) {
               )}
             </section>
 
-            {/* <div className={style.chatsContainer}>
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-
-              <div className={style.msgOwn}>
-                Lorem ipsum dolor sit amet consectetur
-              </div>
-              <span className={style.msgTimeOwn}>11:44PM</span>
-              <div className={style.msgOther}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
-                possimus.
-              </div>
-              <span className={style.msgTimeOther}>11:44PM</span>
-            </div> */}
             <div className={style.messagesWraper} ref={messagesWraper}>
               {recentMessgaes.map((msg) => {
                 return (
