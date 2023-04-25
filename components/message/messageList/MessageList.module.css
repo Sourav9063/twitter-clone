@@ -71,7 +71,7 @@
 .convoList {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color:var(--bg);
   padding: 10px;
   border-radius: 10px;
   overflow-y: scroll;
@@ -91,7 +91,7 @@
 }
 
 .convo:hover {
-  background-color: #f5f8fa;
+  background-color:var(--bg-op);
 }
 
 .convoAvatar {
@@ -118,13 +118,13 @@
 
 .convoUsername {
   font-size: 14px;
-  color: #657786;
+  /* color: #657786; */
   margin-right: 5px;
 }
 
 .convoTime {
   font-size: 14px;
-  color: #657786;
+  /* color: #657786; */
 }
 
 .convoContent {
@@ -133,7 +133,7 @@
 
 .convoContent span {
   font-size: 16px;
-  color: #14171a;
+  /* color: #14171a; */
 }
 
 .dotCircle {
@@ -141,7 +141,7 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: var(--border-color);
   margin-right: 5px;
 
 }

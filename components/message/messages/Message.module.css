@@ -1,8 +1,12 @@
 .messages {
   border-right: 1px solid var(--border-color);
   width: var(--main-width);
+  height: 100vh;
+  overflow-y: scroll;
 }
-
+.messagesWraper{
+  margin-bottom: 100px;
+}
 .description {
   display: flex;
   flex-direction: column;
@@ -67,18 +71,26 @@
 }
 
 .input {
+  position: absolute;
+  bottom: 0;
+  width:calc( var(--main-width) - 5px);
   display: flex;
-  flex-direction: row;
-  padding-inline: 10px;
+  
+  justify-content: center;
+  align-items: center;
+
+  padding: .1rem 1rem ;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--hover-primary-trans-color);
+  border-radius: 1000px;
   /* position: fixed;
   bottom: 0; */
 }
 .input :focus {
-  color: #374151;
+
 }
 .input textarea {
-  color: #374151;
+
   border: none;
   border-style: none;
   overflow: hidden;
@@ -87,12 +99,12 @@
   font-size: 1.125rem;
   line-height: 1.75rem;
   letter-spacing: 0.005em;
-  color: #374151;
   height: 45px;
   width: 100%;
-  padding-top: 10px;
-  margin-block: 5px;
+  padding: .5rem;
+  margin: .5rem;
   margin-inline: 10px;
+  border-radius: 1000px;
 
 }
 
@@ -116,4 +128,34 @@
   margin: .5rem;
   background-color: var(--border-color);
   padding: 1rem;
+}
+
+.msgComponentWrapper{
+display: flex;
+justify-content: center;
+align-items: end;
+}
+
+.msgComponentDiv{
+  width: 100%;
+  position: relative;
+}
+.msgComponent{
+  max-width: 80%;
+  width: fit-content;
+  padding: 1rem .5rem;
+  margin: .1rem;
+  border-radius: 1rem;
+
+}
+
+.msgComponentMy{
+  background-color:var(--border-color);
+  border-bottom-right-radius: .2rem;
+margin-left: auto;
+}
+
+.msgComponentNotMy{
+  background-color: var(--primary-color);
+  border-bottom-left-radius: .2rem;
 }

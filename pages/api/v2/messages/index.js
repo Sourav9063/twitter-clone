@@ -11,13 +11,32 @@ const getAllMessages = async (req, res) => {
 
     console.log(senderId, receiverId);
     // Find messages that match the sender ID and receiver ID
+    // const messages = await MessageDBV2.findOne({
+    //   sender: senderId,
+    //   receiver: receiverId,
+    // }).sort({ "messages.createdAt": -1 });
     const messages = await MessageDBV2.findOne({
-      sender: senderId,
-      receiver: receiverId,
+      // cus_id: "643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536",
+      cus_id:
+        senderId >= receiverId ? senderId + receiverId : receiverId + senderId,
+    }).sort({ "messages.createdAt": -1 });
+    console.log(
+      senderId >= receiverId ? senderId + receiverId : receiverId + senderId
+    );
+    console.log(messages);
+
+    // if (!messages) {
+    //   return res.status(404).JSON({ msg: "Not found" });
+    // }
+
+    const messages2 = await MessageDBV2.findOne({
+      sender: receiverId,
+      receiver: senderId,
     }).sort({ "messages.createdAt": -1 });
 
     res.status(200).json(messages);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -26,14 +45,25 @@ const getAllMessages = async (req, res) => {
 const postMessages = async (req, res) => {
   try {
     const { senderEmail, receiverEmail, body } = req.body;
-    const sender = await UserDBV2.findOne({ email: senderEmail });
+    const sender = await UserDBV2.findOne({ email: senderEmail }).select({
+      username: 1,
+      _id: 1,
+      image: 1,
+    });
     console.log(sender.username);
-    const receiver = await UserDBV2.findOne({ email: receiverEmail });
+    const receiver = await UserDBV2.findOne({ email: receiverEmail }).select({
+      username: 1,
+      _id: 1,
+      image: 1,
+      token: 1,
+    });
     console.log(receiver.token);
     console.log(receiver);
     let existingMessage = await MessageDBV2.findOne({
-      sender: sender._id,
-      receiver: receiver._id,
+      cus_id:
+        sender._id >= receiver._id
+          ? sender._id + receiver._id
+          : receiver._id + sender._id,
     });
 
     const mainData = {
@@ -48,13 +78,22 @@ const postMessages = async (req, res) => {
       body: body,
       //image,
     };
+    console.log(mainData.cus_id);
     if (existingMessage) {
-      existingMessage.messages.push(mainData);
+      (existingMessage.cus_id =
+        sender._id >= receiver._id
+          ? sender._id + receiver._id
+          : receiver._id + sender._id),
+        existingMessage.messages.push(mainData);
       await existingMessage.save();
 
       // res.status(200).json(existingMessage);
     } else {
       existingMessage = await MessageDBV2.create({
+        cus_id:
+          sender._id >= receiver._id
+            ? sender._id + receiver._id
+            : receiver._id + sender._id,
         sender: sender._id,
         receiver: receiver._id,
         messages: [mainData],

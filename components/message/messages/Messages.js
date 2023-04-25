@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import style from "./Message.module.css";
 import styleList from "../messageList/MessageList.module.css";
 import Loader from "@/components/common/loader/Loader";
@@ -6,9 +6,11 @@ import { getUserbyEmailorID } from "@/helper/helperFunc/frontEnd";
 import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import MessageComponent from "./messageComponent";
 export default function Messages({ _id, email }) {
   console.log(_id);
   const [profile, setProfile] = useState(_id);
+  const messagesWraper = useRef(null);
 
   const [messages, setMessages] = useState();
   const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
@@ -22,7 +24,7 @@ export default function Messages({ _id, email }) {
       //   setProfile(profile);
       // };
       // getProfile();
-
+      messagesWraper.current?.scrollIntoView({ behavior: "smooth" });
       const requestOptions = {
         method: "GET",
         redirect: "follow",
@@ -57,6 +59,7 @@ export default function Messages({ _id, email }) {
     e.preventDefault();
 
     console.log(messages);
+    setMessages((state) => "");
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -83,7 +86,9 @@ export default function Messages({ _id, email }) {
         );
         var result = await response.json();
         console.log(result);
+        setRecentMessages(result.messages);
       } catch (error) {
+        setMessages(error.message);
         console.log("error", error);
       }
     }
@@ -142,13 +147,16 @@ export default function Messages({ _id, email }) {
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
             </div> */}
-            {recentMessgaes.map((msg) => {
-              return (
-                <div className={style.msg} key={msg._id}>
-                  {msg.body}
-                </div>
-              );
-            })}
+            <div className={style.messagesWraper} ref={messagesWraper}>
+              {recentMessgaes.map((msg) => {
+                return (
+                  <MessageComponent
+                    message={msg}
+                    key={msg._id}
+                  ></MessageComponent>
+                );
+              })}
+            </div>
             <div className={style.input}>
               <svg
                 className={style.picSVG}
@@ -163,6 +171,7 @@ export default function Messages({ _id, email }) {
                 placeholder="Start a new message"
                 name=""
                 id=""
+                value={messages}
                 cols="30"
                 rows="10"
                 onChange={(e) => {
