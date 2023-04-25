@@ -25,7 +25,7 @@ export default function HomeLeft() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-      setRecentMessage((state) => [msg, ...state]);
+      setRecentMessage((state) => [...state, msg]);
     });
 
     return () => {};
@@ -78,23 +78,39 @@ export default function HomeLeft() {
             {session.status == "authenticated" && (
               <>
                 <Button onclick={onclick}></Button>
-                <div className={style.recentMessages}>
-                  {recentMessage.map((msg, index) => {
-                    return (
-                      <div key={index} className={style.recentMessage}>
-                        <ProfilePill
-                          data={{
-                            _id: index,
-                            username: msg.senderUsername,
-                            // text: msg.body,
-                            image: msg.senderImage,
-                          }}
-                        ></ProfilePill>
-                        <p>{msg.body}</p>
-                      </div>
-                    );
-                  })}
-                </div>
+                {recentMessage?.length > 0 && (
+                  <div className={style.recentMessages}>
+                    <div className={style.recentMessage}>
+                      <ProfilePill
+                        data={{
+                          _id: recentMessage[recentMessage.length - 1],
+                          username:
+                            recentMessage[recentMessage.length - 1]
+                              .senderUsername,
+                          // text: msg.body,
+                          image:
+                            recentMessage[recentMessage.length - 1].senderImage,
+                        }}
+                      ></ProfilePill>
+                      <p>{recentMessage[recentMessage.length - 1].body}</p>
+                    </div>
+                    {/* {recentMessage.map((msg, index) => {
+                      return (
+                        <div key={index} className={style.recentMessage}>
+                          <ProfilePill
+                            data={{
+                              _id: index,
+                              username: msg.senderUsername,
+                              // text: msg.body,
+                              image: msg.senderImage,
+                            }}
+                          ></ProfilePill>
+                          <p>{msg.body}</p>
+                        </div>
+                      );
+                    })} */}
+                  </div>
+                )}
               </>
             )}
           </section>
