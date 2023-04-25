@@ -6,6 +6,7 @@ import { getUserbyEmailorID } from "@/helper/helperFunc/frontEnd";
 import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import MessageComponent from "./messageComponent";
 export default function Messages({ _id, email }) {
   console.log(_id);
   const [profile, setProfile] = useState(_id);
@@ -144,9 +145,10 @@ export default function Messages({ _id, email }) {
             </div> */}
             {recentMessgaes.map((msg) => {
               return (
-                <div className={style.msg} key={msg._id}>
-                  {msg.body}
-                </div>
+                <MessageComponent
+                  message={msg}
+                  key={msg._id}
+                ></MessageComponent>
               );
             })}
             <div className={style.input}>

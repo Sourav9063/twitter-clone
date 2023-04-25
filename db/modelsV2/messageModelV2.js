@@ -2,6 +2,9 @@ import { Schema, SchemaType, model, models } from "mongoose";
 
 const messageSchema = new Schema(
   {
+    cus_id: {
+      type: String,
+    },
     sender: {
       type: Schema.Types.ObjectId,
       ref: "UserDBV2",
@@ -57,6 +60,13 @@ const messageSchema = new Schema(
         createdAt: {
           type: Date,
           default: Date.now(),
+        },
+        seen: {
+          type: Boolean,
+          default: false,
+        },
+        seenAt: {
+          type: Date,
         },
       },
     ],

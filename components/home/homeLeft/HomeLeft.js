@@ -19,25 +19,11 @@ export default function HomeLeft() {
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
   const onclick = () => {
-    // modal.showPostEditor = true;
-    // setModal({ ...modal })
-    //
-
     router.push("/" + MODAL_QUERY_POST);
   };
   useEffect(() => {
     const messaging = getMessaging();
-
-    // onMessageListener(messaging)
-    //   .then((payload) => {
-    //     console.log(JSON.parse(payload.data.message));
-    //     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
     onMessage(messaging, (payload) => {
-      // recentMessage.push();
       const msg = JSON.parse(payload.data.message);
       setRecentMessage((state) => [msg, ...state]);
     });
@@ -121,3 +107,12 @@ export default function HomeLeft() {
     </section>
   );
 }
+
+// onMessageListener(messaging)
+//   .then((payload) => {
+//     console.log(JSON.parse(payload.data.message));
+//     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
+//   })
+//   .catch((e) => {
+//     console.log(e);
+//   });

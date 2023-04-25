@@ -117,3 +117,33 @@
   background-color: var(--border-color);
   padding: 1rem;
 }
+
+.msgComponentWrapper{
+display: flex;
+justify-content: center;
+align-items: end;
+}
+
+.msgComponentDiv{
+  width: 100%;
+  position: relative;
+}
+.msgComponent{
+  max-width: 80%;
+  width: fit-content;
+  padding: 1rem .5rem;
+  margin: .1rem;
+  border-radius: 1rem;
+
+}
+
+.msgComponentMy{
+  background-color:var(--border-color);
+  border-bottom-right-radius: .2rem;
+margin-left: auto;
+}
+
+.msgComponentNotMy{
+  background-color: var(--primary-color);
+  border-bottom-left-radius: .2rem;
+}
