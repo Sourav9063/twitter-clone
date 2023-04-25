@@ -32,6 +32,7 @@ export default function ProfilePill({
       <div className="names">
         <div className="name">{data.username}</div>
         <div className="username">{data.email}</div>
+        {data.text && <div>{data.text}</div>}
       </div>
       {children}
       {showOption && (

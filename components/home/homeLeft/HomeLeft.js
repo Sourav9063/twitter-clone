@@ -37,8 +37,9 @@ export default function HomeLeft() {
     //     console.log(e);
     //   });
     onMessage(messaging, (payload) => {
-      recentMessage.push(JSON.parse(payload.data.message));
-      setRecentMessage([...recentMessage]);
+      // recentMessage.push();
+      const msg = JSON.parse(payload.data.message);
+      setRecentMessage((state) => [msg, ...state]);
     });
 
     return () => {};
@@ -91,19 +92,20 @@ export default function HomeLeft() {
             {session.status == "authenticated" && (
               <>
                 <Button onclick={onclick}></Button>
-                <div>
+                <div className={style.recentMessages}>
                   {recentMessage.map((msg, index) => {
-                    console.log(msg);
                     return (
-                      <ProfilePill
-                        key={index}
-                        data={{
-                          _id: index,
-                          username: msg.senderUsername,
-                          email: msg.body,
-                          image: msg.senderImage,
-                        }}
-                      ></ProfilePill>
+                      <div key={index} className={style.recentMessage}>
+                        <ProfilePill
+                          data={{
+                            _id: index,
+                            username: msg.senderUsername,
+                            // text: msg.body,
+                            image: msg.senderImage,
+                          }}
+                        ></ProfilePill>
+                        <p>{msg.body}</p>
+                      </div>
                     );
                   })}
                 </div>

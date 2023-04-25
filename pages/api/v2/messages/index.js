@@ -11,10 +11,10 @@ const getAllMessages = async (req, res) => {
 
     console.log(senderId, receiverId);
     // Find messages that match the sender ID and receiver ID
-    const messages = await MessageDBV2.find({
+    const messages = await MessageDBV2.findOne({
       sender: senderId,
       receiver: receiverId,
-    }).sort({ createdAt: -1 });
+    }).sort({ "messages.createdAt": -1 });
 
     res.status(200).json(messages);
   } catch (err) {
