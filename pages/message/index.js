@@ -35,11 +35,7 @@ export default function Message() {
           });
 
           const result = await res.json();
-
-          console.log(result);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
         // Send this token  to server ( db)
         //
         // send to the UserDBV2

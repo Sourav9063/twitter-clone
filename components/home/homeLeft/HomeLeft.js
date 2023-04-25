@@ -25,11 +25,17 @@ export default function HomeLeft() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-      setRecentMessage((state) => [...state, msg]);
+      setRecentMessage((state) => {
+        return {
+          showNotification: true,
+          latestMessage: msg,
+          messages: [...state.messages, msg],
+        };
+      });
     });
 
     return () => {};
-  }, []);
+  }, [setRecentMessage]);
 
   return (
     <section className={style.left}>
@@ -78,21 +84,18 @@ export default function HomeLeft() {
             {session.status == "authenticated" && (
               <>
                 <Button onclick={onclick}></Button>
-                {recentMessage?.length > 0 && (
+                {recentMessage.latestMessage && (
                   <div className={style.recentMessages}>
                     <div className={style.recentMessage}>
                       <ProfilePill
                         data={{
-                          _id: recentMessage[recentMessage.length - 1],
-                          username:
-                            recentMessage[recentMessage.length - 1]
-                              .senderUsername,
+                          _id: recentMessage.latestMessage,
+                          username: recentMessage.latestMessage.senderUsername,
                           // text: msg.body,
-                          image:
-                            recentMessage[recentMessage.length - 1].senderImage,
+                          image: recentMessage.latestMessage.senderImage,
                         }}
                       ></ProfilePill>
-                      <p>{recentMessage[recentMessage.length - 1].body}</p>
+                      <p>{recentMessage.latestMessage.body}</p>
                     </div>
                     {/* {recentMessage.map((msg, index) => {
                       return (
@@ -126,9 +129,9 @@ export default function HomeLeft() {
 
 // onMessageListener(messaging)
 //   .then((payload) => {
-//     console.log(JSON.parse(payload.data.message));
+//
 //     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
 //   })
 //   .catch((e) => {
-//     console.log(e);
+//
 //   });

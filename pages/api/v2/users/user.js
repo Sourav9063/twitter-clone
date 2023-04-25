@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     try {
       await connectMongo();
-      console.log({ id, email });
+
       const user = await UserDBV2.findOne({
         $or: [{ _id: id }, { email: email }],
       });

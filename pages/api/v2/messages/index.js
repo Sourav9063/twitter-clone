@@ -12,7 +12,6 @@ const getAllMessages = async (req, res) => {
   try {
     const { senderId, receiverId } = req.query;
 
-    console.log(senderId, receiverId);
     // Find messages that match the sender ID and receiver ID
     // const messages = await MessageDBV2.findOne({
     //   sender: senderId,
@@ -23,10 +22,6 @@ const getAllMessages = async (req, res) => {
       cus_id:
         senderId >= receiverId ? senderId + receiverId : receiverId + senderId,
     }).sort({ "messages.createdAt": -1 });
-    console.log(
-      senderId >= receiverId ? senderId + receiverId : receiverId + senderId
-    );
-    console.log(messages);
 
     // if (!messages) {
     //   return res.status(404).JSON({ msg: "Not found" });
@@ -39,7 +34,6 @@ const getAllMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -53,15 +47,14 @@ const postMessages = async (req, res) => {
       _id: 1,
       image: 1,
     });
-    console.log(sender.username);
+
     const receiver = await UserDBV2.findOne({ email: receiverEmail }).select({
       username: 1,
       _id: 1,
       image: 1,
       token: 1,
     });
-    console.log(receiver.token);
-    console.log(receiver);
+
     let existingMessage = await MessageDBV2.findOne({
       cus_id:
         sender._id >= receiver._id
@@ -81,7 +74,7 @@ const postMessages = async (req, res) => {
       body: body,
       //image,
     };
-    console.log(mainData.cus_id);
+
     if (existingMessage) {
       (existingMessage.cus_id =
         sender._id >= receiver._id
@@ -129,11 +122,9 @@ const postMessages = async (req, res) => {
           },
         },
       });
-      console.log(msg);
     }
     res.status(201).json(existingMessage);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
 };
@@ -149,12 +140,11 @@ const deleteMessages = async (req, res) => {
       sender: senderId,
       receiver: receiverId,
     });
-    console.log(message.sender, message.receiver);
 
     if (!message) {
       return res.status(404).json({ error: "Message not found" });
     }
-    //console.log(message);
+    //
     message.messages = message.messages.filter(
       (msg) => msg._id.toString() !== messageId
     );

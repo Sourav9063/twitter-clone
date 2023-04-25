@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   }
   if (req.method == "DELETE") {
     const id = req.query;
-    console.log(id);
+
     try {
       // const session = await getServerSession(req, res, authOptions);
 
@@ -41,7 +41,6 @@ export default async function handler(req, res) {
       await CommentDB.findByIdAndDelete(id);
       return res.status(200).json({ msg: "Comment deleted" });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Internal server error", error });
     }
   }

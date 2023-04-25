@@ -19,10 +19,10 @@ export default function App({ Component, pageProps }) {
     const messaging = getMessaging(firebaseApp);
     // onMessageListener(messaging)
     //   .then((payload) => {
-    //     console.log(payload);
+    //
     //   })
     //   .catch((e) => {
-    //     console.log(e);
+    //
     //   });
 
     return () => {};

@@ -8,19 +8,18 @@ import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import MessageComponent from "./messageComponent";
 export default function Messages({ _id, email }) {
-  console.log(_id);
   const [profile, setProfile] = useState(_id);
   const messagesWraper = useRef(null);
 
   const [messages, setMessages] = useState();
-  const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
+  const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
   const session = useSession();
-  console.log(profile);
+
   useEffect(
     () => {
       // const getProfile = async () => {
       //   const profile = await getUserbyEmailorID(null, _id);
-      //   console.log(profile);
+      //
       //   setProfile(profile);
       // };
       // getProfile();
@@ -37,11 +36,17 @@ export default function Messages({ _id, email }) {
             requestOptions
           );
           const result = await response.json();
-          console.log(result);
-          setRecentMessages(result.messages);
-        } catch (error) {
-          console.log("error", error);
-        }
+
+          if (result) {
+            setRecentMessages((state) => {
+              return { ...state, messages: result.messages };
+            });
+          } else {
+            setRecentMessages((state) => {
+              return { ...state, messages: [] };
+            });
+          }
+        } catch (error) {}
       }
 
       if (session.data && _id) {
@@ -51,14 +56,13 @@ export default function Messages({ _id, email }) {
 
       return () => {};
     },
-    [_id],
+    [session.data, setRecentMessages, _id],
     session.data
   );
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
 
-    console.log(messages);
     setMessages((state) => "");
 
     const myHeaders = new Headers();
@@ -77,7 +81,6 @@ export default function Messages({ _id, email }) {
       redirect: "follow",
     };
 
-    console.log(raw);
     async function sendRequest() {
       try {
         var response = await fetch(
@@ -85,11 +88,12 @@ export default function Messages({ _id, email }) {
           requestOptions
         );
         var result = await response.json();
-        console.log(result);
-        setRecentMessages(result.messages);
+        // console.log(result);
+        setRecentMessages((state) => {
+          return { ...state, messages: result.messages };
+        });
       } catch (error) {
         setMessages(error.message);
-        console.log("error", error);
       }
     }
 
@@ -147,16 +151,18 @@ export default function Messages({ _id, email }) {
               </div>
               <span className={style.msgTimeOther}>11:44PM</span>
             </div> */}
-            <div className={style.messagesWraper} ref={messagesWraper}>
-              {recentMessgaes.map((msg) => {
-                return (
-                  <MessageComponent
-                    message={msg}
-                    key={msg._id}
-                  ></MessageComponent>
-                );
-              })}
-            </div>
+            {recentmessages.messages && (
+              <div className={style.messagesWraper} ref={messagesWraper}>
+                {recentmessages.messages.map((msg) => {
+                  return (
+                    <MessageComponent
+                      message={msg}
+                      key={msg._id}
+                    ></MessageComponent>
+                  );
+                })}
+              </div>
+            )}
             <div className={style.input}>
               <svg
                 className={style.picSVG}

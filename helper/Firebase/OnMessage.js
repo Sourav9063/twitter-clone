@@ -7,13 +7,12 @@ import { getMessaging, onMessage } from "firebase/messaging";
 // const messaging = getMessaging();
 
 // messaging.onMessage(function (payload) {
-//   console.log(payload);
+//
 // });
 
 export const onMessageListener = (messaging) =>
   new Promise((resolve) => {
     onMessage(messaging, (payload) => {
-      console.log("first");
       resolve(payload);
     });
   });
