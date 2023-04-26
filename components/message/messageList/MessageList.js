@@ -7,6 +7,7 @@ import Avatar from "@/components/common/avatar/avatar";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 
 export default function MessageList({ setselectedID }) {
+  const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
@@ -29,15 +30,40 @@ export default function MessageList({ setselectedID }) {
 
     return () => {};
   }, []);
-  const [value, setValue] = useState("");
+  const onSubmit = (e, str) => {
+    e.preventDefault();
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+    console.log(str);
+    async function fetchUser() {
+      try {
+        const response = await fetch(
+          "/api/v2/messages/searchUser?search=" + (str == "" ? str : search),
+          requestOptions
+        );
+        const result = await response.json();
+
+        if (response.ok) {
+          setUsers(result);
+        }
+      } catch (error) {}
+    }
+    fetchUser();
+  };
   const onChange = (event) => {
-    setValue(event.target.value);
+    setSearch(event.target.value);
+
+    if (event.target.value == "") {
+      onSubmit(event, "");
+    }
   };
-  const onSearch = (searchTerm) => {
-    setValue(searchTerm);
-    // our api to fetch the search result
-    console.log("search ", searchTerm);
-  };
+  // const onSearch = (searchTerm) => {
+  //   setValue(searchTerm);
+  //   // our api to fetch the search result
+  //
+  // };
 
   return (
     <>
@@ -63,26 +89,28 @@ export default function MessageList({ setselectedID }) {
             </div>
           </div>
         </div>
-        <div
-          className={styles["input-group"]}
-          style={{
-            boxSizing: "border-box",
-            width: "90%",
-            marginInline: "auto",
-            marginTop: ".5rem",
-          }}
-        >
-          <input
-            value={value}
-            onChange={onChange}
-            required
-            type="text"
-            name="Search"
-            placeholder="Hola"
-            className={`${styles["input"]} ${style["input"]}`}
-          />
-          <label className={styles["user-label"]}>Search</label>
-        </div>
+        <form onSubmit={onSubmit}>
+          <div
+            className={styles["input-group"]}
+            style={{
+              boxSizing: "border-box",
+              width: "90%",
+              marginInline: "auto",
+              marginTop: ".5rem",
+            }}
+          >
+            <input
+              value={search}
+              onChange={onChange}
+              type="text"
+              name="Search"
+              placeholder="Hola"
+              className={`${styles["input"]} ${style["input"]}`}
+            />
+            <label className={styles["user-label"]}>Search</label>
+          </div>
+          {/* <input type="submit"></input> */}
+        </form>
         <div className={style.convoList}>
           {users.map((user) => {
             return (

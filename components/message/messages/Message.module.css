@@ -12,12 +12,11 @@
 .messagePortion{
   position: absolute;
   top: 0;
-  left : 0;
+  left: 0;
   right: 0;
   height: 100vh;
   overflow-y: scroll;
   padding-block: 150px;
-
 }
 .messagePortion::-webkit-scrollbar {
   display: none;
@@ -53,7 +52,7 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
- 
+
   overflow-y: scroll;
 }
 
@@ -95,7 +94,7 @@
   color: var(--text-color-tertiary);
   position: relative;
   text-align: center;
-  margin-block: .5rem;
+  margin-block: 0.5rem;
 }
 
 .input {
@@ -108,23 +107,20 @@
   /* width:calc( var(--main-width) - 5px); */
   width: 100%;
   display: flex;
-  
+
   justify-content: center;
   align-items: center;
 
-  padding: .1rem 1rem ;
+  padding: 0.1rem 1rem;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   background-color: var(--hover-primary-trans-color);
   border-radius: 1000px;
-  background-color: rgb(133 54 212 / 63%);
+  background-color: rgba(66, 122, 187, 0.63);
   border-bottom-right-radius: 0px;
- 
 }
 .input :focus {
-
 }
 .input textarea {
-
   border: none;
   border-style: none;
   overflow: hidden;
@@ -135,11 +131,10 @@
   letter-spacing: 0.005em;
   height: 45px;
   width: 100%;
-  padding: .5rem;
-  margin: .5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
   margin-inline: 10px;
   border-radius: 1000px;
-
 }
 
 .picSVG {
@@ -157,41 +152,39 @@
   width: 300px;
 }
 
-
-.msg{
-  margin: .5rem;
+.msg {
+  margin: 0.5rem;
   background-color: var(--border-color);
   padding: 1rem;
 }
 
-.msgComponentWrapper{
-display: flex;
-justify-content: center;
-align-items: flex-end;
+.msgComponentWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
 
-.msgComponentDiv{
+.msgComponentDiv {
   width: 100%;
   position: relative;
 }
-.msgComponent{
+.msgComponent {
   max-width: 80%;
   width: fit-content;
-  padding: 1rem .5rem;
-  margin: .1rem;
+  padding: 1rem 0.5rem;
+  margin: 0.1rem;
   border-radius: 1rem;
   overflow: hidden;
-
 }
 
-.msgComponentMy{
-  background-color:var(--border-color);
-  border-bottom-right-radius: .2rem;
-margin-left: auto;
+.msgComponentMy {
+  background-color: var(--border-color);
+  border-bottom-right-radius: 0.2rem;
+  margin-left: auto;
 }
 
-.msgComponentNotMy{
+.msgComponentNotMy {
   background-color: var(--primary-color);
-  border-bottom-left-radius: .2rem;
+  border-bottom-left-radius: 0.2rem;
   color: white;
 }
