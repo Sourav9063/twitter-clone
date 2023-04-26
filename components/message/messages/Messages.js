@@ -27,7 +27,7 @@ export default function Messages({ _id, email }) {
       async function getMessages() {
         try {
           const response = await fetch(
-            `http://localhost:3000/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
+            `/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
             requestOptions
           );
           const result = await response.json();
