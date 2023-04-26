@@ -121,6 +121,20 @@ export default function Messages({ _id, email }) {
                 </section>
                 <div className={style.messagesWraper} ref={messagesWraper}>
                   {recentmessages.messages.map((msg, index) => {
+                    console.log(msg);
+                    let showAvatar;
+                    if (
+                      recentmessages.messages.length < 2 ||
+                      index == recentmessages.messages.length - 1
+                    ) {
+                      showAvatar = true;
+                    } else if (index < recentmessages.messages.length - 2) {
+                      showAvatar =
+                        recentmessages.messages[index + 1].senderEmail ===
+                        msg.senderEmail
+                          ? false
+                          : true;
+                    }
                     return (
                       <div key={msg._id}>
                         {index > 0 &&
@@ -137,7 +151,10 @@ export default function Messages({ _id, email }) {
                               ).toString()}
                             </div>
                           )}
-                        <MessageComponent message={msg}></MessageComponent>
+                        <MessageComponent
+                          showAvatar={showAvatar}
+                          message={msg}
+                        ></MessageComponent>
                       </div>
                     );
                   })}
