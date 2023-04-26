@@ -78,6 +78,17 @@
   max-height: 80vh;
   
 }
+.convoList::-webkit-scrollbar {
+  display: none;
+}
+
+.convoList {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 
 .convo {
   display: flex;

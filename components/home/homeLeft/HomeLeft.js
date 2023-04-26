@@ -77,7 +77,9 @@ export default function HomeLeft() {
                   )}
                   <svg
                     className={
-                      recentMessage.showNotification && style.notiShake
+                      recentMessage.showNotification
+                        ? style.notiShake
+                        : undefined
                     }
                     viewBox="0 0 24 24"
                     aria-hidden="true"

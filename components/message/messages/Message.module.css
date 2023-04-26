@@ -19,6 +19,16 @@
   padding-block: 150px;
 
 }
+.messagePortion::-webkit-scrollbar {
+  display: none;
+}
+
+.messagePortion {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
 
 .description {
   display: flex;
@@ -170,6 +180,7 @@ align-items: end;
   padding: 1rem .5rem;
   margin: .1rem;
   border-radius: 1rem;
+  overflow: hidden;
 
 }
 
