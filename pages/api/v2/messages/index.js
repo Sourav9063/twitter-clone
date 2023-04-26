@@ -39,18 +39,32 @@ const getAllMessages = async (req, res) => {
 const postMessages = async (req, res) => {
   try {
     const { senderEmail, receiverEmail, body } = req.body;
-    const sender = await UserDBV2.findOne({ email: senderEmail }).select({
-      username: 1,
-      _id: 1,
-      image: 1,
-    });
+    // const sender = await UserDBV2.findOne({ email: senderEmail }).select({
+    //   username: 1,
+    //   _id: 1,
+    //   image: 1,
+    // });
 
-    const receiver = await UserDBV2.findOne({ email: receiverEmail }).select({
-      username: 1,
-      _id: 1,
-      image: 1,
-      token: 1,
-    });
+    // const receiver = await UserDBV2.findOne({ email: receiverEmail }).select({
+    //   username: 1,
+    //   _id: 1,
+    //   image: 1,
+    //   token: 1,
+    // });
+
+    const [sender, receiver] = await Promise.all([
+      UserDBV2.findOne({ email: senderEmail }).select({
+        username: 1,
+        _id: 1,
+        image: 1,
+      }),
+      UserDBV2.findOne({ email: receiverEmail }).select({
+        username: 1,
+        _id: 1,
+        image: 1,
+        token: 1,
+      }),
+    ]);
 
     let existingMessage = await MessageDBV2.findOne({
       cus_id:
@@ -115,7 +129,7 @@ const postMessages = async (req, res) => {
             Urgency: "high",
           },
           fcm_options: {
-            link: "http://localhost:3000/message",
+            link: `http://localhost:3000/message?senderId=${receiver._id}&receiverId=${sender._id}`,
           },
         },
       });
@@ -154,8 +168,6 @@ const deleteMessages = async (req, res) => {
   }
 };
 
-
-
 export default async function handler(req, res) {
   await connectMongo();
   if (req.method == "GET") {
@@ -164,7 +176,7 @@ export default async function handler(req, res) {
     await postMessages(req, res);
   } else if (req.method == "DELETE") {
     await deleteMessages(req, res);
-  }  else {
+  } else {
     res.status(405).json({ message: "Method Not Allowed" });
   }
 }

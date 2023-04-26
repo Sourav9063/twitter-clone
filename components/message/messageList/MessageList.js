@@ -121,7 +121,7 @@ export default function MessageList({ setselectedID }) {
                   recentMessage.latestMessage?.sender === user._id &&
                   recentMessage.showNotification &&
                   style["noti-bg"]
-                }`}
+                } ${router.query.receiverId == user._id ? style.current : ""}`}
                 onClick={(e) => {
                   e.preventDefault();
                   setRecentMessage((state) => {

@@ -53,13 +53,12 @@ export async function getServerSideProps(context) {
     };
   } catch (e) {
     console.log(e);
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
   }
+  return {
+    props: {
+      receiver: null,
+    },
+  };
 }
 
 export default function Message({ receiver }) {

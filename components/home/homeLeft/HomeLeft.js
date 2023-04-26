@@ -20,7 +20,6 @@ export default function HomeLeft() {
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
   const [notification, setNotification] = useState([]);
   const onclick = () => {
-
     router.push("/" + MODAL_QUERY_POST);
   };
   useEffect(() => {
@@ -93,7 +92,7 @@ export default function HomeLeft() {
                   Message
                 </div>
               </Link>
-              <Link href={"/message"}>
+              {/* <Link href={"/message"}>
                 <div>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <g>
@@ -102,7 +101,7 @@ export default function HomeLeft() {
                   </svg>
                   Notification
                 </div>
-              </Link>
+              </Link> */}
               <ThemeToggle></ThemeToggle>
             </div>
             {session.status == "authenticated" && (

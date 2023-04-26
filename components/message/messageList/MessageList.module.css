@@ -164,3 +164,11 @@
   color: white;
 
 }
+
+.current{
+  background-color: var(--border-color-2);
+}
+
+.current:hover{
+  background-color: var(--border-color-2);
+}
