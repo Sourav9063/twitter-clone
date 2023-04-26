@@ -22,7 +22,5 @@ try {
   app = initializeApp(firebaseConfig);
 
   messaging = getMessaging(app);
-} catch (e) {
-  console.count("error");
-}
+} catch (e) {}
 export { app, messaging, firebaseConfig };

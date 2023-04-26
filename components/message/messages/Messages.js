@@ -7,29 +7,18 @@ import Avatar from "@/components/common/avatar/avatar";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import MessageComponent from "./messageComponent";
+import { format } from "date-fns";
+import MessagePortion from "./MessagePortion";
+import MessageInput from "./MessageInput";
 export default function Messages({ _id, email }) {
-  const [recentMessgaes, setRecentMessages] = useContext(RecentMessageContext);
-  const session = useSession();
-  const id = {
-    _id: recentMessgaes[0]?.receiver,
-    email: recentMessgaes[0]?.receiverEmail,
-    username: recentMessgaes[0]?.receiverUsername,
-    image: recentMessgaes[0]?.receiverImage,
-  };
-  //_id = id;
-  console.log(id);
-  console.log(_id);
-  const [profile, setProfile] = useState(id);
-  //setProfile({ ...recentMessgaes[0]?.receiver });
-  const messagesWraper = useRef(null);
+  const [profile, setProfile] = useState(_id);
 
   const [messages, setMessages] = useState();
-
-  //console.log(profile);
+  const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
+  const session = useSession();
 
   useEffect(
     () => {
-      messagesWraper.current?.scrollIntoView({ behavior: "smooth" });
       const requestOptions = {
         method: "GET",
         redirect: "follow",
@@ -42,11 +31,17 @@ export default function Messages({ _id, email }) {
             requestOptions
           );
           const result = await response.json();
-          //console.log(result);
-          setRecentMessages(result.messages);
-        } catch (error) {
-          //console.log("error", error);
-        }
+
+          if (result) {
+            setRecentMessages((state) => {
+              return { ...state, messages: result.messages };
+            });
+          } else {
+            setRecentMessages((state) => {
+              return { ...state, messages: [] };
+            });
+          }
+        } catch (error) {}
       }
 
       if (session.data && _id) {
@@ -56,14 +51,13 @@ export default function Messages({ _id, email }) {
 
       return () => {};
     },
-    [_id],
+    [session.data, setRecentMessages, _id],
     session.data
   );
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
 
-    console.log(messages);
     setMessages((state) => "");
 
     const myHeaders = new Headers();
@@ -82,7 +76,6 @@ export default function Messages({ _id, email }) {
       redirect: "follow",
     };
 
-    console.log(raw);
     async function sendRequest() {
       try {
         var response = await fetch(
@@ -90,11 +83,13 @@ export default function Messages({ _id, email }) {
           requestOptions
         );
         var result = await response.json();
-        console.log(result);
-        setRecentMessages(result.messages);
+        //
+
+        setRecentMessages((state) => {
+          return { ...state, messages: result.messages };
+        });
       } catch (error) {
         setMessages(error.message);
-        console.log("error", error);
       }
     }
 
@@ -111,27 +106,55 @@ export default function Messages({ _id, email }) {
                 {profile && <h3>{profile.username} </h3>}
               </div>
             </div>
-            <section className={style.description}>
-              <Avatar image={profile.image}></Avatar>
-              <div className={style.name}>{profile.username}</div>
-              <p className={style.email}>@{profile.email}</p>
-              <p>{profile.bio}</p>
-              {profile.createdAt && (
-                <p>Joined {profile.createdAt.slice(0, 10)}</p>
-              )}
-            </section>
+            {recentmessages.messages && <MessagePortion profile={profile} />}
+            <MessageInput profile={profile}></MessageInput>
+          </>
+        ) : (
+          <div>{profile.msg}</div>
+        )
+      ) : (
+        <Loader />
+      )}
+    </section>
+  );
+}
 
-            <div className={style.messagesWraper} ref={messagesWraper}>
-              {recentMessgaes.map((msg) => {
-                return (
-                  <MessageComponent
-                    message={msg}
-                    key={msg._id}
-                  ></MessageComponent>
-                );
-              })}
-            </div>
-            <div className={style.input}>
+{
+  /* <div className={style.chatsContainer}>
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+
+              <div className={style.msgOwn}>
+                Lorem ipsum dolor sit amet consectetur
+              </div>
+              <span className={style.msgTimeOwn}>11:44PM</span>
+              <div className={style.msgOther}>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil,
+                possimus.
+              </div>
+              <span className={style.msgTimeOther}>11:44PM</span>
+            </div> */
+}
+
+{
+  /* <div className={style.input}>
               <svg
                 className={style.picSVG}
                 viewBox="0 0 24 24"
@@ -163,14 +186,5 @@ export default function Messages({ _id, email }) {
                   </g>
                 </svg>
               </div>
-            </div>
-          </>
-        ) : (
-          <div>{profile.msg}</div>
-        )
-      ) : (
-        <Loader />
-      )}
-    </section>
-  );
+            </div> */
 }

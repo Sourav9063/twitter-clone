@@ -59,7 +59,7 @@ const messageSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: Date.now(),
+          default: Date.now,
         },
         seen: {
           type: Boolean,

@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./MessageList.module.css";
 import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Avatar from "@/components/common/avatar/avatar";
+import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 
 export default function MessageList({ setselectedID }) {
   const [users, setUsers] = useState([]);
   const session = useSession();
+  const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
+
   async function getUsers(number = 10000) {
     try {
       const res = await fetch("/api/v2/users?number=" + number, {
@@ -75,9 +78,19 @@ export default function MessageList({ setselectedID }) {
             return (
               <div
                 key={user._id}
-                className={style.convo}
+                className={`${style.convo} ${
+                  recentMessage.latestMessage?.sender === user._id &&
+                  recentMessage.showNotification &&
+                  style["noti-bg"]
+                }`}
                 onClick={(e) => {
                   e.preventDefault();
+                  setRecentMessage((state) => {
+                    return {
+                      ...state,
+                      showNotification: false,
+                    };
+                  });
                   setselectedID(user);
                 }}
               >
@@ -97,7 +110,7 @@ export default function MessageList({ setselectedID }) {
                   <div className={style.convoHeader}>
                     <span className={style.convoName}>{user.username}</span>
                     <span className={style.convoUsername}>{user.email}</span>
-                    <div class={style.dotCircle}></div>
+                    {/* <div class={style.dotCircle}></div> */}
 
                     {/* <span className={style.convoTime}>2s</span> */}
                   </div>

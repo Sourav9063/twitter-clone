@@ -2,11 +2,34 @@
   border-right: 1px solid var(--border-color);
   width: var(--main-width);
   height: 100vh;
-  overflow-y: scroll;
+  position: relative;
+  overflow: hidden;
 }
 .messagesWraper{
-  margin-bottom: 100px;
+
+ 
 }
+.messagePortion{
+  position: absolute;
+  top: 0;
+  left : 0;
+  right: 0;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-block: 150px;
+
+}
+.messagePortion::-webkit-scrollbar {
+  display: none;
+}
+
+.messagePortion {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 .description {
   display: flex;
   flex-direction: column;
@@ -30,7 +53,7 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  height: 400px;
+ 
   overflow-y: scroll;
 }
 
@@ -61,19 +84,29 @@
 .msgTimeOwn {
   font-size: 0.8rem;
   color: var(--text-color-tertiary);
-  margin-left: auto;
+  position: relative;
+  left: 50%;
+  top: 50%;
 }
 
 .msgTimeOther {
+  width: 100%;
   font-size: 0.8rem;
   color: var(--text-color-tertiary);
-  margin-right: auto;
+  position: relative;
+  text-align: center;
+  margin-block: .5rem;
 }
 
 .input {
   position: absolute;
+  z-index: 10;
   bottom: 0;
-  width:calc( var(--main-width) - 5px);
+  left: 0;
+  backdrop-filter: blur(4px);
+
+  /* width:calc( var(--main-width) - 5px); */
+  width: 100%;
   display: flex;
   
   justify-content: center;
@@ -83,8 +116,9 @@
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   background-color: var(--hover-primary-trans-color);
   border-radius: 1000px;
-  /* position: fixed;
-  bottom: 0; */
+  background-color: rgb(133 54 212 / 63%);
+  border-bottom-right-radius: 0px;
+ 
 }
 .input :focus {
 
@@ -146,6 +180,7 @@ align-items: end;
   padding: 1rem .5rem;
   margin: .1rem;
   border-radius: 1rem;
+  overflow: hidden;
 
 }
 
@@ -158,4 +193,5 @@ margin-left: auto;
 .msgComponentNotMy{
   background-color: var(--primary-color);
   border-bottom-left-radius: .2rem;
+  color: white;
 }

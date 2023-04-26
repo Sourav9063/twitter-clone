@@ -35,11 +35,7 @@ export default function Message() {
           });
 
           const result = await res.json();
-
-          console.log(result);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
         // Send this token  to server ( db)
         //
         // send to the UserDBV2
@@ -63,7 +59,7 @@ export default function Message() {
       <main className="body">
         <HomeLeft></HomeLeft>
         <MessageList setselectedID={setselectedID}></MessageList>
-        <Messages _id={selectedID}></Messages>
+        {selectedID && <Messages _id={selectedID}></Messages>}
       </main>
       <style jsx>{`
         .body {
@@ -71,6 +67,7 @@ export default function Message() {
           height: 100vh;
           height: 100dvh;
           display: flex;
+          overflow: hidden;
         }
         .left {
           margin-right: 1rem;
