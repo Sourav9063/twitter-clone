@@ -5,7 +5,11 @@ const handler = async (req, res) => {
     try {
         const { search } = req.query;
         const users = await UserDBV2.find({
-          username: { $regex: search, $options: "i" },
+          $or: [
+            { username: { $regex: search, $options: "i" } },
+            { name: { $regex: search, $options: "i" } },
+            { email: { $regex: search, $options: "i" } },
+          ]
         }).select({ username: 1, image: 1, email: 1 });
     
         res.status(200).json(users);
@@ -13,5 +17,6 @@ const handler = async (req, res) => {
         res.status(500).json({ error: err.message });
       }
 };
+
 
 export default handler;
