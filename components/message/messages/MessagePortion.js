@@ -1,5 +1,5 @@
 import Avatar from "@/components/common/avatar/avatar";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import MessageComponent from "./messageComponent";
 import style from "./Message.module.css";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
@@ -7,6 +7,11 @@ import { format } from "date-fns";
 
 export default function MessagePortion({ profile }) {
   const [recentmessages] = useContext(RecentMessageContext);
+  const lastmsg = useRef(null);
+  useEffect(() => {
+    lastmsg.current?.scrollIntoView({ behavior: "smooth" });
+    return () => {};
+  }, [recentmessages]);
 
   return (
     <div className={style.messagePortion}>
@@ -54,6 +59,7 @@ export default function MessagePortion({ profile }) {
           );
         })}
       </div>
+      <div ref={lastmsg}></div>
     </div>
   );
 }
