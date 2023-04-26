@@ -7,6 +7,7 @@ import Avatar from "@/components/common/avatar/avatar";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 
 export default function MessageList({ setselectedID }) {
+  const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
