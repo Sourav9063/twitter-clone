@@ -5,6 +5,10 @@ const messageSchema = new Schema(
     cus_id: {
       type: String,
     },
+    notification: {
+      type: Boolean,
+      default: false,
+    },
     sender: {
       type: Schema.Types.ObjectId,
       ref: "UserDBV2",
