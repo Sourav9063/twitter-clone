@@ -157,6 +157,8 @@ const deleteMessages = async (req, res) => {
   }
 };
 
+
+
 export default async function handler(req, res) {
   await connectMongo();
   if (req.method == "GET") {
@@ -165,7 +167,7 @@ export default async function handler(req, res) {
     await postMessages(req, res);
   } else if (req.method == "DELETE") {
     await deleteMessages(req, res);
-  } else {
+  }  else {
     res.status(405).json({ message: "Method Not Allowed" });
   }
 }
