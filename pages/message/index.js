@@ -8,9 +8,63 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
-export default function Message() {
+import connectMongo from "@/db/dbConnect";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
+
+export async function getServerSideProps(context) {
+  const { senderId, receiverId } = context.query;
+  console.log(senderId, receiverId);
+
+  try {
+    await connectMongo();
+    const [
+      user,
+      // messages
+    ] = await Promise.all([
+      UserDBV2.findOne({ _id: receiverId })
+        .populate("follower", "email username image _id")
+        .populate("following", "email username image _id"),
+      // TweetDBV2.find({ owner: id, type: { $in: ["tweet", "retweet"] } }).sort({
+      //   createdDate: -1,
+      // }),
+    ]);
+
+    // .select({ follower: 0, following: 0 })
+
+    if (!user) {
+      throw new Error("Not found");
+    }
+
+    // if (posts) {
+    //   posts.forEach((element, i) => {
+    //     posts[i].owner = user;
+    //   });
+    // }
+
+    // const session = await getServerSession(context.req, context.res, authOptions)
+    //
+    // const followDB = await FollowDB.findOne({ owner: session.user.id }).populate("follower following")
+
+    return {
+      props: {
+        receiver: JSON.parse(JSON.stringify(user)),
+        // posts: JSON.parse(JSON.stringify(posts)),
+      },
+    };
+  } catch (e) {
+    console.log(e);
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+}
+
+export default function Message({ receiver }) {
   const session = useSession();
-  const [selectedID, setselectedID] = useState(null);
+  const [selectedID, setselectedID] = useState(receiver);
 
   useEffect(() => {
     async function requestPermission() {

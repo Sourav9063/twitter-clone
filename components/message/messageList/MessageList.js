@@ -5,13 +5,14 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Avatar from "@/components/common/avatar/avatar";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import { useRouter } from "next/router";
 
 export default function MessageList({ setselectedID }) {
   const [search, setSearch] = useState("");
   const [users, setUsers] = useState([]);
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
-
+  const router = useRouter();
   async function getUsers(number = 10000) {
     try {
       const res = await fetch("/api/v2/users?number=" + number, {
@@ -130,6 +131,11 @@ export default function MessageList({ setselectedID }) {
                     };
                   });
                   setselectedID(user);
+                  router.push(
+                    `/message/?senderId=${session.data?.user.id}&receiverId=${user._id}`,
+                    undefined,
+                    { shallow: true }
+                  );
                 }}
               >
                 <div className={style.convoAvatar}>
