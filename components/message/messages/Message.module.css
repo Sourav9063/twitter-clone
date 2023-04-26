@@ -5,10 +5,10 @@
   position: relative;
   overflow: hidden;
 }
-.messagesWraper{
+/* .messagesWraper{
 
  
-}
+} */
 .messagePortion{
   position: absolute;
   top: 0;
@@ -167,7 +167,7 @@
 .msgComponentWrapper{
 display: flex;
 justify-content: center;
-align-items: end;
+align-items: flex-end;
 }
 
 .msgComponentDiv{
