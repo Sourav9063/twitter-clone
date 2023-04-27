@@ -6,9 +6,9 @@ import Avatar from "@/components/common/avatar/avatar";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import { useRouter } from "next/router";
 
-export default function MessageList({ setselectedID }) {
+export default function MessageList({ setselectedID, messages }) {
   const [search, setSearch] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState(messages);
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
   const router = useRouter();
@@ -26,10 +26,13 @@ export default function MessageList({ setselectedID }) {
     } catch (error) {}
   }
   useEffect(() => {
-    getUsers();
+    if (!messages) {
+      console.log("called");
+      getUsers();
+    }
 
     return () => {};
-  }, []);
+  }, [messages]);
   const onSubmit = (e, str) => {
     e.preventDefault();
     const requestOptions = {
@@ -106,49 +109,52 @@ export default function MessageList({ setselectedID }) {
           </div>
         </form>
         <div className={style.convoList}>
-          {users.map((user) => {
-            if (user.sender) {
-              user._id = user.sender;
-            }
-            return (
-              <div
-                key={user._id}
-                className={`${style.convo} ${
-                  recentMessage.latestMessage?.sender === user._id &&
-                  recentMessage.showNotification &&
-                  style["noti-bg"]
-                } ${router.query.receiverId == user._id ? style.current : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setRecentMessage((state) => {
-                    return {
-                      ...state,
-                      showNotification: false,
-                    };
-                  });
-                  setselectedID(user);
-                  router.push(
-                    `/message/?senderId=${session.data?.user.id}&receiverId=${user._id}`,
-                    undefined,
-                    { shallow: true }
-                  );
-                }}
-              >
-                <div className={style.convoAvatar}>
-                  <Avatar image={user.image} width="50px"></Avatar>
-                </div>
-                <div className={style.convoDetails}>
-                  <div className={style.convoHeader}>
-                    <span className={style.convoName}>{user.username}</span>
-                    <span className={style.convoUsername}>{user.email}</span>
+          {users &&
+            users.map((user) => {
+              if (user.sender) {
+                user._id = user.sender;
+              }
+              return (
+                <div
+                  key={user._id}
+                  className={`${style.convo} ${
+                    recentMessage.latestMessage?.sender === user._id &&
+                    recentMessage.showNotification &&
+                    style["noti-bg"]
+                  } ${
+                    router.query.receiverId == user._id ? style.current : ""
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setRecentMessage((state) => {
+                      return {
+                        ...state,
+                        showNotification: false,
+                      };
+                    });
+                    setselectedID(user);
+                    router.push(
+                      `/message/?senderId=${session.data?.user.id}&receiverId=${user._id}`,
+                      undefined,
+                      { shallow: true }
+                    );
+                  }}
+                >
+                  <div className={style.convoAvatar}>
+                    <Avatar image={user.image} width="50px"></Avatar>
                   </div>
-                  <div className={style.convoContent}>
-                    {/* <span>Hey, how are you?</span> */}
+                  <div className={style.convoDetails}>
+                    <div className={style.convoHeader}>
+                      <span className={style.convoName}>{user.username}</span>
+                      <span className={style.convoUsername}>{user.email}</span>
+                    </div>
+                    <div className={style.convoContent}>
+                      {/* <span>Hey, how are you?</span> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </section>
     </>

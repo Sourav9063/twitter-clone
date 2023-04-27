@@ -10,45 +10,44 @@ import React, { useEffect, useState } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
 import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
 
 export async function getServerSideProps(context) {
   const { senderId, receiverId } = context.query;
   console.log(senderId, receiverId);
-
+  let session;
+  if (!senderId) {
+    session = await getServerSession(
+      context.req,
+      context.res,
+      authOptions(context.req)
+    );
+  }
   try {
     await connectMongo();
-    const [
-      user,
-      // messages
-    ] = await Promise.all([
-      UserDBV2.findOne({ _id: receiverId })
-        .populate("follower", "email username image _id")
-        .populate("following", "email username image _id"),
-      // TweetDBV2.find({ owner: id, type: { $in: ["tweet", "retweet"] } }).sort({
-      //   createdDate: -1,
-      // }),
+    // console.log(session.user.id);
+    const [user, messages] = await Promise.all([
+      UserDBV2.findById(receiverId).select({
+        _id: 1,
+        username: 1,
+        image: 1,
+        email: 1,
+      }),
+      UserDBV2.findById(senderId ? senderId : session.user.id).select({
+        messages: 1,
+      }),
     ]);
 
-    // .select({ follower: 0, following: 0 })
-
-    if (!user) {
-      throw new Error("Not found");
-    }
-
-    // if (posts) {
-    //   posts.forEach((element, i) => {
-    //     posts[i].owner = user;
-    //   });
-    // }
-
-    // const session = await getServerSession(context.req, context.res, authOptions)
-    //
-    // const followDB = await FollowDB.findOne({ owner: session.user.id }).populate("follower following")
+    console.log(user);
+    console.log(messages);
 
     return {
       props: {
-        receiver: JSON.parse(JSON.stringify(user)),
-        // posts: JSON.parse(JSON.stringify(posts)),
+        receiver: user ? JSON.parse(JSON.stringify(user)) : null,
+        messages: messages
+          ? JSON.parse(JSON.stringify(messages.messages))
+          : null,
       },
     };
   } catch (e) {
@@ -57,11 +56,12 @@ export async function getServerSideProps(context) {
   return {
     props: {
       receiver: null,
+      messages: null,
     },
   };
 }
 
-export default function Message({ receiver }) {
+export default function Message({ receiver, messages }) {
   const session = useSession();
   const [selectedID, setselectedID] = useState(receiver);
 
@@ -111,7 +111,10 @@ export default function Message({ receiver }) {
       </Head>
       <main className="body">
         <HomeLeft></HomeLeft>
-        <MessageList setselectedID={setselectedID}></MessageList>
+        <MessageList
+          messages={messages}
+          setselectedID={setselectedID}
+        ></MessageList>
         {selectedID && <Messages _id={selectedID}></Messages>}
       </main>
       <style jsx>{`
