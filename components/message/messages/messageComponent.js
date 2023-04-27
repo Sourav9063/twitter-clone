@@ -8,7 +8,6 @@ export default function MessageComponent({ message, showAvatar }) {
   const [isMy, setIsMy] = useState(false);
   useEffect(() => {
     setIsMy(session.data?.user.id === message.sender);
-
     return () => {};
   }, [session.data, message.sender]);
 

@@ -62,6 +62,7 @@ export default function MessageInput({ profile }) {
         value={messages}
         cols="30"
         rows="10"
+        required
         onChange={(e) => {
           setMessages(e.target.value);
         }}

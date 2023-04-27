@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import style from "./MessageList.module.css";
 import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Avatar from "@/components/common/avatar/avatar";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
@@ -60,11 +59,6 @@ export default function MessageList({ setselectedID }) {
       onSubmit(event, "");
     }
   };
-  // const onSearch = (searchTerm) => {
-  //   setValue(searchTerm);
-  //   // our api to fetch the search result
-  //
-  // };
 
   return (
     <>
@@ -110,7 +104,6 @@ export default function MessageList({ setselectedID }) {
             />
             <label className={styles["user-label"]}>Search</label>
           </div>
-          {/* <input type="submit"></input> */}
         </form>
         <div className={style.convoList}>
           {users.map((user) => {
