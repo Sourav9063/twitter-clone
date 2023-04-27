@@ -17,43 +17,39 @@ export default function Messages({ _id, email }) {
   const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
   const session = useSession();
 
-  useEffect(
-    () => {
-      const requestOptions = {
-        method: "GET",
-        redirect: "follow",
-      };
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-      async function getMessages() {
-        try {
-          const response = await fetch(
-            `/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
-            requestOptions
-          );
-          const result = await response.json();
+    async function getMessages() {
+      try {
+        const response = await fetch(
+          `/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
+          requestOptions
+        );
+        const result = await response.json();
 
-          if (result) {
-            setRecentMessages((state) => {
-              return { ...state, messages: result.messages };
-            });
-          } else {
-            setRecentMessages((state) => {
-              return { ...state, messages: [] };
-            });
-          }
-        } catch (error) {}
-      }
+        if (result) {
+          setRecentMessages((state) => {
+            return { ...state, messages: result.messages };
+          });
+        } else {
+          setRecentMessages((state) => {
+            return { ...state, messages: [] };
+          });
+        }
+      } catch (error) {}
+    }
 
-      if (session.data && _id) {
-        getMessages();
-      }
-      setProfile({ ..._id });
+    if (session.data && _id) {
+      getMessages();
+    }
+    setProfile({ ..._id });
 
-      return () => {};
-    },
-    [session.data, setRecentMessages, _id],
-    session.data
-  );
+    return () => {};
+  }, [session.data, setRecentMessages, _id]);
 
   const handleSendMsg = async (e) => {
     e.preventDefault();

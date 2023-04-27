@@ -31,7 +31,7 @@ export default function MessagePortion({ profile }) {
             index == recentmessages.messages.length - 1
           ) {
             showAvatar = true;
-          } else if (index < recentmessages.messages.length - 2) {
+          } else if (index <= recentmessages.messages.length - 2) {
             showAvatar =
               recentmessages.messages[index + 1].senderEmail === msg.senderEmail
                 ? false

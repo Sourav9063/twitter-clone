@@ -85,7 +85,14 @@ export default function HomeLeft() {
                 </svg>
                 Settings
               </div>
-              <Link href={"/message"}>
+              <Link
+                // href={
+                //   recentMessage.latestMessage
+                //     ? `/message/?senderId=${session.data?.user.id}&receiverId=${recentMessage.latestMessage.sender}`
+                //     : "/message"
+                // }
+                href={"/message"}
+              >
                 <div className={style.message}>
                   {recentMessage.showNotification && (
                     <span className={style.notificaion}></span>
