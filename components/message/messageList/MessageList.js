@@ -114,6 +114,9 @@ export default function MessageList({ setselectedID }) {
         </form>
         <div className={style.convoList}>
           {users.map((user) => {
+            if (user.sender) {
+              user._id = user.sender;
+            }
             return (
               <div
                 key={user._id}

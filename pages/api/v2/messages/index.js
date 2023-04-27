@@ -57,12 +57,18 @@ const postMessages = async (req, res) => {
         username: 1,
         _id: 1,
         image: 1,
+        email: 1,
+        // messages: 1,
+        // notifications:1
       }),
       UserDBV2.findOne({ email: receiverEmail }).select({
         username: 1,
         _id: 1,
         image: 1,
+        email: 1,
         token: 1,
+        // messages: 1,
+        // notifications: 1,
       }),
     ]);
 
@@ -106,6 +112,16 @@ const postMessages = async (req, res) => {
         messages: [mainData],
       });
     }
+
+    // sender.messages.push({
+    //   sender: receiver._id,
+    //   chatID: existingMessage._id,
+    //   cus_id: existingMessage.cus_id,
+    //   senderUsername: receiver.username,
+    //   senderEmail: receiver.email,
+    //   senderImage: receiver.image,
+    // });
+
     if (receiver.token) {
       if (admin.apps.length == 0) {
         admin.initializeApp({
@@ -134,8 +150,64 @@ const postMessages = async (req, res) => {
         },
       });
     }
+    const [result1, result2, noti1, noti2] = await Promise.all([
+      UserDBV2.updateOne(
+        {
+          _id: sender._id,
+          "messages.sender": { $ne: receiver._id },
+        },
+        {
+          $addToSet: {
+            messages: {
+              sender: receiver._id,
+              chatID: existingMessage._id,
+              cus_id: existingMessage.cus_id,
+              username: receiver.username,
+              email: receiver.email,
+              image: receiver.image,
+            },
+          },
+        }
+      ),
+      UserDBV2.updateOne(
+        {
+          _id: receiver._id,
+          "messages.sender": { $ne: sender._id },
+        },
+        {
+          $addToSet: {
+            messages: {
+              sender: sender._id,
+              chatID: existingMessage._id,
+              cus_id: existingMessage.cus_id,
+              username: sender.username,
+              email: sender.email,
+              image: sender.image,
+            },
+          },
+        }
+      ),
+      UserDBV2.updateOne(
+        { _id: receiver._id },
+        {
+          $push: {
+            notifications: {
+              sender: sender._id,
+              chatID: existingMessage._id,
+              cus_id: existingMessage.cus_id,
+              senderUsername: sender.username,
+              senderEmail: sender.email,
+              senderImage: sender.image,
+              body: mainData.body,
+            },
+          },
+        }
+      ),
+    ]);
+    console.log(result1, result2);
     res.status(201).json(existingMessage);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
 };
@@ -180,3 +252,34 @@ export default async function handler(req, res) {
     res.status(405).json({ message: "Method Not Allowed" });
   }
 }
+
+// UserDBV2.updateOne(
+//   { _id: sender._id },
+//   {
+//     $addToSet: {
+//       messages: {
+//         sender: receiver._id,
+//         chatID: existingMessage._id,
+//         cus_id: existingMessage.cus_id,
+//         senderUsername: receiver.username,
+//         senderEmail: receiver.email,
+//         senderImage: receiver.image,
+//       },
+//     },
+//   }
+// );
+// UserDBV2.updateOne(
+//   { _id: receiver._id },
+//   {
+//     $addToSet: {
+//       messages: {
+//         sender: sender._id,
+//         chatID: existingMessage._id,
+//         cus_id: existingMessage.cus_id,
+//         senderUsername: sender.username,
+//         senderEmail: sender.email,
+//         senderImage: sender.image,
+//       },
+//     },
+//   }
+// );
