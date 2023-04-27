@@ -26,21 +26,35 @@ export default function HomeLeft() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-
+      console.log(router.query.receiverId);
+      console.log(msg.receiver);
+      console.log(msg.sender);
+      const newRecentMsg = {
+        showNotification: true,
+        latestMessage: msg,
+      };
+      if (router.query.receiverId && router.query.receiverId == msg.receiver) {
+        newRecentMsg.messages;
+      }
       setRecentMessage((state) => {
-        return {
-          showNotification: true,
-          latestMessage: msg,
-          messages: [...state.messages, msg],
-        };
+        if (router.query.receiverId && router.query.receiverId == msg.sender) {
+          console.log("is");
+          newRecentMsg.messages = [...state.messages, msg];
+        } else {
+          console.log("not");
+          newRecentMsg.messages = [...state.messages];
+        }
+        console.log(newRecentMsg);
+        return newRecentMsg;
       });
       setNotification((state) => [msg, ...state]);
     });
     return () => {};
-  }, [setRecentMessage]);
+  }, [setRecentMessage, router.query.receiverId]);
 
   return (
     <section className={style.left}>
+      {console.log("check")}
       <div>
         <div>
           <section>

@@ -150,7 +150,7 @@ const postMessages = async (req, res) => {
         },
       });
     }
-    const [result1, result2, noti1, noti2] = await Promise.all([
+    const [result1, result2, noti1] = await Promise.all([
       UserDBV2.updateOne(
         {
           _id: sender._id,
@@ -205,7 +205,7 @@ const postMessages = async (req, res) => {
       ),
     ]);
     console.log(result1, result2);
-    res.status(201).json(existingMessage);
+    res.status(201).json(mainData);
   } catch (error) {
     console.log(error);
     res.status(400).json({ success: false, error: error.message });

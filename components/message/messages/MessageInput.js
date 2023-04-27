@@ -39,7 +39,7 @@ export default function MessageInput({ profile }) {
         //
 
         setRecentMessages((state) => {
-          return { ...state, messages: result.messages };
+          return { ...state, messages: [...state.messages, result] };
         });
       } catch (error) {
         setMessages(error.message);
