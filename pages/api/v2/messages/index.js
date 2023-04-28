@@ -132,6 +132,7 @@ const postMessages = async (req, res) => {
     //   senderEmail: receiver.email,
     //   senderImage: receiver.image,
     // });
+    res.status(201).json(mainData);
 
     if (receiver.token) {
       if (admin.apps.length == 0) {
@@ -215,11 +216,10 @@ const postMessages = async (req, res) => {
         }
       ),
     ]);
-
-    res.status(201).json(mainData);
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
+  return;
 };
 
 //Delete Message
