@@ -6,6 +6,7 @@ import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import { format } from "date-fns";
 
 export default function MessagePortion({ profile }) {
+  const showTimeAfter = 10;
   const [recentmessages] = useContext(RecentMessageContext);
   const lastmsg = useRef(null);
   useEffect(() => {
@@ -42,7 +43,7 @@ export default function MessagePortion({ profile }) {
               {index > 0 &&
                 new Date(recentmessages.messages[index].createdAt) -
                   new Date(recentmessages.messages[index - 1].createdAt) >
-                  5 * 60 * 1000 && (
+                  showTimeAfter * 60 * 1000 && (
                   <div className={`${style.msgTimeOther} `}>
                     {/* {new Date(msg.createdAt)} */}
                     {format(

@@ -133,36 +133,66 @@ const postMessages = async (req, res) => {
     //   senderImage: receiver.image,
     // });
     res.status(201).json(mainData);
-
-    if (receiver.token) {
-      if (admin.apps.length == 0) {
-        admin.initializeApp({
-          credential: admin.credential.cert(service),
+    const sendNotification = async () => {
+      if (receiver.token) {
+        if (admin.apps.length == 0) {
+          admin.initializeApp({
+            credential: admin.credential.cert(service),
+          });
+        }
+        const messaging = admin.messaging();
+        const msg = await messaging.send({
+          token: receiver.token,
+          notification: {
+            title: `${sender.username} sent you a message`,
+            body: `${body}`,
+          },
+          data: {
+            key: "value",
+            name: "sourav",
+            message: JSON.stringify(mainData),
+          },
+          webpush: {
+            headers: {
+              Urgency: "high",
+            },
+            fcm_options: {
+              link: `http://localhost:3000/message?senderId=${receiver._id}&receiverId=${sender._id}`,
+            },
+          },
         });
       }
-      const messaging = admin.messaging();
-      const msg = await messaging.send({
-        token: receiver.token,
-        notification: {
-          title: `${sender.username} sent you a message`,
-          body: `${body}`,
-        },
-        data: {
-          key: "value",
-          name: "sourav",
-          message: JSON.stringify(mainData),
-        },
-        webpush: {
-          headers: {
-            Urgency: "high",
-          },
-          fcm_options: {
-            link: `http://localhost:3000/message?senderId=${receiver._id}&receiverId=${sender._id}`,
-          },
-        },
-      });
-    }
-    const [result1, result2, noti1] = await Promise.all([
+    };
+    // if (receiver.token) {
+    //   if (admin.apps.length == 0) {
+    //     admin.initializeApp({
+    //       credential: admin.credential.cert(service),
+    //     });
+    //   }
+    //   const messaging = admin.messaging();
+    //   const msg = await messaging.send({
+    //     token: receiver.token,
+    //     notification: {
+    //       title: `${sender.username} sent you a message`,
+    //       body: `${body}`,
+    //     },
+    //     data: {
+    //       key: "value",
+    //       name: "sourav",
+    //       message: JSON.stringify(mainData),
+    //     },
+    //     webpush: {
+    //       headers: {
+    //         Urgency: "high",
+    //       },
+    //       fcm_options: {
+    //         link: `http://localhost:3000/message?senderId=${receiver._id}&receiverId=${sender._id}`,
+    //       },
+    //     },
+    //   });
+    // }
+    const [, result1, result2, noti1] = await Promise.all([
+      sendNotification(),
       UserDBV2.updateOne(
         {
           _id: sender._id,
