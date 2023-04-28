@@ -15,7 +15,7 @@ import { getServerSession } from "next-auth";
 
 export async function getServerSideProps(context) {
   const { senderId, receiverId } = context.query;
-  console.log(senderId, receiverId);
+
   let session;
   if (!senderId) {
     session = await getServerSession(
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
   }
   try {
     await connectMongo();
-    // console.log(session.user.id);
+    //
     const [user, messages] = await Promise.all([
       UserDBV2.findById(receiverId).select({
         _id: 1,
@@ -39,9 +39,6 @@ export async function getServerSideProps(context) {
       }),
     ]);
 
-    console.log(user);
-    console.log(messages);
-
     return {
       props: {
         receiver: user ? JSON.parse(JSON.stringify(user)) : null,
@@ -50,9 +47,7 @@ export async function getServerSideProps(context) {
           : null,
       },
     };
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
   return {
     props: {
       receiver: null,
@@ -115,7 +110,7 @@ export default function Message({ receiver, messages }) {
           messages={messages}
           setselectedID={setselectedID}
         ></MessageList>
-        {selectedID && <Messages _id={selectedID}></Messages>}
+        {selectedID && <Messages receiver={selectedID}></Messages>}
       </main>
       <style jsx>{`
         .body {

@@ -19,6 +19,24 @@ const messageSchema = new Schema(
       ref: "UserDBV2",
       required: true,
     },
+    senderUsername: {
+      type: String,
+    },
+    senderEmail: {
+      type: String,
+    },
+    senderImage: {
+      type: String,
+    },
+    receiverUsername: {
+      type: String,
+    },
+    receiverEmail: {
+      type: String,
+    },
+    receiverImage: {
+      type: String,
+    },
     messages: [
       {
         sender: {

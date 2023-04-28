@@ -177,7 +177,7 @@ export default function User({ data, posts }) {
                     >
                       <Button
                         onclick={() => {
-                          // console.log(session.data.user);
+                          //
                           router.push({
                             pathname: "/message",
                             query: {

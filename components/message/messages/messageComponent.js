@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import style from "./Message.module.css";
 import Avatar from "@/components/common/avatar/avatar";
-export default function MessageComponent({ message, showAvatar }) {
+export default function MessageComponent({ message, sender, showAvatar }) {
   const session = useSession();
   const [isMy, setIsMy] = useState(false);
   useEffect(() => {
@@ -13,9 +13,7 @@ export default function MessageComponent({ message, showAvatar }) {
 
   return (
     <div className={style.msgComponentWrapper}>
-      {!isMy && showAvatar && (
-        <Avatar width="20px" image={message.senderImage} />
-      )}
+      {!isMy && showAvatar && <Avatar width="20px" image={sender.image} />}
       {!showAvatar && <div style={{ width: "22px" }}></div>}
 
       <div className={style.msgComponentDiv}>

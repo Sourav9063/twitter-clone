@@ -18,19 +18,30 @@ const getAllMessages = async (req, res) => {
       // cus_id: "643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536",
       cus_id:
         senderId >= receiverId ? senderId + receiverId : receiverId + senderId,
-    }).sort({ "messages.createdAt": -1 });
+    })
+      .sort({ "messages.createdAt": -1 })
+      .select({
+        "messages.createdAt": 1,
+        "messages.body": 1,
+        "messages.react": 1,
+        "messages.seen": 1,
+        "messages.seenAt": 1,
+        "messages.sender": 1,
+        "messages.receiver": 1,
+      });
 
     // if (!messages) {
     //   return res.status(404).JSON({ msg: "Not found" });
     // }
 
-    const messages2 = await MessageDBV2.findOne({
-      sender: receiverId,
-      receiver: senderId,
-    }).sort({ "messages.createdAt": -1 });
+    // const messages2 = await MessageDBV2.findOne({
+    //   sender: receiverId,
+    //   receiver: senderId,
+    // }).sort({ "messages.createdAt": -1 });
 
     res.status(200).json(messages);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -204,10 +215,9 @@ const postMessages = async (req, res) => {
         }
       ),
     ]);
-    console.log(result1, result2);
+
     res.status(201).json(mainData);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
 };

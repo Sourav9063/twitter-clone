@@ -84,7 +84,7 @@
     word-wrap: break-word;
     hyphens: auto;
     max-lines: 2; 
-    padding: 1rem;
+    padding: .4rem 1rem;
 }
 
 .message{

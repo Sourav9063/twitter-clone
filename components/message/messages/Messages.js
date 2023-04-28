@@ -10,12 +10,28 @@ import MessageComponent from "./messageComponent";
 import { format } from "date-fns";
 import MessagePortion from "./MessagePortion";
 import MessageInput from "./MessageInput";
-export default function Messages({ _id, email }) {
-  const [profile, setProfile] = useState(_id);
+export default function Messages({ receiver, email }) {
+  const [profile, setProfile] = useState(receiver);
 
   const [messages, setMessages] = useState();
   const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
   const session = useSession();
+
+  useEffect(() => {
+    setRecentMessages((state) => {
+      const newState = { ...state };
+      newState.latestMessages = state.latestMessages.filter(
+        (el) => el.sender !== receiver._id
+      );
+      if (newState.latestMessages.length == 0) {
+        newState.showNotification = false;
+      }
+
+      return newState;
+    });
+
+    return () => {};
+  }, [setRecentMessages, receiver]);
 
   useEffect(() => {
     const requestOptions = {
@@ -26,7 +42,7 @@ export default function Messages({ _id, email }) {
     async function getMessages() {
       try {
         const response = await fetch(
-          `/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${_id?._id}`,
+          `/api/v2/messages?senderId=${session.data?.user._id}&receiverId=${receiver?._id}`,
           requestOptions
         );
         const result = await response.json();
@@ -40,16 +56,18 @@ export default function Messages({ _id, email }) {
             return { ...state, messages: [] };
           });
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
-    if (session.data && _id) {
+    if (session.data && receiver) {
       getMessages();
     }
-    setProfile({ ..._id });
+    setProfile({ ...receiver });
 
     return () => {};
-  }, [session.data, setRecentMessages, _id]);
+  }, [session.data, setRecentMessages, receiver]);
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
@@ -102,8 +120,25 @@ export default function Messages({ _id, email }) {
                 {profile && <h3>{profile.username} </h3>}
               </div>
             </div>
-            {recentmessages.messages && <MessagePortion profile={profile} />}
-            <MessageInput profile={profile}></MessageInput>
+            <div
+              onClick={() => {
+                console.log("onClick");
+                setRecentMessages((state) => {
+                  const newState = { ...state };
+                  newState.latestMessages = state.latestMessages.filter(
+                    (el) => el.sender !== receiver._id
+                  );
+                  if (newState.latestMessages.length == 0) {
+                    newState.showNotification = false;
+                  }
+
+                  return newState;
+                });
+              }}
+            >
+              {recentmessages.messages && <MessagePortion profile={profile} />}
+              <MessageInput profile={profile}></MessageInput>
+            </div>
           </>
         ) : (
           <div>{profile.msg}</div>

@@ -7,6 +7,7 @@ export default function ProfilePill({
   margin = "0 0 0 0",
   showOption = true,
   children,
+  avaterWidth = "60px",
   data = {
     id: "64267f8ff436f703fb416b51",
     _id: "64267f8ff436f703fb416b51",
@@ -28,7 +29,7 @@ export default function ProfilePill({
         router.push("/profile?id=" + data._id);
       }}
     >
-      <Avatar width="60px" image={data.image}></Avatar>
+      <Avatar width={avaterWidth} image={data.image}></Avatar>
       <div className="names">
         <div className="name">{data.username}</div>
         <div className="username">{data.email}</div>

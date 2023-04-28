@@ -23,12 +23,11 @@ export default function HomeLeft() {
     router.push("/" + MODAL_QUERY_POST);
   };
   useEffect(() => {
+    const beat = new Audio("/sounds/noti_sound.wav");
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-      console.log(router.query.receiverId);
-      console.log(msg.receiver);
-      console.log(msg.sender);
+      beat.play();
       const newRecentMsg = {
         showNotification: true,
         latestMessage: msg,
@@ -38,13 +37,12 @@ export default function HomeLeft() {
       }
       setRecentMessage((state) => {
         if (router.query.receiverId && router.query.receiverId == msg.sender) {
-          console.log("is");
           newRecentMsg.messages = [...state.messages, msg];
         } else {
-          console.log("not");
           newRecentMsg.messages = [...state.messages];
         }
-        console.log(newRecentMsg);
+        newRecentMsg.latestMessages = [...state.latestMessages, msg];
+
         return newRecentMsg;
       });
       setNotification((state) => [msg, ...state]);
@@ -54,7 +52,6 @@ export default function HomeLeft() {
 
   return (
     <section className={style.left}>
-      {console.log("check")}
       <div>
         <div>
           <section>
@@ -130,7 +127,7 @@ export default function HomeLeft() {
                 <Button onclick={onclick}></Button>
                 {recentMessage.latestMessage && (
                   <div className={style.recentMessages}>
-                    <div className={style.recentMessage}>
+                    {/* <div className={style.recentMessage}>
                       <ProfilePill
                         data={{
                           _id: recentMessage.latestMessage,
@@ -140,22 +137,34 @@ export default function HomeLeft() {
                         }}
                       ></ProfilePill>
                       <p>{recentMessage.latestMessage.body}</p>
-                    </div>
-                    {/* {recentMessage.map((msg, index) => {
-                      return (
-                        <div key={index} className={style.recentMessage}>
-                          <ProfilePill
-                            data={{
-                              _id: index,
-                              username: msg.senderUsername,
-                              // text: msg.body,
-                              image: msg.senderImage,
+                    </div> */}
+                    {recentMessage.latestMessages &&
+                      recentMessage.latestMessages.map((msg, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={(e) => {
+                              router.replace(
+                                recentMessage.latestMessage
+                                  ? `/message/?senderId=${session.data?.user.id}&receiverId=${msg.sender}`
+                                  : "/message"
+                              );
                             }}
-                          ></ProfilePill>
-                          <p>{msg.body}</p>
-                        </div>
-                      );
-                    })} */}
+                            className={style.recentMessage}
+                          >
+                            <ProfilePill
+                              avaterWidth={"30px"}
+                              data={{
+                                _id: index,
+                                username: msg.senderUsername,
+                                // text: msg.body,
+                                image: msg.senderImage,
+                              }}
+                            ></ProfilePill>
+                            <p>{msg.body}</p>
+                          </div>
+                        );
+                      })}
                   </div>
                 )}
               </>

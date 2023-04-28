@@ -33,7 +33,7 @@ export default function MessagePortion({ profile }) {
             showAvatar = true;
           } else if (index <= recentmessages.messages.length - 2) {
             showAvatar =
-              recentmessages.messages[index + 1].senderEmail === msg.senderEmail
+              recentmessages.messages[index + 1].sender === msg.sender
                 ? false
                 : true;
           }
@@ -54,6 +54,7 @@ export default function MessagePortion({ profile }) {
               <MessageComponent
                 showAvatar={showAvatar}
                 message={msg}
+                sender={profile}
               ></MessageComponent>
             </div>
           );

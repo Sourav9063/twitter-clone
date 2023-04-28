@@ -27,7 +27,6 @@ export default function MessageList({ setselectedID, messages }) {
   }
   useEffect(() => {
     if (!messages) {
-      console.log("called");
       getUsers();
     }
 
@@ -39,7 +38,7 @@ export default function MessageList({ setselectedID, messages }) {
       method: "GET",
       redirect: "follow",
     };
-    console.log(str);
+
     async function fetchUser() {
       try {
         const response = await fetch(
@@ -118,7 +117,9 @@ export default function MessageList({ setselectedID, messages }) {
                 <div
                   key={user._id}
                   className={`${style.convo} ${
-                    recentMessage.latestMessage?.sender === user._id &&
+                    recentMessage.latestMessages?.some(
+                      (el) => el.sender == user._id
+                    ) &&
                     recentMessage.showNotification &&
                     style["noti-bg"]
                   } ${
@@ -126,12 +127,12 @@ export default function MessageList({ setselectedID, messages }) {
                   }`}
                   onClick={(e) => {
                     e.preventDefault();
-                    setRecentMessage((state) => {
-                      return {
-                        ...state,
-                        showNotification: false,
-                      };
-                    });
+                    // setRecentMessage((state) => {
+                    //   return {
+                    //     ...state,
+                    //     showNotification: false,
+                    //   };
+                    // });
                     setselectedID(user);
                     router.push(
                       `/message/?senderId=${session.data?.user.id}&receiverId=${user._id}`,

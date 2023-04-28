@@ -8,6 +8,7 @@ export default function RecentMessageProvider({ children }) {
   const recentMessages = {
     showNotification: false,
     latestMessage: null,
+    latestMessages: [],
     messages: [],
   };
 
