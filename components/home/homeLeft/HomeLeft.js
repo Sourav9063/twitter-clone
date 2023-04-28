@@ -23,6 +23,38 @@ export default function HomeLeft() {
     router.push("/" + MODAL_QUERY_POST);
   };
   useEffect(() => {
+    const requestOptions = { method: "GET", redirect: "follow" };
+
+    async function fetchNotification() {
+      try {
+        const response = await fetch(
+          `/api/v2/users/getNotification?id=${session.data?.user.id}`,
+          requestOptions
+        );
+        const result = await response.json();
+
+        if (result.msg == "Success" && result.notifications.length > 0) {
+          setRecentMessage((state) => {
+            return {
+              ...state,
+              latestMessages: result.notifications,
+              showNotification: true,
+              latestMessage: result.notifications[0],
+            };
+          });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    if (session.data) {
+      fetchNotification();
+    }
+    return () => {};
+  }, [session.data, setRecentMessage]);
+
+  useEffect(() => {
     const beat = new Audio("/sounds/noti_sound.wav");
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
@@ -41,7 +73,7 @@ export default function HomeLeft() {
         } else {
           newRecentMsg.messages = [...state.messages];
         }
-        newRecentMsg.latestMessages = [...state.latestMessages, msg];
+        newRecentMsg.latestMessages = [msg, ...state.latestMessages];
 
         return newRecentMsg;
       });

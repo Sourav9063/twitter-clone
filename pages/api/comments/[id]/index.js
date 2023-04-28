@@ -1,7 +1,7 @@
 import connectMongo from "@/db/dbConnect";
 import CommentDB from "@/db/models/commentModel";
 import { getServerSession } from "next-auth";
-
+import { authOptions } from "../../auth/[...nextauth]";
 export default async function handler(req, res) {
   // res.status(200).json({ name: 'John Doe' })
 
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       // const comment = await CommentDB.findById(id);
 
       const [session, comment] = await Promise.all([
-        getServerSession(req, res, authOptions),
+        getServerSession(req, res, authOptions(req)),
         CommentDB.findById(id),
       ]);
 

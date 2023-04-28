@@ -10,14 +10,14 @@ import MessageComponent from "./messageComponent";
 import { format } from "date-fns";
 import MessagePortion from "./MessagePortion";
 import MessageInput from "./MessageInput";
+import deleteNotification from "@/helper/frontend/deleteNotification";
 export default function Messages({ receiver, email }) {
   const [profile, setProfile] = useState(receiver);
 
   const [messages, setMessages] = useState();
   const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
   const session = useSession();
-
-  useEffect(() => {
+  const deleteNotificationState = async () => {
     setRecentMessages((state) => {
       const newState = { ...state };
       newState.latestMessages = state.latestMessages.filter(
@@ -29,9 +29,16 @@ export default function Messages({ receiver, email }) {
 
       return newState;
     });
+  };
+
+  useEffect(() => {
+    if (session.data) {
+      deleteNotificationState();
+      deleteNotification(session.data?.user.id, receiver._id);
+    }
 
     return () => {};
-  }, [setRecentMessages, receiver]);
+  }, [setRecentMessages, receiver, session.data]);
 
   useEffect(() => {
     const requestOptions = {
@@ -134,6 +141,8 @@ export default function Messages({ receiver, email }) {
 
                   return newState;
                 });
+
+                deleteNotification(session.data?.user.id, receiver._id);
               }}
             >
               {recentmessages.messages && <MessagePortion profile={profile} />}
