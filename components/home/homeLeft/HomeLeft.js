@@ -59,6 +59,7 @@ export default function HomeLeft() {
 
   useEffect(() => {
     const beat = new Audio("/sounds/noti_sound.wav");
+    const seenBeat = new Audio("/sounds/seen.wav");
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
@@ -94,6 +95,7 @@ export default function HomeLeft() {
         //   msg.mainData.receiver,
         //   setRecentMessage
         // );
+        seenBeat.play();
 
         setRecentMessage((state) => {
           return {

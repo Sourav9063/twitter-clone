@@ -30,7 +30,7 @@ export default function HomeMain({ posts }) {
 
       try {
         let response = await fetch(
-          `http://localhost:3000/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,
+          `/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,
           requestOptions
         );
         let result = await response.json();

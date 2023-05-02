@@ -3,7 +3,7 @@ const deleteNotification = async (id, sender) => {
 
   try {
     const response = await fetch(
-      `http://localhost:3000/api/v2/users/getNotification?id=${id}&sender=${sender}`,
+      `/api/v2/users/getNotification?id=${id}&sender=${sender}`,
       requestOptions
     );
     if (!response.ok) {

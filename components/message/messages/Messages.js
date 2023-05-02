@@ -129,10 +129,7 @@ export default function Messages({ receiver, email }) {
 
     async function sendRequest() {
       try {
-        var response = await fetch(
-          "http://localhost:3000/api/v2/messages",
-          requestOptions
-        );
+        var response = await fetch("/api/v2/messages", requestOptions);
         var result = await response.json();
         //
 
