@@ -10,6 +10,7 @@ export default function RecentMessageProvider({ children }) {
     latestMessage: null,
     latestMessages: [],
     messages: [],
+    unseenMessages: [],
   };
 
   return (

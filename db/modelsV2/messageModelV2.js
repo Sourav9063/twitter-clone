@@ -39,6 +39,9 @@ const messageSchema = new Schema(
     },
     messages: [
       {
+        cus_id: {
+          type: String,
+        },
         sender: {
           type: Schema.Types.ObjectId,
           ref: "UserDBV2",

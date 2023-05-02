@@ -5,13 +5,18 @@ import Button from "@/components/common/button/button";
 // import { ModalContext } from '@/providers/ModalProvider'
 import ProfilePill from "@/components/profilePill/ProfilePill";
 import { useRouter } from "next/router";
-import { MODAL_QUERY_POST } from "@/helper/constStrings";
+import {
+  MODAL_QUERY_POST,
+  NOTIFICATION_TYPE_SEEN,
+  NOTIFICATION_TYPE_SEND,
+} from "@/helper/constStrings";
 import { useSession } from "next-auth/react";
 import ThemeToggle from "@/components/common/ThemeToggle";
 import Link from "next/link";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { onMessageListener } from "@/helper/Firebase/OnMessage";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import fetchUnseen from "@/helper/frontend/fetchUnseen";
 
 export default function HomeLeft() {
   // const [ modal, setModal ] = useContext(ModalContext)
@@ -43,9 +48,7 @@ export default function HomeLeft() {
             };
           });
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
 
     if (session.data) {
@@ -59,25 +62,50 @@ export default function HomeLeft() {
     const messaging = getMessaging();
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
-      beat.play();
-      const newRecentMsg = {
-        showNotification: true,
-        latestMessage: msg,
-      };
-      if (router.query.receiverId && router.query.receiverId == msg.receiver) {
-        newRecentMsg.messages;
-      }
-      setRecentMessage((state) => {
-        if (router.query.receiverId && router.query.receiverId == msg.sender) {
-          newRecentMsg.messages = [...state.messages, msg];
-        } else {
-          newRecentMsg.messages = [...state.messages];
+      if (msg.notificationType === NOTIFICATION_TYPE_SEND) {
+        beat.play();
+        const newRecentMsg = {
+          showNotification: true,
+          latestMessage: msg.mainData,
+        };
+        if (
+          router.query.receiverId &&
+          router.query.receiverId == msg.mainData.receiver
+        ) {
+          newRecentMsg.messages;
         }
-        newRecentMsg.latestMessages = [msg, ...state.latestMessages];
+        setRecentMessage((state) => {
+          if (
+            router.query.receiverId &&
+            router.query.receiverId == msg.mainData.sender
+          ) {
+            newRecentMsg.messages = [...state.messages, msg.mainData];
+          } else {
+            newRecentMsg.messages = [...state.messages];
+          }
+          newRecentMsg.latestMessages = [msg.mainData, ...state.latestMessages];
 
-        return newRecentMsg;
-      });
-      setNotification((state) => [msg, ...state]);
+          return newRecentMsg;
+        });
+        setNotification((state) => [msg.mainData, ...state]);
+      } else if (msg.notificationType === NOTIFICATION_TYPE_SEEN) {
+        // fetchUnseen(
+        //   msg.mainData.sender,
+        //   msg.mainData.receiver,
+        //   setRecentMessage
+        // );
+
+        setRecentMessage((state) => {
+          return {
+            ...state,
+            unseenMessages: !state.unseenMessages
+              ? []
+              : state.unseenMessages.filter((message) => {
+                  message.messageID !== msg.mainData._id;
+                }),
+          };
+        });
+      }
     });
     return () => {};
   }, [setRecentMessage, router.query.receiverId]);

@@ -3,6 +3,8 @@ import UserDBV2 from "@/db/modelsV2/userModelV2";
 import MessageDBV2 from "@/db/modelsV2/messageModelV2";
 import service from "./service.json";
 import * as admin from "firebase-admin";
+import { NOTIFICATION_TYPE_SEND } from "@/helper/constStrings";
+import mongoose from "mongoose";
 
 //Get Messages
 const getAllMessages = async (req, res) => {
@@ -28,6 +30,8 @@ const getAllMessages = async (req, res) => {
         "messages.seenAt": 1,
         "messages.sender": 1,
         "messages.receiver": 1,
+        "messages._id": 1,
+        "messages.cus_id": 1,
       });
 
     // if (!messages) {
@@ -41,7 +45,6 @@ const getAllMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -89,8 +92,10 @@ const postMessages = async (req, res) => {
           ? sender._id + receiver._id
           : receiver._id + sender._id,
     });
+    const obj_id = new mongoose.Types.ObjectId().toHexString();
 
     const mainData = {
+      _id: obj_id,
       sender: sender._id,
       receiver: receiver._id,
       senderUsername: sender.username,
@@ -100,15 +105,21 @@ const postMessages = async (req, res) => {
       receiverEmail,
       receiverImage: receiver.image,
       body: body,
+      cus_id:
+        sender._id >= receiver._id
+          ? sender._id + receiver._id
+          : receiver._id + sender._id,
+
       //image,
     };
+    let tmpData = mainData;
 
     if (existingMessage) {
       (existingMessage.cus_id =
         sender._id >= receiver._id
           ? sender._id + receiver._id
           : receiver._id + sender._id),
-        existingMessage.messages.push(mainData);
+        (tmpData = existingMessage.messages.push(mainData));
       await existingMessage.save();
 
       // res.status(200).json(existingMessage);
@@ -123,6 +134,9 @@ const postMessages = async (req, res) => {
         messages: [mainData],
       });
     }
+    const createdAt = await existingMessage.messages[
+      existingMessage.messages.length - 1
+    ].createdAt;
 
     // sender.messages.push({
     //   sender: receiver._id,
@@ -150,7 +164,10 @@ const postMessages = async (req, res) => {
           data: {
             key: "value",
             name: "sourav",
-            message: JSON.stringify(mainData),
+            message: JSON.stringify({
+              mainData,
+              notificationType: NOTIFICATION_TYPE_SEND,
+            }),
           },
           webpush: {
             headers: {
@@ -241,6 +258,7 @@ const postMessages = async (req, res) => {
               senderEmail: sender.email,
               senderImage: sender.image,
               body: mainData.body,
+              messageID: obj_id,
             },
           },
         }

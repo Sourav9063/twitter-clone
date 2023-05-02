@@ -1,5 +1,4 @@
 const deleteNotification = async (id, sender) => {
-  console.log(id, sender);
   const requestOptions = { method: "DELETE", redirect: "follow" };
 
   try {
@@ -15,7 +14,6 @@ const deleteNotification = async (id, sender) => {
       return { statue: true };
     }
   } catch (error) {
-    console.log(error);
     return { status: false };
   }
 };

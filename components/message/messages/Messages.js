@@ -11,6 +11,7 @@ import { format } from "date-fns";
 import MessagePortion from "./MessagePortion";
 import MessageInput from "./MessageInput";
 import deleteNotification from "@/helper/frontend/deleteNotification";
+import fetchUnseen from "@/helper/frontend/fetchUnseen";
 export default function Messages({ receiver, email }) {
   const [profile, setProfile] = useState(receiver);
 
@@ -63,18 +64,47 @@ export default function Messages({ receiver, email }) {
             return { ...state, messages: [] };
           });
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
+    // async function fetchUnseen() {
+    //   try {
+    //     const response = await fetch(
+    //       `/api/v2/users/getNotification?sender=${
+    //         session.data?.user.id
+    //       }&type=${"unseen"}&id=${receiver._id}`,
+    //       requestOptions
+    //     );
+    //     const result = await response.json();
+    //
+
+    //     if (result.msg == "Success" && result.notifications.length > 0) {
+    //       setRecentMessages((state) => {
+    //         return {
+    //           ...state,
+    //           unseenMessages: result.notifications,
+    //         };
+    //       });
+    //     }
+    //   } catch (error) {
+    //
+    //   }
+    // }
 
     if (session.data && receiver) {
       getMessages();
+      fetchUnseen(session.data?.user.id, receiver._id, setRecentMessages);
     }
     setProfile({ ...receiver });
 
     return () => {};
   }, [session.data, setRecentMessages, receiver]);
+
+  // useEffect(() => {
+  //   if (session.data && receiver) {
+  //     fetchUnseen(session.data?.user.id, receiver._id, setRecentMessages);
+  //   }
+  //   return () => {};
+  // }, [recentmessages, setRecentMessages, session.data, receiver]);
 
   const handleSendMsg = async (e) => {
     e.preventDefault();
@@ -129,7 +159,6 @@ export default function Messages({ receiver, email }) {
             </div>
             <div
               onClick={() => {
-                console.log("onClick");
                 setRecentMessages((state) => {
                   const newState = { ...state };
                   newState.latestMessages = state.latestMessages.filter(

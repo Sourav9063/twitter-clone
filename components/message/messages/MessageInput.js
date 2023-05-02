@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import style from "./Message.module.css";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import fetchUnseen from "@/helper/frontend/fetchUnseen";
 
 export default function MessageInput({ profile }) {
   const [messages, setMessages] = useState();
@@ -47,6 +48,7 @@ export default function MessageInput({ profile }) {
     }
 
     await sendRequest();
+    await fetchUnseen(session.data.user.id, profile._id, setRecentMessages);
   };
   return (
     <div className={style.input}>

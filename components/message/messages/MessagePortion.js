@@ -61,6 +61,10 @@ export default function MessagePortion({ profile }) {
           );
         })}
       </div>
+      {recentmessages.unseenMessages &&
+        recentmessages.unseenMessages.length == 0 && (
+          <div className={style.seenUnseen}>Seen</div>
+        )}
       <div ref={lastmsg}></div>
     </div>
   );
