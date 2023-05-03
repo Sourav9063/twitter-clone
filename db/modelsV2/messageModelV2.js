@@ -2,6 +2,13 @@ import { Schema, SchemaType, model, models } from "mongoose";
 
 const messageSchema = new Schema(
   {
+    cus_id: {
+      type: String,
+    },
+    notification: {
+      type: Boolean,
+      default: false,
+    },
     sender: {
       type: Schema.Types.ObjectId,
       ref: "UserDBV2",
@@ -12,8 +19,29 @@ const messageSchema = new Schema(
       ref: "UserDBV2",
       required: true,
     },
+    senderUsername: {
+      type: String,
+    },
+    senderEmail: {
+      type: String,
+    },
+    senderImage: {
+      type: String,
+    },
+    receiverUsername: {
+      type: String,
+    },
+    receiverEmail: {
+      type: String,
+    },
+    receiverImage: {
+      type: String,
+    },
     messages: [
       {
+        cus_id: {
+          type: String,
+        },
         sender: {
           type: Schema.Types.ObjectId,
           ref: "UserDBV2",
@@ -56,7 +84,14 @@ const messageSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: Date.now(),
+          default: Date.now,
+        },
+        seen: {
+          type: Boolean,
+          default: false,
+        },
+        seenAt: {
+          type: Date,
         },
       },
     ],

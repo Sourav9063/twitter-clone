@@ -21,6 +21,9 @@
   --line-height: 20px;
 
   --main-width: 600px;
+  --noti-bg-color:#ff45ae;
+  --noti-bg-color: var(--primary-color);
+
 }
 
 /* :root {

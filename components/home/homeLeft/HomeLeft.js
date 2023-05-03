@@ -5,45 +5,112 @@ import Button from "@/components/common/button/button";
 // import { ModalContext } from '@/providers/ModalProvider'
 import ProfilePill from "@/components/profilePill/ProfilePill";
 import { useRouter } from "next/router";
-import { MODAL_QUERY_POST } from "@/helper/constStrings";
+import {
+  MODAL_QUERY_POST,
+  NOTIFICATION_TYPE_SEEN,
+  NOTIFICATION_TYPE_SEND,
+} from "@/helper/constStrings";
 import { useSession } from "next-auth/react";
 import ThemeToggle from "@/components/common/ThemeToggle";
 import Link from "next/link";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { onMessageListener } from "@/helper/Firebase/OnMessage";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import fetchUnseen from "@/helper/frontend/fetchUnseen";
 
 export default function HomeLeft() {
   // const [ modal, setModal ] = useContext(ModalContext)
   const router = useRouter();
   const session = useSession();
   const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
+  const [notification, setNotification] = useState([]);
   const onclick = () => {
-    // modal.showPostEditor = true;
-    // setModal({ ...modal })
-    //
-
     router.push("/" + MODAL_QUERY_POST);
   };
   useEffect(() => {
-    const messaging = getMessaging();
+    const requestOptions = { method: "GET", redirect: "follow" };
 
-    // onMessageListener(messaging)
-    //   .then((payload) => {
-    //     console.log(JSON.parse(payload.data.message));
-    //     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
-    onMessage(messaging, (payload) => {
-      // recentMessage.push();
-      const msg = JSON.parse(payload.data.message);
-      setRecentMessage((state) => [msg, ...state]);
-    });
+    async function fetchNotification() {
+      try {
+        const response = await fetch(
+          `/api/v2/users/getNotification?id=${session.data?.user.id}`,
+          requestOptions
+        );
+        const result = await response.json();
 
+        if (result.msg == "Success" && result.notifications.length > 0) {
+          setRecentMessage((state) => {
+            return {
+              ...state,
+              latestMessages: result.notifications,
+              showNotification: true,
+              latestMessage: result.notifications[0],
+            };
+          });
+        }
+      } catch (error) {}
+    }
+
+    if (session.data) {
+      fetchNotification();
+    }
     return () => {};
-  }, []);
+  }, [session.data, setRecentMessage]);
+
+  useEffect(() => {
+    const beat = new Audio("/sounds/noti_sound.wav");
+    const seenBeat = new Audio("/sounds/seen.wav");
+    const messaging = getMessaging();
+    onMessage(messaging, (payload) => {
+      const msg = JSON.parse(payload.data.message);
+      if (msg.notificationType === NOTIFICATION_TYPE_SEND) {
+        beat.play();
+        const newRecentMsg = {
+          showNotification: true,
+          latestMessage: msg.mainData,
+        };
+        if (
+          router.query.receiverId &&
+          router.query.receiverId == msg.mainData.receiver
+        ) {
+          newRecentMsg.messages;
+        }
+        setRecentMessage((state) => {
+          if (
+            router.query.receiverId &&
+            router.query.receiverId == msg.mainData.sender
+          ) {
+            newRecentMsg.messages = [...state.messages, msg.mainData];
+          } else {
+            newRecentMsg.messages = [...state.messages];
+          }
+          newRecentMsg.latestMessages = [msg.mainData, ...state.latestMessages];
+
+          return newRecentMsg;
+        });
+        setNotification((state) => [msg.mainData, ...state]);
+      } else if (msg.notificationType === NOTIFICATION_TYPE_SEEN) {
+        // fetchUnseen(
+        //   msg.mainData.sender,
+        //   msg.mainData.receiver,
+        //   setRecentMessage
+        // );
+        seenBeat.play();
+
+        setRecentMessage((state) => {
+          return {
+            ...state,
+            unseenMessages: !state.unseenMessages
+              ? []
+              : state.unseenMessages.filter((message) => {
+                  message.messageID !== msg.mainData._id;
+                }),
+          };
+        });
+      }
+    });
+    return () => {};
+  }, [setRecentMessage, router.query.receiverId]);
 
   return (
     <section className={style.left}>
@@ -77,9 +144,27 @@ export default function HomeLeft() {
                 </svg>
                 Settings
               </div>
-              <Link href={"/message"}>
-                <div>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
+              <Link
+                // href={
+                //   recentMessage.latestMessage
+                //     ? `/message/?senderId=${session.data?.user.id}&receiverId=${recentMessage.latestMessage.sender}`
+                //     : "/message"
+                // }
+                href={"/message"}
+              >
+                <div className={style.message}>
+                  {recentMessage.showNotification && (
+                    <span className={style.notificaion}></span>
+                  )}
+                  <svg
+                    className={
+                      recentMessage.showNotification
+                        ? style.notiShake
+                        : undefined
+                    }
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
                     <g>
                       <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
                     </g>
@@ -87,28 +172,63 @@ export default function HomeLeft() {
                   Message
                 </div>
               </Link>
+              {/* <Link href={"/message"}>
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <g>
+                      <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
+                    </g>
+                  </svg>
+                  Notification
+                </div>
+              </Link> */}
               <ThemeToggle></ThemeToggle>
             </div>
             {session.status == "authenticated" && (
               <>
                 <Button onclick={onclick}></Button>
-                <div className={style.recentMessages}>
-                  {recentMessage.map((msg, index) => {
-                    return (
-                      <div key={index} className={style.recentMessage}>
-                        <ProfilePill
-                          data={{
-                            _id: index,
-                            username: msg.senderUsername,
-                            // text: msg.body,
-                            image: msg.senderImage,
-                          }}
-                        ></ProfilePill>
-                        <p>{msg.body}</p>
-                      </div>
-                    );
-                  })}
-                </div>
+                {recentMessage.latestMessage && (
+                  <div className={style.recentMessages}>
+                    {/* <div className={style.recentMessage}>
+                      <ProfilePill
+                        data={{
+                          _id: recentMessage.latestMessage,
+                          username: recentMessage.latestMessage.senderUsername,
+                          // text: msg.body,
+                          image: recentMessage.latestMessage.senderImage,
+                        }}
+                      ></ProfilePill>
+                      <p>{recentMessage.latestMessage.body}</p>
+                    </div> */}
+                    {recentMessage.latestMessages &&
+                      recentMessage.latestMessages.map((msg, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={(e) => {
+                              router.replace(
+                                recentMessage.latestMessage
+                                  ? `/message/?senderId=${session.data?.user.id}&receiverId=${msg.sender}`
+                                  : "/message"
+                              );
+                            }}
+                            className={style.recentMessage}
+                          >
+                            <ProfilePill
+                              avaterWidth={"30px"}
+                              data={{
+                                _id: index,
+                                username: msg.senderUsername,
+                                // text: msg.body,
+                                image: msg.senderImage,
+                              }}
+                            ></ProfilePill>
+                            <p>{msg.body}</p>
+                          </div>
+                        );
+                      })}
+                  </div>
+                )}
               </>
             )}
           </section>
@@ -121,3 +241,11 @@ export default function HomeLeft() {
     </section>
   );
 }
+// onMessageListener(messaging)
+//   .then((payload) => {
+//
+//     setRecentMessage([...recentMessage, JSON.parse(payload.data.message)]);
+//   })
+//   .catch((e) => {
+//
+//   });

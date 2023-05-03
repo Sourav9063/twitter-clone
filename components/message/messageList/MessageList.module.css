@@ -71,13 +71,24 @@
 .convoList {
   display: flex;
   flex-direction: column;
-  background-color: #fff;
+  background-color:var(--bg);
   padding: 10px;
   border-radius: 10px;
   overflow-y: scroll;
   max-height: 80vh;
   
 }
+.convoList::-webkit-scrollbar {
+  display: none;
+}
+
+.convoList {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
 
 .convo {
   display: flex;
@@ -87,11 +98,13 @@
   padding: 5px;
   cursor: pointer;
   transition: cubic-bezier(0.165, 0.84, 0.44, 1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--border-color-2);
 }
 
 .convo:hover {
-  background-color: #f5f8fa;
+  background-color:var(--bg-hover);
+  color: var(--text-color-primary);
 }
 
 .convoAvatar {
@@ -118,13 +131,13 @@
 
 .convoUsername {
   font-size: 14px;
-  color: #657786;
+  /* color: #657786; */
   margin-right: 5px;
 }
 
 .convoTime {
   font-size: 14px;
-  color: #657786;
+  /* color: #657786; */
 }
 
 .convoContent {
@@ -133,7 +146,7 @@
 
 .convoContent span {
   font-size: 16px;
-  color: #14171a;
+  /* color: #14171a; */
 }
 
 .dotCircle {
@@ -141,7 +154,21 @@
   width: 3px;
   height: 3px;
   border-radius: 50%;
-  background-color: #ccc;
+  background-color: var(--border-color);
   margin-right: 5px;
 
+}
+
+.noti-bg{
+  background-color:var( --noti-bg-color);
+  color: white;
+
+}
+
+.current{
+  background-color: var(--border-color-2);
+}
+
+.current:hover{
+  background-color: var(--border-color-2);
 }

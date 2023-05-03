@@ -8,9 +8,57 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
-export default function Message() {
+import connectMongo from "@/db/dbConnect";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { getServerSession } from "next-auth";
+
+export async function getServerSideProps(context) {
+  const { senderId, receiverId } = context.query;
+
+  let session;
+  if (!senderId) {
+    session = await getServerSession(
+      context.req,
+      context.res,
+      authOptions(context.req)
+    );
+  }
+  try {
+    await connectMongo();
+    //
+    const [user, messages] = await Promise.all([
+      UserDBV2.findById(receiverId).select({
+        _id: 1,
+        username: 1,
+        image: 1,
+        email: 1,
+      }),
+      UserDBV2.findById(senderId ? senderId : session.user.id).select({
+        messages: 1,
+      }),
+    ]);
+
+    return {
+      props: {
+        receiver: user ? JSON.parse(JSON.stringify(user)) : null,
+        messages: messages
+          ? JSON.parse(JSON.stringify(messages.messages))
+          : null,
+      },
+    };
+  } catch (e) {}
+  return {
+    props: {
+      receiver: null,
+      messages: null,
+    },
+  };
+}
+
+export default function Message({ receiver, messages }) {
   const session = useSession();
-  const [selectedID, setselectedID] = useState(null);
+  const [selectedID, setselectedID] = useState(receiver);
 
   useEffect(() => {
     async function requestPermission() {
@@ -35,11 +83,7 @@ export default function Message() {
           });
 
           const result = await res.json();
-
-          console.log(result);
-        } catch (error) {
-          console.log(error);
-        }
+        } catch (error) {}
         // Send this token  to server ( db)
         //
         // send to the UserDBV2
@@ -62,8 +106,11 @@ export default function Message() {
       </Head>
       <main className="body">
         <HomeLeft></HomeLeft>
-        <MessageList setselectedID={setselectedID}></MessageList>
-        <Messages _id={selectedID}></Messages>
+        <MessageList
+          messages={messages}
+          setselectedID={setselectedID}
+        ></MessageList>
+        {selectedID && <Messages receiver={selectedID}></Messages>}
       </main>
       <style jsx>{`
         .body {
@@ -71,6 +118,7 @@ export default function Message() {
           height: 100vh;
           height: 100dvh;
           display: flex;
+          overflow: hidden;
         }
         .left {
           margin-right: 1rem;

@@ -20,12 +20,11 @@ export default async function handler(req, res) {
 
   if (req.method == "PATCH") {
     const { id } = req.query;
-    console.log(id);
 
     const session = await getServerSession(req, res, authOptions);
     try {
       const { postText, postImage } = req.body;
-      console.log({ postText, postImage });
+
       const post = await PostDB.findById(id);
 
       if (session.user.id != post.owner) {
@@ -42,11 +41,8 @@ export default async function handler(req, res) {
 
       await post.save();
 
-      console.log(post);
-
       return res.status(200).json({ msg: "Updated", post });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Internal server error" });
     }
   }
@@ -54,8 +50,7 @@ export default async function handler(req, res) {
   // Delete a post
   if (req.method == "DELETE") {
     const { id } = req.query;
-    console.log("delete");
-    console.log(id);
+
     // const session = await getServerSession(req, res, authOptions);
 
     try {
@@ -77,7 +72,6 @@ export default async function handler(req, res) {
       // await post.remove().exec();
       return res.status(200).json({ msg: "Post deleted" });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Internal server error" });
     }
   }

@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import style from "./MessageList.module.css";
 import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import Avatar from "@/components/common/avatar/avatar";
+import { RecentMessageContext } from "@/providers/RecentMessageProvider";
+import { useRouter } from "next/router";
 
-export default function MessageList({ setselectedID }) {
-  const [users, setUsers] = useState([]);
+export default function MessageList({ setselectedID, messages }) {
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState(messages);
   const session = useSession();
+  const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
+  const router = useRouter();
   async function getUsers(number = 10000) {
     try {
       const res = await fetch("/api/v2/users?number=" + number, {
@@ -22,10 +26,41 @@ export default function MessageList({ setselectedID }) {
     } catch (error) {}
   }
   useEffect(() => {
-    getUsers();
+    if (!messages) {
+      getUsers();
+    }
 
     return () => {};
-  }, []);
+  }, [messages]);
+  const onSubmit = (e, str) => {
+    e.preventDefault();
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    async function fetchUser() {
+      try {
+        const response = await fetch(
+          "/api/v2/messages/searchUser?search=" + (str == "" ? str : search),
+          requestOptions
+        );
+        const result = await response.json();
+
+        if (response.ok) {
+          setUsers(result);
+        }
+      } catch (error) {}
+    }
+    fetchUser();
+  };
+  const onChange = (event) => {
+    setSearch(event.target.value);
+
+    if (event.target.value == "") {
+      onSubmit(event, "");
+    }
+  };
 
   return (
     <>
@@ -51,91 +86,78 @@ export default function MessageList({ setselectedID }) {
             </div>
           </div>
         </div>
-        <div
-          className={styles["input-group"]}
-          style={{
-            boxSizing: "border-box",
-            width: "90%",
-            marginInline: "auto",
-            marginTop: ".5rem",
-          }}
-        >
-          <input
-            onChange={(e) => setSearch(e.target.value)}
-            required
-            type="text"
-            name="Search"
-            placeholder="Hola"
-            className={`${styles["input"]} ${style["input"]}`}
-          />
-          <label className={styles["user-label"]}>Search</label>
-        </div>
+        <form onSubmit={onSubmit}>
+          <div
+            className={styles["input-group"]}
+            style={{
+              boxSizing: "border-box",
+              width: "90%",
+              marginInline: "auto",
+              marginTop: ".5rem",
+            }}
+          >
+            <input
+              value={search}
+              onChange={onChange}
+              type="text"
+              name="Search"
+              placeholder="Hola"
+              className={`${styles["input"]} ${style["input"]}`}
+            />
+            <label className={styles["user-label"]}>Search</label>
+          </div>
+        </form>
         <div className={style.convoList}>
-          {users.map((user) => {
-            return (
-              <div
-                key={user._id}
-                className={style.convo}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setselectedID(user);
-                }}
-              >
-                <div className={style.convoAvatar}>
-                  {/* <img
-                    width={50}
-                    height={50}
-                    src={user.image}
-                    alt="Avatar"
-                    style={{
-                      borderRadius: "50%",
-                    }}
-                  ></img> */}
-                  <Avatar image={user.image} width="50px"></Avatar>
-                </div>
-                <div className={style.convoDetails}>
-                  <div className={style.convoHeader}>
-                    <span className={style.convoName}>{user.username}</span>
-                    <span className={style.convoUsername}>{user.email}</span>
-                    <div class={style.dotCircle}></div>
-
-                    {/* <span className={style.convoTime}>2s</span> */}
+          {users &&
+            users.map((user) => {
+              if (user.sender) {
+                user._id = user.sender;
+              }
+              return (
+                <div
+                  key={user._id}
+                  className={`${style.convo} ${
+                    recentMessage.latestMessages?.some(
+                      (el) => el.sender == user._id
+                    ) &&
+                    recentMessage.showNotification &&
+                    style["noti-bg"]
+                  } ${
+                    router.query.receiverId == user._id ? style.current : ""
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // setRecentMessage((state) => {
+                    //   return {
+                    //     ...state,
+                    //     showNotification: false,
+                    //   };
+                    // });
+                    setselectedID(user);
+                    router.push(
+                      `/message/?senderId=${session.data?.user.id}&receiverId=${user._id}`,
+                      undefined,
+                      { shallow: true }
+                    );
+                  }}
+                >
+                  <div className={style.convoAvatar}>
+                    <Avatar image={user.image} width="50px"></Avatar>
                   </div>
-                  <div className={style.convoContent}>
-                    {/* <span>Hey, how are you?</span> */}
+                  <div className={style.convoDetails}>
+                    <div className={style.convoHeader}>
+                      <span className={style.convoName}>{user.username}</span>
+                      <span className={style.convoUsername}>{user.email}</span>
+                    </div>
+                    <div className={style.convoContent}>
+                      {/* <span>Hey, how are you?</span> */}
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </section>
     </>
   );
 }
-
-// <div className={style.convo}>
-//             <div className={style.convoAvatar}>
-//               <Image
-//                 width={50}
-//                 height={50}
-//                 src="/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg"
-//                 alt="Avatar"
-//                 style={{
-//                   borderRadius: "50%",
-//                 }}
-//               ></Image>
-//             </div>
-//             <div className={style.convoDetails}>
-//               <div className={style.convoHeader}>
-//                 <span className={style.convoName}>FARHAN MAHII</span>
-//                 <span className={style.convoUsername}>@farhanmahi</span>
-//                 <div class={style.dotCircle}></div>
-
-//                 <span className={style.convoTime}>2s</span>
-//               </div>
-//               <div className={style.convoContent}>
-//                 <span>Hey, how are you?</span>
-//               </div>
-//             </div>
-//           </div>

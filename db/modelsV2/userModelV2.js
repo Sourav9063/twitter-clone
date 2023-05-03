@@ -82,6 +82,84 @@ const userSchemaV2 = new Schema(
     token: {
       type: String,
     },
+    notifications: [
+      {
+        chatID: {
+          type: Schema.Types.ObjectId,
+          ref: "MessageDBV2",
+        },
+        messageID: {
+          type: Schema.Types.ObjectId,
+          ref: "MessageDBV2.messages",
+        },
+        sender: {
+          type: Schema.Types.ObjectId,
+          ref: "UserDBV2",
+          required: true,
+        },
+        cus_id: {
+          type: String,
+        },
+        senderUsername: {
+          type: String,
+        },
+        senderEmail: {
+          type: String,
+        },
+        senderImage: {
+          type: String,
+        },
+        body: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+        seen: {
+          type: Boolean,
+          default: false,
+        },
+        seenAt: {
+          type: Date,
+        },
+      },
+    ],
+    
+    messages: [
+      {
+        sender: {
+          type: Schema.Types.ObjectId,
+          ref: "UserDBV2",
+          required: true,
+          unique: true,
+        },
+        chatID: {
+          type: Schema.Types.ObjectId,
+          ref: "MessageDBV2",
+        },
+        messageID: {
+          type: Schema.Types.ObjectId,
+          ref: "MessageDBV2.messages",
+        },
+        cus_id: {
+          type: String,
+        },
+        username: {
+          type: String,
+        },
+        email: {
+          type: String,
+        },
+        image: {
+          type: String,
+        },
+        body: {
+          type: String,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

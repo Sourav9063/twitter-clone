@@ -1,7 +1,7 @@
 import connectMongo from "@/db/dbConnect";
 import CommentDB from "@/db/models/commentModel";
 import { getServerSession } from "next-auth";
-
+import { authOptions } from "../../auth/[...nextauth]";
 export default async function handler(req, res) {
   // res.status(200).json({ name: 'John Doe' })
 
@@ -19,14 +19,14 @@ export default async function handler(req, res) {
   }
   if (req.method == "DELETE") {
     const id = req.query;
-    console.log(id);
+
     try {
       // const session = await getServerSession(req, res, authOptions);
 
       // const comment = await CommentDB.findById(id);
 
       const [session, comment] = await Promise.all([
-        getServerSession(req, res, authOptions),
+        getServerSession(req, res, authOptions(req)),
         CommentDB.findById(id),
       ]);
 
@@ -41,7 +41,6 @@ export default async function handler(req, res) {
       await CommentDB.findByIdAndDelete(id);
       return res.status(200).json({ msg: "Comment deleted" });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Internal server error", error });
     }
   }

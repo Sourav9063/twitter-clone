@@ -134,43 +134,62 @@ export default function User({ data, posts }) {
                 {data.email && <div>@{data.email}</div>}
                 {data.bio && <div className="bio">{data.bio}</div>}
                 {session.data?.user.id != data._id ? (
-                  <div className="followbtn">
-                    <Button
-                      onclick={async () => {
-                        setBtnTex("Loading");
-                        const body = {
-                          owner: session.data.user.id,
-                          who: data._id,
-                          what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
-                        };
-                        const res = await fetch("/api/v2/users/follow", {
-                          method: "POST",
-                          headers: {
-                            "Content-Type": "application/json",
-                          },
-                          body: JSON.stringify(body),
-                        });
-                        const result = await res.json();
-
-                        const isFollowingNow =
-                          result.msg == "Following" ? true : false;
-                        amIFollowing = isFollowingNow;
-                        setAmIFollowingState(amIFollowing);
-                        setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
-                        if (result.msg == "Following") {
-                          userData.follower.push(result.data);
-                          setUserData({ ...userData });
-                        } else {
-                          userData.follower = userData.follower.filter(
-                            (f) => f._id != result.data._id
-                          );
-
-                          setUserData({ ...userData });
-                        }
-                      }}
+                  <div style={{ display: "flex" }}>
+                    <div className="followbtn" style={{ width: "70%" }}>
+                      <Button
+                        onclick={async () => {
+                          setBtnTex("Loading");
+                          const body = {
+                            owner: session.data.user.id,
+                            who: data._id,
+                            what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
+                          };
+                          const res = await fetch("/api/v2/users/follow", {
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(body),
+                          });
+                          const result = await res.json();
+                          const isFollowingNow =
+                            result.msg == "Following" ? true : false;
+                          amIFollowing = isFollowingNow;
+                          setAmIFollowingState(amIFollowing);
+                          setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
+                          if (result.msg == "Following") {
+                            userData.follower.push(result.data);
+                            setUserData({ ...userData });
+                          } else {
+                            userData.follower = userData.follower.filter(
+                              (f) => f._id != result.data._id
+                            );
+                            setUserData({ ...userData });
+                          }
+                        }}
+                      >
+                        {btnTex}
+                      </Button>
+                    </div>
+                    <div
+                      className="followbtn"
+                      style={{ width: "29%", marginLeft: "1%" }}
                     >
-                      {btnTex}
-                    </Button>
+                      <Button
+                        onclick={() => {
+                          //
+                          router.push({
+                            pathname: "/message",
+                            query: {
+                              senderId: session.data?.user.id,
+                              receiverId: data._id,
+                            },
+                          });
+                        }}
+                      >
+                        Message
+                      </Button>
+                    </div>
                   </div>
                 ) : (
                   <div className="followbtn">
@@ -256,6 +275,11 @@ export default function User({ data, posts }) {
           color: var(--text-color-tertiary);
           font-size: 1rem;
           cursor: pointer;
+        }
+        .position-relative {
+          position: relative;
+          top: 0;
+          left: 0;
         }
         .edit-profile:hover {
           background-color: var(--border-color-2);
