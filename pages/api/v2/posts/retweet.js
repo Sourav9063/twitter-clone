@@ -63,7 +63,7 @@ export default async function handler(req, res) {
         .status(201)
         .json({ tweet: tweetData, retweets: headData.retweets });
     } catch (error) {
-      res.status(500).json({ msg: "Server Error", e });
+      res.status(500).json({ msg: "Server Error", error });
     }
   }
 }

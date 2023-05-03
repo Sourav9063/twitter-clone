@@ -86,7 +86,7 @@ export default function Tweet(props) {
                   onClick={(e) => {
                     e.stopPropagation();
                   }}
-                  href={"/profile?id=" + owner._id}
+                  href={"/profile?id=" + owner?._id}
                 >
                   <div className={style.names}>
                     <span className={style["name"]}>{owner?.username}</span>
@@ -112,7 +112,7 @@ export default function Tweet(props) {
                       )}
                   </div>
                 </Link>
-                {session.data?.user.id == owner._id && (
+                {session.data?.user.id == owner?._id && (
                   <DropDown width={"300px"} options={[dropDownOption1()]}>
                     <svg
                       viewBox="0 0 24 24"
