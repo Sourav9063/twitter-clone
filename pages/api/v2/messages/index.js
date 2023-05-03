@@ -147,6 +147,7 @@ const postMessages = async (req, res) => {
     //   senderImage: receiver.image,
     // });
     res.status(201).json(mainData);
+    console.log(receiver.token);
     const sendNotification = async () => {
       if (receiver.token) {
         if (admin.apps.length == 0) {
@@ -265,6 +266,7 @@ const postMessages = async (req, res) => {
       ),
     ]);
   } catch (error) {
+    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
   return;
