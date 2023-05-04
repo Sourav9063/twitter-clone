@@ -11,8 +11,6 @@ import { getMessaging } from "firebase/messaging";
 import { useEffect } from "react";
 import { onMessageListener } from "@/helper/Firebase/OnMessage";
 import RecentMessageProvider from "@/providers/RecentMessageProvider";
-
-FeedTweetsProvider;
 export default function App({ Component, pageProps }) {
   useEffect(() => {
     const firebaseApp = initializeApp(firebaseConfig);
@@ -30,7 +28,6 @@ export default function App({ Component, pageProps }) {
 
   return (
     <SessionProvider session={pageProps.session}>
-      {/* <ModalProvider> */}
       <RecentMessageProvider>
         <FeedTweetsProvider>
           <RandomProvider>
@@ -42,7 +39,6 @@ export default function App({ Component, pageProps }) {
           </RandomProvider>
         </FeedTweetsProvider>
       </RecentMessageProvider>
-      {/* </ModalProvider> */}
     </SessionProvider>
   );
 }

@@ -28,13 +28,13 @@ export default function RecentLiked() {
       if (data) {
         //
 
-        data.likedb != null && setLiked(data.likedb?.likedPost);
+        data.likedb != null && setLiked(data.likedb?.likedPost.reverse());
       }
     }
 
     fetchLikedPosts();
     return () => {};
-  }, []);
+  }, [setLiked, session.data]);
 
   return (
     <>
@@ -57,7 +57,9 @@ export default function RecentLiked() {
                     <>
                       <div className="main-tweet">
                         {tweet.tweetText == EMPTY_TWEET_RETWEET
-                          ? "Photo of " + tweet.owner.username
+                          ? tweet.type == "tweet"
+                            ? "Photo of "
+                            : "Retweet of " + tweet.owner.username
                           : tweet.tweetText}
                       </div>
                       <p>{"Tweeted by " + tweet.owner.username}</p>

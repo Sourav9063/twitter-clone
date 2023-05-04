@@ -15,6 +15,7 @@ import { EMPTY_TWEET_RETWEET } from "@/helper/constStrings";
 import CommentBox from "../modalComponents/CommentBox";
 import Post from "../common/post/post";
 import Comments from "../common/comment/Comments";
+import { TweetActions, TweetDispatch } from "@/actions/tweet";
 // import Image from 'next/image';
 export default function Tweet(props) {
   const {
@@ -91,14 +92,6 @@ export default function Tweet(props) {
                   <div className={style.names}>
                     <span className={style["name"]}>{owner?.username}</span>
                     <span className={style["username"]}>@{owner?.email}</span>
-                    {/* {createdDate ||
-                      (createdAt && (
-                        <span className={style["day"]}>
-                          {createdDate
-                            ? formatDistanceToNow(new Date(createdDate))
-                            : formatDistanceToNow(new Date(createdAt))}
-                        </span>
-                      ))} */}
                     {!router.asPath.includes("posts") &&
                       (createdDate || createdAt) && (
                         <>
@@ -139,14 +132,6 @@ export default function Tweet(props) {
                   </div>
                 ))}
               {tweet.type == "retweet" && tweet.head ? (
-                // <Link
-                //   onClick={(e) => {
-                //     e.stopPropagation();
-                //   }}
-                //   href={`/posts/${
-                //     typeof tweet.head === "string" ? tweet.head : tweet.head._id
-                //   }`}
-                // >
                 <ReTweet
                   tweet_id={
                     typeof tweet.head === "string" ? tweet.head : tweet.head._id
@@ -154,7 +139,6 @@ export default function Tweet(props) {
                   tweet={typeof tweet.head === "string" ? null : tweet.head}
                 ></ReTweet>
               ) : (
-                // </Link>
                 tweet.type == "retweet" && (
                   <div className={style.wrapper}>
                     <div>Tweet not found!</div>
@@ -170,7 +154,6 @@ export default function Tweet(props) {
                     )}
                   </div>
                 )}
-              {/* <div>{likedPost}</div> */}
               {session.status == "authenticated" && showLikeNCommentIcon && (
                 <div className={style.likeNcommnet}>
                   <div
@@ -179,46 +162,16 @@ export default function Tweet(props) {
                     }`}
                     onClick={async (e) => {
                       e.stopPropagation();
-                      try {
-                        const myHeaders = new Headers();
-                        myHeaders.append("Content-Type", "application/json");
-                        const res = await fetch(
-                          "/api/v2/posts/" + _id + "/like",
-                          {
-                            method: "POST",
-                            body: JSON.stringify({
-                              userid: session.data.user.id,
-                            }),
-                            headers: myHeaders,
-                          }
-                        );
-                        // const [res, res1] = await Promise.all([
-                        //   fetch("/api/v1/posts/" + _id + "/like", {
-                        //     method: "POST",
-                        //     body: JSON.stringify({ userid: session.data.user.id }),
-                        //     headers: myHeaders,
-                        //   }),
-                        //   fetch(`/api/v1/users/likedposts/${session.data.user.id}`, {
-                        //     method: "GET",
-                        //     headers: {
-                        //       "Content-Type": "application/json",
-                        //     },
-                        //   }),
-                        // ]);
-                        const [data, data1] = await Promise.all([res.json()]);
-                        // const data1 = await res1.json();
-                        if (data) {
-                          setLikesState(data.likes);
-                          props.tweet.likes = data.likes;
-                          if (data.status == "Liked") {
-                            setLiked([...liked, data.tweet]);
-                          } else {
-                            setLiked(
-                              liked.filter((like) => like._id != data.tweet._id)
-                            );
-                          }
-                        }
-                      } catch (e) {}
+                      TweetDispatch({
+                        type: TweetActions.postLike,
+                        payload: {
+                          setLiked,
+                          props,
+                          setLikesState,
+                          postId: _id,
+                          userId: session.data?.user.id,
+                        },
+                      });
                     }}
                   >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -232,26 +185,6 @@ export default function Tweet(props) {
                   <div
                     onClick={async (e) => {
                       e.stopPropagation();
-                      // try {
-                      //   const res = await fetch("/api/v2/posts/retweet", {
-                      //     method: "POST",
-                      //     headers: {
-                      //       "Content-Type": "application/json",
-                      //     },
-                      //     body: JSON.stringify({
-                      //       owner: session.data.user.id,
-                      //       head: _id,
-                      //       tweetText: EMPTY_TWEET_RETWEET,
-                      //     }),
-                      //   });
-                      //   const data = await res.json();
-                      //   if (data) {
-                      //     setRetweetCount(data.retweets);
-                      //   }
-                      //
-                      // } catch (error) {
-                      //
-                      // }
                       setShowRetweet(!showRetweet);
                     }}
                     className={style.retweet}
@@ -267,16 +200,6 @@ export default function Tweet(props) {
                     <div
                       onClick={(e) => {
                         e.stopPropagation();
-                        // router.push({
-                        //     // pathname: router.pathname,
-                        //     pathname: "/",
-                        //     query: { modal: "comment", id: _id },
-                        // });
-                        // setCurTweet(props.tweet);
-                        // router.push({
-                        //   pathname: router.pathname,
-                        //   query: { modal: "tweet", id: _id },
-                        // });
                         setShowCommentBox(!showCommentBox);
                       }}
                       className={style.comments}
@@ -306,7 +229,6 @@ export default function Tweet(props) {
           </>
         </div>
         {showLikeNCommentIcon && showCommentBox && (
-          // <section className="retweetBox">
           <div className={style.commentsList}>
             <h2>Comments</h2>
             <CommentBox
@@ -328,9 +250,36 @@ export default function Tweet(props) {
                 );
               })}
           </div>
-          // </section>
         )}
       </div>
     </>
   );
 }
+
+// try {
+//   const myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
+//   const res = await fetch(
+//     "/api/v2/posts/" + _id + "/like",
+//     {
+//       method: "POST",
+//       body: JSON.stringify({
+//         userid: session.data.user.id,
+//       }),
+//       headers: myHeaders,
+//     }
+//   );
+
+//   const [data, data1] = await Promise.all([res.json()]);
+//   if (data) {
+//     setLikesState(data.likes);
+//     props.tweet.likes = data.likes;
+//     if (data.status == "Liked") {
+//       setLiked([...liked, data.tweet]);
+//     } else {
+//       setLiked(
+//         liked.filter((like) => like._id != data.tweet._id)
+//       );
+//     }
+//   }
+// } catch (e) {}

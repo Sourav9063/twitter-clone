@@ -86,7 +86,7 @@ export default function Home({ data, error }) {
   useEffect(() => {
     setFeedTweets([...data]);
     return () => {};
-  }, []);
+  }, [setFeedTweets, data]);
 
   return (
     <>
