@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       const willSendNotification = user.notifications.some(
         (notification) => notification.cus_id == get_cus_id(id, sender)
       );
-
+      const newUser = await user.save();
       if (!sender) {
         user.notifications = [];
       } else {
@@ -113,8 +113,6 @@ export default async function handler(req, res) {
           await sendNotification();
         }
       }
-
-      const newUser = await user.save();
 
       return res.status(200).json({
         msg: "Notifications deleted successfully",
