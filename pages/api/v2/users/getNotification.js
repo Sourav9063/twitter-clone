@@ -66,11 +66,12 @@ export default async function handler(req, res) {
       const willSendNotification = user.notifications.some(
         (notification) => notification.cus_id == get_cus_id(id, sender)
       );
-
       if (!sender) {
         user.notifications = [];
+        const newUser = await user.save();
       } else {
         deleted_msg = user.notifications.pull({ sender: sender });
+        const newUser = await user.save();
 
         const sendNotification = async () => {
           if (senderDB.token) {
@@ -114,13 +115,12 @@ export default async function handler(req, res) {
         }
       }
 
-      const newUser = await user.save();
-
       return res.status(200).json({
         msg: "Notifications deleted successfully",
         // notifications: newUser.notifications,
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ msg: "Server error" });
     }
   }

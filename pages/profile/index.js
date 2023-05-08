@@ -200,7 +200,7 @@ export default function User({ data, posts }) {
                         });
                       }}
                     >
-                      Sign out
+                      Sign Out
                     </Button>
                   </div>
                 )}

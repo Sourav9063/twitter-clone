@@ -34,16 +34,20 @@ export default function MessageInput({ profile }) {
       try {
         var response = await fetch("/api/v2/messages", requestOptions);
         var result = await response.json();
-        //
 
-        setRecentMessages((state) => {
-          return { ...state, messages: [...state.messages, result] };
-        });
+        if (response.ok) {
+          setRecentMessages((state) => {
+            return { ...state, messages: [...state.messages, result] };
+          });
+        }
       } catch (error) {
         setMessages(error.message);
       }
     }
-
+    // const [requestResult, unseenResult] = await Promise.all([
+    //   sendRequest(),
+    //   fetchUnseen(session.data.user.id, profile._id, setRecentMessages),
+    // ]);
     await sendRequest();
     await fetchUnseen(session.data.user.id, profile._id, setRecentMessages);
   };

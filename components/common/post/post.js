@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
 import { EMPTY_TWEET_RETWEET } from "@/helper/constStrings";
 import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
+import { TweetActions, TweetDispatch } from "@/actions/tweet";
 export default function Post({
   width = "100%",
   placeholder = "What's happening?",
@@ -39,79 +40,44 @@ export default function Post({
     : async () => {
         setLoading(true);
 
-        // const myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
-
-        const data = {
-          owner: session.data.user.id,
-          tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
-        };
         const formData = new FormData();
         selectedFile && formData.append("tweetImage", selectedFile);
         formData.append("owner", session.data.user.id);
         formData.append("tweetText", tweet ? tweet : EMPTY_TWEET_RETWEET);
 
-        if (imageLink != "") {
-          data.tweetImage = imageLink;
-        }
-        const raw = JSON.stringify(data);
-
-        const requestOptions = {
-          method: "POST",
-          // headers: myHeaders,
-          // body: raw,
-          body: formData,
-          redirect: "follow",
-        };
-
         if (tweetData.tweetText == "" && !head) {
-          try {
-            const response = await fetch("/api/v2/posts", requestOptions);
-
-            const result = await response.json();
-
-            setFeedData([result.post, ...FeedData]);
-            route.replace(returnTo);
-          } catch (error) {}
+          TweetDispatch({
+            type: TweetActions.postTweet,
+            payload: {
+              formData,
+              setFeedData,
+            },
+          });
         } else if (head) {
-          try {
-            const res = await fetch("/api/v2/posts/retweet", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                owner: session.data.user.id,
-                head: head,
-                tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
-              }),
-            });
-            const data = await res.json();
-            if (data) {
-              setRetweetCount(data.retweets);
-              setFeedData([data.tweet, ...FeedData]);
-            }
-            //
-            route.replace(returnTo);
-          } catch (error) {}
-          setShowRetweet(false);
+          const body = JSON.stringify({
+            owner: session.data.user.id,
+            head: head,
+            tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
+          });
+          TweetDispatch({
+            type: TweetActions.postRetweet,
+            payload: {
+              setRetweetCount,
+              setFeedData,
+              body,
+              setShowRetweet,
+            },
+          });
         } else {
-          requestOptions.method = "PATCH";
-          const response = await fetch(
-            "/api/v2/posts/" + tweetData._id,
-            requestOptions
-          );
-
-          const result = await response.json();
-
-          if (result.post) {
-            const index = FeedData.findIndex((e) => e._id == result.post._id);
-            if (index != -1) {
-              FeedData[index] = result.post;
-              setFeedData([...FeedData]);
-            }
-          }
-          route.replace(returnTo);
+          TweetDispatch({
+            type: TweetActions.patchTweet,
+            payload: {
+              formData,
+              tweetData,
+              setFeedData,
+              FeedData,
+            },
+          });
         }
 
         setSelectedFile("");
@@ -230,8 +196,6 @@ export default function Post({
           {picInputShow && (
             <div className={styles["input-group"]}>
               <input
-                // style={{ marginBlock: "1rem" }}
-
                 onChange={(e) => setImageLink(e.target.value)}
                 type="email"
                 name="Image"
@@ -261,17 +225,7 @@ export default function Post({
 
 function svgdiv() {
   return (
-    <div
-    // onClick={() => {
-    //   let tmp = picInputShow;
-
-    //   tmp = !tmp;
-
-    //   setPicInputShow(tmp);
-    // }}
-    >
-      {/* <svg viewBox="0 0 24 24" aria-hidden="true"><g><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"></path></g></svg> */}
-      {/* <span>{likes}</span> */}
+    <div>
       <svg className={style.picSVG} viewBox="0 0 24 24" aria-hidden="true">
         <g>
           <path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5v-13zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5h-13zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5v-3.086zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"></path>
@@ -343,3 +297,64 @@ function svgdiv() {
 
 //         setTweet("");
 //       };
+
+//   const body = JSON.stringify({
+//     owner: session.data.user.id,
+//     head: head,
+//     tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
+//   });
+//   try {
+//     const res = await fetch("/api/v2/posts/retweet", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         owner: session.data.user.id,
+//         head: head,
+//         tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
+//       }),
+//     });
+//     const data = await res.json();
+//     if (data) {
+//       setRetweetCount(data.retweets);
+//       setFeedData([data.tweet, ...FeedData]);
+//     }
+//     //
+//     route.replace(returnTo);
+//   } catch (error) {}
+//   setShowRetweet(false);
+
+// requestOptions.method = "PATCH";
+// const response = await fetch(
+//   "/api/v2/posts/" + tweetData._id,
+//   requestOptions
+// );
+
+// const result = await response.json();
+
+// if (result.post) {
+//   const index = FeedData.findIndex((e) => e._id == result.post._id);
+//   if (index != -1) {
+//     FeedData[index] = result.post;
+//     setFeedData([...FeedData]);
+//   }
+// }
+//           route.replace(returnTo);
+
+// const raw = JSON.stringify(data);
+
+// const requestOptions = {
+//   method: "POST",
+//   body: formData,
+//   redirect: "follow",
+// };
+
+// const data = {
+//   owner: session.data.user.id,
+//   tweetText: tweet ? tweet : EMPTY_TWEET_RETWEET,
+// };
+
+// if (imageLink != "") {
+//   data.tweetImage = imageLink;
+// }

@@ -10,10 +10,12 @@ const deleteNotification = async (id, sender) => {
       return { statue: false };
     }
     const result = await response.json();
+    console.log(result);
     if (result == "Notifications deleted successfully") {
       return { statue: true };
     }
   } catch (error) {
+    console.log(error);
     return { status: false };
   }
 };

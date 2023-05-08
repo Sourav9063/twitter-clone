@@ -1,161 +1,40 @@
-import React, { useContext, useState } from "react";
-
+import React from "react";
 import styles from "./ModalSignInDiv.module.css";
-import { ModalContext } from "@/providers/ModalProvider";
-
-import Button from "@/components/common/button/button";
 import TwitterLogo from "@/components/common/svg/TwitterLogo";
 import Or from "@/components/common/Or";
-import { useRouter } from "next/router";
 import { MODAL_QUERY_SIGNIN } from "@/helper/constStrings";
 import Link from "next/link";
 import Loader from "@/components/common/loader/Loader";
-import { signIn } from "next-auth/react";
+import useUser, { UserActions } from "@/actions/useUser";
 
 export default function ModalSignUpDiv() {
-  // const [ modal, setModal ] = useContext(ModalContext)
+  const { userSignUpForm, setUserSignUpForm, error, loading, userDispatch } =
+    useUser();
 
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const router = useRouter();
-  const [uploading, setUploading] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
   return (
     <div className={`${styles.signUpDiv} ${styles.showSignIn}`}>
       <TwitterLogo></TwitterLogo>
       <h1>Sign Up to Twitter</h1>
-
-      {/* {modal.showSignUp || <Button
-                onclick={() => {
-                    // modal.showSignIn = true;
-                    // modal.showModal = true
-                    // setModal({ ...modal })
-                    router.push("/" + MODAL_QUERY_SIGNIN)
-                }}
-                style={{ paddingBlock: ".5rem", }}
-            >Log in</Button>} */}
-
-      {/* <button
-                className={`${styles.btnOutline} btn-primary`}
-                onClick={() => {
-                    // modal.showSignUp = true;
-                    // modal.showModal = true
-
-                    // setModal({ ...modal })
-                }}
-            // style={{
-            //     backgroundColor: "White",
-            //     color: "Black",
-            //     border: "1px var(--border-color) solid",
-            //     paddingBlock: ".5rem",
-            //     // marginBlock: "1rem"
-            // }}
-            >Sign up with Github</button> */}
       <button
         className={`${styles.btnOutline} btn-primary`}
-        onClick={async () => {
-          // modal.showSignUp = true;
-          // setModal({ ...modal })
-
-          setLoading(true);
-          const res = await signIn("github", { callbackUrl: "/" });
-          setLoading(false);
-
-          // router.replace("/" + MODAL_QUERY_SIGNUP)
-        }}
-        // style={{
-        //     backgroundColor: "White",
-        //     color: "Black",
-        //     border: "1px var(--border-color) solid",
-        //     paddingBlock: ".5rem",
-        //     // marginBlock: "1rem"
-        // }}
+        onClick={userDispatch({ type: UserActions.postSignUpGithub })}
       >
         Sign in with Github
       </button>
-      {/* {<button
-                className={`${styles.btnOutline} btn-primary`}
-                onClick={() => {
-                    modal.showSignUp = true;
-                    modal.showModal = true
-
-                    setModal({ ...modal })
-                }}
-            // style={{
-            //     backgroundColor: "White",
-            //     color: "Black",
-            //     border: "1px var(--border-color) solid",
-            //     paddingBlock: ".5rem",
-            //     // marginBlock: "1rem"
-            // }}
-            >Create account</button>} */}
 
       <Or></Or>
-      {/* {modal.showSignUp && <> */}
+
       <form
-        onSubmit={async (e) => {
-          setLoading(true);
-          e.preventDefault();
-
-          const data = {
-            username: userName,
-            email: email,
-            password: password,
-          };
-          if (image != "") {
-            data.image = image;
-          }
-
-          const formData = new FormData();
-          selectedFile && formData.append("image", selectedFile);
-          formData.append("username", userName);
-          formData.append("email", email);
-          formData.append("password", password);
-
-          try {
-            const response = await fetch("/api/auth/signup", {
-              method: "POST",
-              // headers: {
-              //   "Content-Type": "application/json",
-              // },
-              // body: JSON.stringify(data),
-              body: formData,
-            });
-            const result = await response.json();
-
-            if (!response.ok) {
-              throw new Error(result.msg);
-            }
-
-            const res = await signIn("credentials", {
-              redirect: false,
-              email,
-              password,
-            });
-
-            setError(res.error);
-            if (!res.error) {
-              // setModal({ ...objectValueSetter(modal, false) })
-              router.replace("/");
-            } else {
-              router.replace("/" + "MODAL_QUERY_SIGNIN");
-            }
-          } catch (error) {
-            setError(error.message);
-          }
-
-          setLoading(false);
-        }}
+        onSubmit={userDispatch({ type: UserActions.postSignUpEmail })}
         action=""
       >
         <div className={styles["input-group"]}>
           <input
-            onChange={(e) => setUserName(e.target.value)}
+            onChange={(e) =>
+              setUserSignUpForm((state) => {
+                return { ...state, userName: e.target.value };
+              })
+            }
             placeholder="Hola"
             required
             type="text"
@@ -167,7 +46,11 @@ export default function ModalSignUpDiv() {
 
         <div className={styles["input-group"]}>
           <input
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setUserSignUpForm((state) => {
+                return { ...state, email: e.target.value };
+              })
+            }
             placeholder="Hola"
             required
             type="email"
@@ -178,7 +61,11 @@ export default function ModalSignUpDiv() {
         </div>
         <div className={styles["input-group"]}>
           <input
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setUserSignUpForm((state) => {
+                return { ...state, password: e.target.value };
+              })
+            }
             placeholder="Hola"
             required
             type="password"
@@ -188,19 +75,6 @@ export default function ModalSignUpDiv() {
           />
           <label className={styles["user-label"]}>Password</label>
         </div>
-
-        {/* <div className={styles["input-group"]}>
-          <input
-            onChange={(e) => setImage(e.target.value)}
-            placeholder="Hola"
-            type="text"
-            autoComplete="false"
-            name="image"
-            className={styles["input"]}
-          />
-          <label className={styles["user-label"]}>Image link</label>
-        </div> */}
-
         <div>
           <label htmlFor="img-upload">
             <input
@@ -211,14 +85,23 @@ export default function ModalSignUpDiv() {
               onChange={({ target }) => {
                 if (target.files) {
                   const file = target.files[0];
-                  setSelectedImage(URL.createObjectURL(file));
-                  setSelectedFile(file);
+                  setUserSignUpForm((state) => {
+                    return {
+                      ...state,
+                      selectedImage: URL.createObjectURL(file),
+                      selectedFile: file,
+                    };
+                  });
                 }
               }}
             />
             <div>
-              {selectedImage ? (
-                <img className={styles.uploadPic} src={selectedImage} alt="" />
+              {userSignUpForm.selectedImage ? (
+                <img
+                  className={styles.uploadPic}
+                  src={userSignUpForm.selectedImage}
+                  alt=""
+                />
               ) : (
                 <svg
                   width={"20px"}
@@ -253,9 +136,6 @@ export default function ModalSignUpDiv() {
           />
         )}
       </form>
-      {/* </>
-            } */}
-      {/* <p>By signing up, you agree to the <span>Terms of Service</span> and <span>Privacy Policy</span>, including <span>Cookie Use</span>.</p> */}
       <p>
         {`Already have an account?`}
         <Link replace={true} href={"/" + MODAL_QUERY_SIGNIN}>
@@ -265,3 +145,79 @@ export default function ModalSignUpDiv() {
     </div>
   );
 }
+
+// const [userName, setUserName] = useState("");
+// const [email, setEmail] = useState("");
+// const [password, setPassword] = useState("");
+// const [image, setImage] = useState("");
+// const [loading, setLoading] = useState(false);
+// const [error, setError] = useState("");
+// const [uploading, setUploading] = useState(false);
+// const [selectedImage, setSelectedImage] = useState("");
+// const [selectedFile, setSelectedFile] = useState();
+
+// setLoading(true);
+// e.preventDefault();
+
+// const data = {
+//   username: userName,
+//   email: email,
+//   password: password,
+// };
+// if (image != "") {
+//   data.image = image;
+// }
+
+// const formData = new FormData();
+// selectedFile && formData.append("image", selectedFile);
+// formData.append("username", userName);
+// formData.append("email", email);
+// formData.append("password", password);
+
+// try {
+//   const response = await fetch("/api/auth/signup", {
+//     method: "POST",
+//     // headers: {
+//     //   "Content-Type": "application/json",
+//     // },
+//     // body: JSON.stringify(data),
+//     body: formData,
+//   });
+//   const result = await response.json();
+
+//   if (!response.ok) {
+//     throw new Error(result.msg);
+//   }
+
+//   const res = await signIn("credentials", {
+//     redirect: false,
+//     email,
+//     password,
+//   });
+
+//   setError(res.error);
+//   if (!res.error) {
+//     // setModal({ ...objectValueSetter(modal, false) })
+//     router.replace("/");
+//   } else {
+//     router.replace("/" + "MODAL_QUERY_SIGNIN");
+//   }
+// } catch (error) {
+//   setError(error.message);
+// }
+
+// setLoading(false);
+
+// async (e) => {
+//   e.preventDefault();
+//   userDispatch({ type: UserActions.postSignUpEmail });
+// }
+
+// const signUpGithub = async (e) => {
+//   userDispatch({ type: UserActions.postSignUpGithub });
+// };
+
+// onSubmit={async (e) => {
+//   e.preventDefault();
+//   userDispatch({ type: UserActions.postSignUpEmail });
+// }}
