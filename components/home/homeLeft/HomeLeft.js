@@ -19,98 +19,12 @@ import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import fetchUnseen from "@/helper/frontend/fetchUnseen";
 
 export default function HomeLeft() {
-  // const [ modal, setModal ] = useContext(ModalContext)
   const router = useRouter();
   const session = useSession();
-  const [recentMessage, setRecentMessage] = useContext(RecentMessageContext);
-  const [notification, setNotification] = useState([]);
+  const [recentMessage] = useContext(RecentMessageContext);
   const onclick = () => {
     router.push("/" + MODAL_QUERY_POST);
   };
-  useEffect(() => {
-    const requestOptions = { method: "GET", redirect: "follow" };
-
-    async function fetchNotification() {
-      try {
-        const response = await fetch(
-          `/api/v2/users/getNotification?id=${session.data?.user.id}`,
-          requestOptions
-        );
-        const result = await response.json();
-
-        if (result.msg == "Success" && result.notifications.length > 0) {
-          setRecentMessage((state) => {
-            return {
-              ...state,
-              latestMessages: result.notifications,
-              showNotification: true,
-              latestMessage: result.notifications[0],
-            };
-          });
-        }
-      } catch (error) {}
-    }
-
-    if (session.data) {
-      fetchNotification();
-    }
-    return () => {};
-  }, [session.data, setRecentMessage]);
-
-  useEffect(() => {
-    const beat = new Audio("/sounds/noti_sound.wav");
-    const seenBeat = new Audio("/sounds/seen.wav");
-    const messaging = getMessaging();
-    onMessage(messaging, (payload) => {
-      const msg = JSON.parse(payload.data.message);
-      if (msg.notificationType === NOTIFICATION_TYPE_SEND) {
-        beat.play();
-        const newRecentMsg = {
-          showNotification: true,
-          latestMessage: msg.mainData,
-        };
-        if (
-          router.query.receiverId &&
-          router.query.receiverId == msg.mainData.receiver
-        ) {
-          newRecentMsg.messages;
-        }
-        setRecentMessage((state) => {
-          if (
-            router.query.receiverId &&
-            router.query.receiverId == msg.mainData.sender
-          ) {
-            newRecentMsg.messages = [...state.messages, msg.mainData];
-          } else {
-            newRecentMsg.messages = [...state.messages];
-          }
-          newRecentMsg.latestMessages = [msg.mainData, ...state.latestMessages];
-
-          return newRecentMsg;
-        });
-        setNotification((state) => [msg.mainData, ...state]);
-      } else if (msg.notificationType === NOTIFICATION_TYPE_SEEN) {
-        // fetchUnseen(
-        //   msg.mainData.sender,
-        //   msg.mainData.receiver,
-        //   setRecentMessage
-        // );
-        seenBeat.play();
-
-        setRecentMessage((state) => {
-          return {
-            ...state,
-            unseenMessages: !state.unseenMessages
-              ? []
-              : state.unseenMessages.filter((message) => {
-                  message.messageID !== msg.mainData._id;
-                }),
-          };
-        });
-      }
-    });
-    return () => {};
-  }, [setRecentMessage, router.query.receiverId]);
 
   return (
     <section className={style.left}>
@@ -249,3 +163,88 @@ export default function HomeLeft() {
 //   .catch((e) => {
 //
 //   });
+
+// useEffect(() => {
+//   const requestOptions = { method: "GET", redirect: "follow" };
+
+//   async function fetchNotification() {
+//     try {
+//       const response = await fetch(
+//         `/api/v2/users/getNotification?id=${session.data?.user.id}`,
+//         requestOptions
+//       );
+//       const result = await response.json();
+
+//       if (result.msg == "Success" && result.notifications.length > 0) {
+//         setRecentMessage((state) => {
+//           return {
+//             ...state,
+//             latestMessages: result.notifications,
+//             showNotification: true,
+//             latestMessage: result.notifications[0],
+//           };
+//         });
+//       }
+//     } catch (error) {}
+//   }
+
+//   if (session.data) {
+//     fetchNotification();
+//   }
+//   return () => {};
+// }, [session.data, setRecentMessage]);
+
+// useEffect(() => {
+//   const beat = new Audio("/sounds/noti_sound.wav");
+//   const seenBeat = new Audio("/sounds/seen.wav");
+//   const messaging = getMessaging();
+//   onMessage(messaging, (payload) => {
+//     const msg = JSON.parse(payload.data.message);
+//     if (msg.notificationType === NOTIFICATION_TYPE_SEND) {
+//       beat.play();
+//       const newRecentMsg = {
+//         showNotification: true,
+//         latestMessage: msg.mainData,
+//       };
+//       if (
+//         router.query.receiverId &&
+//         router.query.receiverId == msg.mainData.receiver
+//       ) {
+//         newRecentMsg.messages;
+//       }
+//       setRecentMessage((state) => {
+//         if (
+//           router.query.receiverId &&
+//           router.query.receiverId == msg.mainData.sender
+//         ) {
+//           newRecentMsg.messages = [...state.messages, msg.mainData];
+//         } else {
+//           newRecentMsg.messages = [...state.messages];
+//         }
+//         newRecentMsg.latestMessages = [msg.mainData, ...state.latestMessages];
+
+//         return newRecentMsg;
+//       });
+//       setNotification((state) => [msg.mainData, ...state]);
+//     } else if (msg.notificationType === NOTIFICATION_TYPE_SEEN) {
+//       // fetchUnseen(
+//       //   msg.mainData.sender,
+//       //   msg.mainData.receiver,
+//       //   setRecentMessage
+//       // );
+//       seenBeat.play();
+
+//       setRecentMessage((state) => {
+//         return {
+//           ...state,
+//           unseenMessages: !state.unseenMessages
+//             ? []
+//             : state.unseenMessages.filter((message) => {
+//                 message.messageID !== msg.mainData._id;
+//               }),
+//         };
+//       });
+//     }
+//   });
+//   return () => {};
+// }, [setRecentMessage, router.query.receiverId]);
