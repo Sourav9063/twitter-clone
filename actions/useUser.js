@@ -12,7 +12,14 @@ const useUser = (init) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const [userSignUpForm, setUserSignUpForm] = useState(init);
+  const [userSignUpForm, setUserSignUpForm] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    image: "",
+    selectedImage: "",
+    selectedFile: null,
+  });
 
   const { userName, email, password, image, selectedImage, selectedFile } =
     userSignUpForm;

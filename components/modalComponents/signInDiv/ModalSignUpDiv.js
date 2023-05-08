@@ -1,29 +1,15 @@
-import React, { useContext, useState } from "react";
-
+import React from "react";
 import styles from "./ModalSignInDiv.module.css";
-import { ModalContext } from "@/providers/ModalProvider";
-
-import Button from "@/components/common/button/button";
 import TwitterLogo from "@/components/common/svg/TwitterLogo";
 import Or from "@/components/common/Or";
-import { useRouter } from "next/router";
 import { MODAL_QUERY_SIGNIN } from "@/helper/constStrings";
 import Link from "next/link";
 import Loader from "@/components/common/loader/Loader";
-import { signIn } from "next-auth/react";
 import useUser, { UserActions } from "@/actions/useUser";
 
 export default function ModalSignUpDiv() {
-  // const [ modal, setModal ] = useContext(ModalContext)
   const { userSignUpForm, setUserSignUpForm, error, loading, userDispatch } =
-    useUser({
-      userName: "",
-      email: "",
-      password: "",
-      image: "",
-      selectedImage: "",
-      selectedFile: null,
-    });
+    useUser();
 
   return (
     <div className={`${styles.signUpDiv} ${styles.showSignIn}`}>
