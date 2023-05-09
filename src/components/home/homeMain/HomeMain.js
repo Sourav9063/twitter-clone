@@ -11,9 +11,13 @@ import { useOnScreen } from "@/helper/hooks/useOnScreen";
 import Loader from "@/components/common/loader/Loader";
 import { NO_MORE_TWEETS, TWEET_LIMIT, TWEET_SKIP } from "@/helper/constStrings";
 import Or from "@/components/common/Or";
-// import { SelectedTweetContext } from '@/providers/SelectedTweet'
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 export default function HomeMain({ posts }) {
+  const [parent, enableAnimations] = useAutoAnimate();
+
   const router = useRouter();
+
   const session = useSession();
   const [FeedTweets, setFeedTweets] = useContext(FeedTweetsContext);
   const [btnText, setBtnText] = useState("Load More.");
@@ -53,8 +57,6 @@ export default function HomeMain({ posts }) {
     return () => {};
   }, [onScreen]);
 
-  // const [ , setTweet ] = useContext(SelectedTweetContext);
-  //
   return (
     <section
       className={style.main}
@@ -68,20 +70,21 @@ export default function HomeMain({ posts }) {
                     height: "100px"
                 }}></div> */}
         {session.status == "authenticated" && <Post></Post>}
-        {FeedTweets.map((tweet, index) => (
-          <div
-            key={tweet._id}
-            onClick={() => {
-              // setTweet(tweet);
-
-              router.push({
-                pathname: router.pathname + "posts/" + tweet._id,
-              });
-            }}
-          >
-            <Tweet tweet={tweet}></Tweet>
-          </div>
-        ))}
+        <div ref={parent}>
+          {FeedTweets.map((tweet, index) => (
+            <div
+              key={tweet._id}
+              onClick={() => {
+                // setTweet(tweet);
+                router.push({
+                  pathname: router.pathname + "posts/" + tweet._id,
+                });
+              }}
+            >
+              <Tweet tweet={tweet}></Tweet>
+            </div>
+          ))}
+        </div>
         {btnText != NO_MORE_TWEETS ? (
           <div className={style.load} ref={btnRef}>
             {onScreen ? <Loader /> : <Button>{btnText}</Button>}

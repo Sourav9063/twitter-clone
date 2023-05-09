@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
   if (req.method == "POST") {
     try {
-      await connectMongo;
+      await connectMongo();
       const { owner, what, who } = req.body;
 
       // let ownerDB = await UserDB.findById(owner).populate(
@@ -19,11 +19,24 @@ export default async function handler(req, res) {
       // let whoDB = await UserDB.findById(who);
 
       const [ownerDB, whoDB] = await Promise.all([
-        UserDBV2.findById(owner).populate(
-          "following",
-          "email username image _id"
-        ),
-        UserDBV2.findById(who).select({ _id: 1, follower: 1, following: 1 }),
+        UserDBV2.findById(owner)
+          .populate("following", "email username image _id")
+          .select({
+            _id: 1,
+            follower: 1,
+            following: 1,
+            email: 1,
+            username: 1,
+            image: 1,
+          }),
+        UserDBV2.findById(who).select({
+          _id: 1,
+          follower: 1,
+          following: 1,
+          email: 1,
+          username: 1,
+          image: 1,
+        }),
       ]);
 
       // if (!ownerDB) {

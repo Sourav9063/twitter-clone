@@ -16,6 +16,8 @@ import CommentBox from "../modalComponents/CommentBox";
 import Post from "../common/post/post";
 import Comments from "../common/comment/Comments";
 import { TweetActions, TweetDispatch } from "@/actions/tweet";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
 // import Image from 'next/image';
 export default function Tweet(props) {
   const {
@@ -51,6 +53,8 @@ export default function Tweet(props) {
   let likedPost = liked.find((post) => post._id == _id);
   likedPost = likedPost ? true : false;
   const [random, setRandom] = useContext(RandomContext);
+
+  const [parent] = useAutoAnimate();
   const dropDownOption1 = () => {
     return (
       <PostOption
@@ -237,18 +241,20 @@ export default function Tweet(props) {
               head={_id}
               btnTxt="Comment"
             ></CommentBox>
-            {tweet.commentsList &&
-              commentsList.map((comment, index) => {
-                return (
-                  <div key={comment._id}>
-                    <Comments
-                      setCommentsList={setCommentsList}
-                      comment={comment}
-                      setCommentCount={setCommentCount}
-                    ></Comments>
-                  </div>
-                );
-              })}
+            <div ref={parent}>
+              {tweet.commentsList &&
+                commentsList.map((comment, index) => {
+                  return (
+                    <div key={comment._id}>
+                      <Comments
+                        setCommentsList={setCommentsList}
+                        comment={comment}
+                        setCommentCount={setCommentCount}
+                      ></Comments>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         )}
       </div>

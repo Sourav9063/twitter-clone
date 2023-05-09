@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default function Follow({ header = "Who to Follow?", profiles }) {
   const [users, setUsers] = useState([]);
   const session = useSession();
-  async function getUsers(number = 8) {
+  async function getUsers(number = 3) {
     try {
       const res = await fetch("/api/v2/users?number=" + number, {
         method: "GET",
@@ -30,7 +30,7 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
       <h1>{header}</h1>
       <div className="inner">
         {users.map((user, index) => {
-          if (user._id == session.data.user.id) return;
+          if (user._id == session.data?.user.id) return;
           return (
             <ProfilePill key={user._id} data={user} showOption={false}>
               {/* <Button

@@ -4,11 +4,11 @@ import MessageComponent from "./messageComponent";
 import style from "./Message.module.css";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import { format } from "date-fns";
-
 export default function MessagePortion({ profile }) {
   const showTimeAfter = 10;
   const [recentmessages] = useContext(RecentMessageContext);
   const lastmsg = useRef(null);
+
   useEffect(() => {
     lastmsg.current?.scrollIntoView({ behavior: "smooth" });
     return () => {};
@@ -39,7 +39,7 @@ export default function MessagePortion({ profile }) {
                 : true;
           }
           return (
-            <div key={msg._id}>
+            <div key={msg._id} className={style.animate}>
               {index > 0 &&
                 new Date(recentmessages.messages[index].createdAt) -
                   new Date(recentmessages.messages[index - 1].createdAt) >

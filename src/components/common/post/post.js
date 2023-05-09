@@ -79,6 +79,7 @@ export default function Post({
             },
           });
         }
+        route.replace(returnTo);
 
         setSelectedFile("");
         setSelectedImage("");

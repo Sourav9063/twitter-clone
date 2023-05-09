@@ -153,6 +153,7 @@ export default function User({ data, posts }) {
                             body: JSON.stringify(body),
                           });
                           const result = await res.json();
+                          console.log(result);
                           const isFollowingNow =
                             result.msg == "Following" ? true : false;
                           amIFollowing = isFollowingNow;
@@ -160,12 +161,19 @@ export default function User({ data, posts }) {
                           setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
                           if (result.msg == "Following") {
                             userData.follower.push(result.data);
-                            setUserData({ ...userData });
+                            setUserData({
+                              ...userData,
+
+                              // follower: [...userData.follower, result.data],
+                            });
                           } else {
-                            userData.follower = userData.follower.filter(
-                              (f) => f._id != result.data._id
-                            );
-                            setUserData({ ...userData });
+                            const follower = userData.follower.filter((f) => {
+                              console.log(f._id);
+                              console.log(result.data._id);
+                              return f._id != result.data._id;
+                            });
+                            console.log(follower);
+                            setUserData({ ...userData, follower: follower });
                           }
                         }}
                       >
@@ -209,7 +217,7 @@ export default function User({ data, posts }) {
             </div>
             <ProfileMid
               userData={userData}
-              setData={setUserData}
+              setUserData={setUserData}
               posts={posts}
             ></ProfileMid>
           </section>

@@ -84,9 +84,6 @@ export default function Message({ receiver, messages }) {
 
           const result = await res.json();
         } catch (error) {}
-        // Send this token  to server ( db)
-        //
-        // send to the UserDBV2
       } else if (permission === "denied") {
         alert("You denied for the notification");
       }

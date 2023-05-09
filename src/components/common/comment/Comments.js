@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import DropDown from "../dropDown/DropDown";
 import Button from "../button/button";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export default function Comments({
   comment,
@@ -14,7 +15,7 @@ export default function Comments({
   setCommentCount,
 }) {
   const owner = comment.owner;
-
+  const [parent] = useAutoAnimate();
   const session = useSession();
   const router = useRouter();
   const url = "/api/v2/comments/" + comment._id;
@@ -129,20 +130,20 @@ export default function Comments({
           </div>
           <div className={style.mainTweet}>{comment.tweetText}</div>
           {nodes.length > 0 && <h3 className="replies">Replies</h3>}
-          {nodes.length > 0 && (
-            <div className="replies">
-              {nodes.map((node) => {
-                return (
-                  <CommentUI
-                    setNodes={setNodes}
-                    nodes={nodes}
-                    key={node._id}
-                    comment={node}
-                  />
-                );
-              })}
-            </div>
-          )}
+
+          <div ref={parent} className="replies">
+            {nodes.map((node) => {
+              return (
+                <CommentUI
+                  setNodes={setNodes}
+                  nodes={nodes}
+                  key={node._id}
+                  comment={node}
+                />
+              );
+            })}
+          </div>
+
           {/* <Button
                     onclick={() => {
                         router.query.modal = "comment"
