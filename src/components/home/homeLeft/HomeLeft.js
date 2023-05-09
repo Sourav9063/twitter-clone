@@ -38,7 +38,7 @@ export default function HomeLeft() {
                   router.push({
                     pathname: "/profile",
                     query: {
-                      id: session.data.user.id,
+                      id: session.data?.user.id,
                     },
                   });
                 }}

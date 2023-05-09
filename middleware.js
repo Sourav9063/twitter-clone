@@ -2,10 +2,10 @@ import { withAuth } from "next-auth/middleware";
 
 export default withAuth(function middleware(req) {}, {
   callbacks: {
-    authorized(params) {
-      
-    },
+    authorized(params) {},
   },
 });
 
-export const config = { matcher: ["/profile/:id", "/posts/:postid*"] };
+export const config = {
+  matcher: ["/profile/:id", "/posts/*", "/message*"],
+};

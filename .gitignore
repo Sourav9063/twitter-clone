@@ -1,6 +1,7 @@
 # dependencies
 /public/service.json
 /pages/api/v2/messages/service.json
+/src/pages/api/v2/messages/service.json
 /node_modules
 /.pnp
 .pnp.js
