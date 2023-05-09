@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
+
 import { useRouter } from "next/router";
-import connectMongo from "@/db/dbConnect";
-// import UserDB from "@/db/models/userModel";
-// import PostDB from "@/db/models/postModel";
-import UserDBV2 from "@/db/modelsV2/userModelV2";
-import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
 import Head from "next/head";
+import { signOut, useSession } from "next-auth/react";
+
 import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import HomeRight from "@/components/home/homeRight/HomeRight";
 import Avatar from "@/components/common/avatar/avatar";
 import Button from "@/components/common/button/button";
-import { signOut, useSession } from "next-auth/react";
 import ProfileMid from "@/components/profile/ProfileMid";
 import ModalComponent from "@/components/modal/ModalComponent";
 import EditProfile from "@/components/modalComponents/editProfile/EditProfile";
+
+import connectMongo from "@/db/dbConnect";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
+import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
 
 export async function getServerSideProps(context) {
   const { id, email } = context.query;
@@ -331,3 +332,18 @@ export default function User({ data, posts }) {
                         <Tweet tweet={tweet}></Tweet>
                     </div>)} */
 }
+
+// import React, { useEffect, useState } from "react";
+// import { useRouter } from "next/router";
+// import connectMongo from "@/db/dbConnect";
+// import UserDBV2 from "@/db/modelsV2/userModelV2";
+// import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
+// import Head from "next/head";
+// import HomeLeft from "@/components/home/homeLeft/HomeLeft";
+// import HomeRight from "@/components/home/homeRight/HomeRight";
+// import Avatar from "@/components/common/avatar/avatar";
+// import Button from "@/components/common/button/button";
+// import { signOut, useSession } from "next-auth/react";
+// import ProfileMid from "@/components/profile/ProfileMid";
+// import ModalComponent from "@/components/modal/ModalComponent";
+// import EditProfile from "@/components/modalComponents/editProfile/EditProfile";

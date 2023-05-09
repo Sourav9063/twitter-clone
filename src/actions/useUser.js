@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export const UserActions = {
   postSignUpEmail: "POST_SIGNUP_EMAIL",
+  postSingInEmail: "POST_SIGNIN_EMAIL",
   postSignUpGithub: "POST_SIGNUP_GITHUB",
 };
 
@@ -31,6 +32,9 @@ const useUser = (init) => {
       case UserActions.postSignUpGithub:
         return postSignUpGithubFn;
         break;
+      case UserActions.postSingInEmail:
+        return postSignInEmailFn;
+        break;
     }
   };
 
@@ -38,6 +42,25 @@ const useUser = (init) => {
     return userReducer(null, action);
   };
 
+  const postSignInEmailFn = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      setError(res.error);
+      if (!res.error) {
+        // setModal({ ...objectValueSetter(modal, false) })
+        router.replace("/");
+      }
+    } catch (e) {}
+    setLoading(false);
+  };
   const postSignUpEmailFn = async (e) => {
     e.preventDefault();
     setLoading(true);

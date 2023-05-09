@@ -12,67 +12,35 @@ import Loader from "@/components/common/loader/Loader";
 import { useRouter } from "next/router";
 import { MODAL_QUERY_SIGNUP } from "@/helper/constStrings";
 import Link from "next/link";
+import useUser, { UserActions } from "@/actions/useUser";
 
 export default function ModalSignInDiv() {
   // const [ modal, setModal ] = useContext(ModalContext)
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const router = useRouter();
+  // const [email, setEmail] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
+  // const [password, setPassword] = useState("");
 
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { userSignUpForm, setUserSignUpForm, error, loading, userDispatch } =
+    useUser();
 
   return (
     <div className={`${styles.signUpDiv} ${styles.showSignIn}`}>
       <TwitterLogo></TwitterLogo>
       <h1>Sign in to Twitter</h1>
 
-      {/* {modal.showSignIn || <Button
-                onclick={() => {
-                    modal.showSignIn = true;
-                    modal.showModal = true
-                    setModal({ ...modal })
-                }}
-                style={{ paddingBlock: ".5rem", }}
-            >Log in</Button>} */}
-
       <button
         className={`${styles.btnOutline} btn-primary`}
-        onClick={async () => {
-          // modal.showSignUp = true;
-          // setModal({ ...modal })
-
-          setLoading(true);
-          const res = await signIn("github", { callbackUrl: "/" });
-          setLoading(false);
-
-          // router.replace("/" + MODAL_QUERY_SIGNUP)
-        }}
-        // style={{
-        //     backgroundColor: "White",
-        //     color: "Black",
-        //     border: "1px var(--border-color) solid",
-        //     paddingBlock: ".5rem",
-        //     // marginBlock: "1rem"
-        // }}
+        onClick={userDispatch({ type: UserActions.postSignUpGithub })}
       >
         Sign in with Github
       </button>
       <button
         className={`${styles.btnOutline} btn-primary`}
         onClick={() => {
-          // modal.showSignUp = true;
-          // setModal({ ...modal })
-
           router.replace("/" + MODAL_QUERY_SIGNUP);
         }}
-        // style={{
-        //     backgroundColor: "White",
-        //     color: "Black",
-        //     border: "1px var(--border-color) solid",
-        //     paddingBlock: ".5rem",
-        //     // marginBlock: "1rem"
-        // }}
       >
         Create account
       </button>
@@ -81,29 +49,15 @@ export default function ModalSignInDiv() {
 
       <form
         action=""
-        onSubmit={async (e) => {
-          setLoading(true);
-          e.preventDefault();
-
-          try {
-            const res = await signIn("credentials", {
-              redirect: false,
-              email,
-              password,
-            });
-
-            setError(res.error);
-            if (!res.error) {
-              // setModal({ ...objectValueSetter(modal, false) })
-              router.replace("/");
-            }
-          } catch (e) {}
-          setLoading(false);
-        }}
+        onSubmit={userDispatch({ type: UserActions.postSingInEmail })}
       >
         <div className={styles["input-group"]}>
           <input
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) =>
+              setUserSignUpForm((state) => {
+                return { ...state, email: e.target.value };
+              })
+            }
             required
             type="email"
             name="email"
@@ -114,7 +68,11 @@ export default function ModalSignInDiv() {
         </div>
         <div className={styles["input-group"]}>
           <input
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setUserSignUpForm((state) => {
+                return { ...state, password: e.target.value };
+              })
+            }
             required
             type="password"
             autoComplete="false"

@@ -171,7 +171,7 @@
 .msgComponent {
   max-width: 80%;
   width: fit-content;
-  padding: 0.5rem 0.5rem;
+  padding: 0.4rem 0.8rem;
   margin: 0.1rem;
   border-radius: 1rem;
   overflow: hidden;

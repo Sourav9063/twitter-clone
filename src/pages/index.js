@@ -1,30 +1,30 @@
 import React, { useContext, useEffect } from "react";
 import style from "../styles/Home.module.css";
-import Image from "next/image";
-import TwitterLogo from "@/components/common/svg/TwitterLogo";
+
 import Head from "next/head";
-import Tweet from "@/components/tweet/tweet";
-import HomeMain from "@/components/home/homeMain/HomeMain";
-import ModalComponent from "@/components/modal/ModalComponent";
-import HomeLeft from "@/components/home/homeLeft/HomeLeft";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 import Post from "@/components/common/post/post";
-// import { ModalContext } from '@/providers/ModalProvider'
+
+import HomeMain from "@/components/home/homeMain/HomeMain";
+import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import HomeRight from "@/components/home/homeRight/HomeRight";
+import { HomeBottom } from "@/components/home/homeBottom/HomeBottom";
+
+import ModalComponent from "@/components/modal/ModalComponent";
 import ModalSignInDiv from "@/components/modalComponents/signInDiv/ModalSignInDiv";
 import ModalSignUpDiv from "@/components/modalComponents/signInDiv/ModalSignUpDiv";
-import { useRouter } from "next/router";
-import { HomeBottom } from "@/components/home/homeBottom/HomeBottom";
-import { useSession } from "next-auth/react";
-import connectMongo from "@/db/dbConnect";
 import CommentBox from "@/components/modalComponents/CommentBox";
 import ModalTweet from "@/components/modalComponents/ModalTweet";
-// import PostDB from "@/db/models/postModel";
-// import UserDB from "@/db/models/userModel";
+
+import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
+
 import { RandomContext } from "@/providers/RandomProvider";
 import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
+
 import { TWEET_LIMIT } from "@/helper/constStrings";
 
 export async function getServerSideProps(context) {
@@ -32,9 +32,6 @@ export async function getServerSideProps(context) {
   let error = null;
   try {
     await connectMongo();
-    // const user = await UserDB.find().limit(2);
-    // posts = await PostDB.find().populate("owner").sort({ createdDate: -1 });
-
     const [user, posts] = await Promise.all([
       UserDBV2.find().limit(1),
       TweetDBV2.find({ type: { $in: ["tweet", "retweet"] } })
@@ -47,13 +44,10 @@ export async function getServerSideProps(context) {
           populate: {
             path: "owner",
             select: "username email image",
-
-            // select: {},
           },
         })
         .populate({
           path: "commentsList",
-          // select: "tweetText",
           populate: {
             path: "owner",
             select: "username image email _id",
@@ -77,11 +71,10 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home({ data, error }) {
-  // const [ modal, ] = useContext(ModalContext)
   const router = useRouter();
   const session = useSession();
   const [random] = useContext(RandomContext);
-  const [FeedTweets, setFeedTweets] = useContext(FeedTweetsContext);
+  const [, setFeedTweets] = useContext(FeedTweetsContext);
 
   useEffect(() => {
     setFeedTweets([...data]);
@@ -96,10 +89,6 @@ export default function Home({ data, error }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
-
-      {/* <SelectedTweetProvider> */}
-
-      {/* <LikedPostsProvider> */}
       {router.query.modal == "signin" && (
         <ModalComponent>
           <ModalSignInDiv></ModalSignInDiv>
@@ -147,11 +136,18 @@ export default function Home({ data, error }) {
         <HomeRight></HomeRight>
         {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
       </main>
-      {/* </LikedPostsProvider> */}
-      {/* </SelectedTweetProvider> */}
     </>
   );
 }
+
+//
+//
+//
+//
+//
+//
+//
+//dead code
 
 {
   /* <ModalComponent>
@@ -159,4 +155,17 @@ export default function Home({ data, error }) {
         {modal.showSignIn && <ModalSignInDiv />}
         {modal.showSignUp && <ModalSignUpDiv></ModalSignUpDiv>}
       </ModalComponent> */
+}
+{
+  /* <SelectedTweetProvider> */
+}
+
+{
+  /* <LikedPostsProvider> */
+}
+{
+  /* </LikedPostsProvider> */
+}
+{
+  /* </SelectedTweetProvider> */
 }

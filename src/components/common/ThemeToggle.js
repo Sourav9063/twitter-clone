@@ -48,11 +48,20 @@ export default function ThemeToggle() {
       ) : (
         <img src="/svg/moon.svg" alt="" />
       )}
-      {isDark ? "Light" : "Dark"}
+
+      <div className="text"> {isDark ? "Light" : "Dark"}</div>
       <style jsx>{`
         img {
           width: 2rem;
           margin-right: 1rem;
+        }
+        @media only screen and (max-width: 850px) {
+          img {
+            margin-right: 0px;
+          }
+          .text {
+            display: none;
+          }
         }
       `}</style>
     </div>
