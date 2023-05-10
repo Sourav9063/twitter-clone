@@ -12,9 +12,10 @@ export default async function handler(req, res) {
         .populate({
           path: "likedPost",
           populate: { path: "owner", select: "username" },
-          select: "tweetText createdAt",
+          select: "tweetText createdAt type",
         })
-        .limit(number);
+        .limit(number)
+        .select("likedPost");
       res.status(200).json({ likedb });
     } catch (e) {
       res.status(500).json({ msg: "Server error" });

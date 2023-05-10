@@ -126,7 +126,6 @@ export default function Home({ data, error }) {
         </ModalComponent>
       )}
       <main className={style.body}>
-        {/* <div>{data}</div> */}
         <HomeLeft></HomeLeft>
         {error == null ? (
           <HomeMain posts={data}></HomeMain>
@@ -134,7 +133,7 @@ export default function Home({ data, error }) {
           <div>{error}</div>
         )}
         <HomeRight></HomeRight>
-        {session.status !== "authenticated" && <HomeBottom></HomeBottom>}
+        {session.status == "unauthenticated" && <HomeBottom></HomeBottom>}
       </main>
     </>
   );
