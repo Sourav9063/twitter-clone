@@ -40,8 +40,8 @@ export default async function handler(req, res) {
         UserDBV2.findOne({ email: email }),
       ]);
 
-      if (existingUser) {
-        res.status(422).json({ msg: "User already exist. Please log in." });
+      if (!existingUser.isEmailVerified) {
+        res.status(422).json({ msg: "Please verify your email." });
 
         return;
       }
@@ -49,17 +49,20 @@ export default async function handler(req, res) {
         username,
         email,
         password: hashPass,
-        verifyString,
       };
 
       if (image) {
         data.image = image;
       }
+      existingUser.password = hashPass;
+      if (image) {
+        existingUser.image = image;
+      }
+      await existingUser.save();
 
-      const result = await UserDBV2.create(data);
-
-      return res.status(201).json({ msg: "Sign Up Successful", result });
+      return res.status(201).json({ msg: "Sign Up Successful", existingUser });
     } catch (e) {
+      console.log(e);
       res.status(500).json({ msg: "Server Error", e });
     }
   }

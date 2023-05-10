@@ -12,7 +12,12 @@ export const UserActions = {
 
 const useUser = (init) => {
   const router = useRouter();
-  const [verifyString, setverifyString] = useState(router.query.verifyString);
+  const [verifyString, setverifyString] = useState(
+    router.query.verifyString == "undefined" ||
+      router.query.verifyString == null
+      ? ""
+      : router.query.verifyString
+  );
   const [isVerified, setIsVerified] = useState(false);
   console.log(verifyString);
 
@@ -38,8 +43,13 @@ const useUser = (init) => {
   const { userName, email, password, image, selectedImage, selectedFile } =
     userSignUpForm;
   useEffect(() => {
-    if (verifyString != "undefined" && verifyString && userSignUpForm.email) {
+    if (
+      verifyString != "undefined" &&
+      verifyString?.length == 6 &&
+      userSignUpForm.email
+    ) {
       console.log("Veri call");
+      postCheckVerificationCodeFn();
     } else {
       console.log("not call");
     }
@@ -60,11 +70,51 @@ const useUser = (init) => {
       case UserActions.postVerificationEmail:
         return postVerificationFn;
         break;
+      case UserActions.postCheckVerificationCode:
+        return postCheckVerificationCodeFn;
+        break;
     }
   };
 
   const userDispatch = (action) => {
     return userReducer(null, action);
+  };
+  const postCheckVerificationCodeFn = async (e) => {
+    console.log("called");
+    setLoading(true);
+    setError("Verifying");
+    const data = {
+      email: userSignUpForm.email,
+      verifyString: verifyString,
+    };
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(data),
+      redirect: "follow",
+    };
+    try {
+      var response = await fetch("/api/v2/users/codeVerify", requestOptions);
+      var result = await response.json();
+      console.log(result);
+      if (response.ok) {
+        if (result.msg == "MATCHED") {
+          setIsVerified(true);
+          setError("");
+        } else {
+          setIsVerified(false);
+          setError("Code not matched.");
+        }
+      } else {
+        throw new Error(result.msg);
+      }
+    } catch (error) {
+      console.log(error.message);
+      setError(error.message);
+    }
+    setLoading(false);
   };
 
   const postVerificationFn = async (e) => {
@@ -86,14 +136,15 @@ const useUser = (init) => {
       var response = await fetch("/api/v2/users/emailVerify", requestOptions);
       var result = await response.json();
 
+      console.log(result);
       if (response.ok) {
         setError("Verification email sent. Check inbox and span folder.");
       } else {
-        throw new Error(result);
+        throw new Error(result.msg);
       }
     } catch (error) {
       console.log(error);
-      setError("Cannot send verification email.");
+      setError(error.message);
     }
     setLoading(false);
   };

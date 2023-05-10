@@ -97,7 +97,7 @@ export default function HomeLeft() {
                 </div>
               </Link> */}
               <ThemeToggle></ThemeToggle>
-              <div
+              {/* <div
                 onClick={() => {
                   router.push({
                     pathname: "/profile",
@@ -119,7 +119,7 @@ export default function HomeLeft() {
                   </g>
                 </svg>
                 <div className={style.text}>Verify Email</div>
-              </div>
+              </div> */}
             </div>
             {session.status == "authenticated" && (
               <>

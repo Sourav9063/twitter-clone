@@ -114,7 +114,7 @@ export default function Comments({
               <span className={style["username"]}>{owner?.username}</span>
               {/* <span>·</span> */}
             </div>
-            {session.data?.user.id == owner._id && (
+            {session.data?.user.id == owner?._id && (
               <DropDown width={"150px"} options={[Delete(comment._id)]}>
                 <svg
                   viewBox="0 0 24 24"

@@ -9,7 +9,9 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { email, username } = req.body;
     const verifyString = makeId(6);
-
+    if (!email || !username) {
+      return res.status(400).json({ msg: "BAD REQUEST" });
+    }
     await connectMongo();
     const [existingUser] = await Promise.all([
       UserDBV2.findOne({ email: email }),
