@@ -3,54 +3,15 @@ import style from "./Message.module.css";
 import { useSession } from "next-auth/react";
 import { RecentMessageContext } from "@/providers/RecentMessageProvider";
 import fetchUnseen from "@/helper/frontend/fetchUnseen";
+import useMessageDispatch, { MessageActions } from "@/actions/useMessage";
 
 export default function MessageInput({ profile }) {
-  const [messages, setMessages] = useState();
-  const session = useSession();
-  const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
-
-  const handleSendMsg = async (e) => {
-    e.preventDefault();
-
-    setMessages((state) => "");
-
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      senderEmail: session.data.user.email,
-      receiverEmail: profile.email,
-      body: messages,
+  const { loading, error, messages, setMessages, dispatch } =
+    useMessageDispatch({
+      type: MessageActions.postMessage,
+      initPayload: {},
     });
 
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    async function sendRequest() {
-      try {
-        var response = await fetch("/api/v2/messages", requestOptions);
-        var result = await response.json();
-
-        if (response.ok) {
-          setRecentMessages((state) => {
-            return { ...state, messages: [...state.messages, result] };
-          });
-        }
-      } catch (error) {
-        setMessages(error.message);
-      }
-    }
-    // const [requestResult, unseenResult] = await Promise.all([
-    //   sendRequest(),
-    //   fetchUnseen(session.data.user.id, profile._id, setRecentMessages),
-    // ]);
-    await sendRequest();
-    await fetchUnseen(session.data.user.id, profile._id, setRecentMessages);
-  };
   return (
     <div className={style.input}>
       <svg className={style.picSVG} viewBox="0 0 24 24" aria-hidden="true">
@@ -70,7 +31,19 @@ export default function MessageInput({ profile }) {
           setMessages(e.target.value);
         }}
       ></textarea>
-      <div className="" onClick={handleSendMsg}>
+      <div
+        className=""
+        onClick={(e) => {
+          dispatch({
+            payload: {
+              event: e,
+              receiverEmail: profile.email,
+              receiverId: profile._id,
+            },
+            states: {},
+          });
+        }}
+      >
         <svg className={style.picSVG} viewBox="0 0 24 24" aria-hidden="true">
           <g>
             <path d="M2.504 21.866l.526-2.108C3.04 19.719 4 15.823 4 12s-.96-7.719-.97-7.757l-.527-2.109L22.236 12 2.504 21.866zM5.981 13c-.072 1.962-.34 3.833-.583 5.183L17.764 12 5.398 5.818c.242 1.349.51 3.221.583 5.183H10v2H5.981z"></path>
@@ -80,3 +53,49 @@ export default function MessageInput({ profile }) {
     </div>
   );
 }
+
+// const [messages, setMessages] = useState();
+// const session = useSession();
+// const [recentmessages, setRecentMessages] = useContext(RecentMessageContext);
+
+// const handleSendMsg = async (e) => {
+//   e.preventDefault();
+
+//   const myHeaders = new Headers();
+//   myHeaders.append("Content-Type", "application/json");
+
+//   const raw = JSON.stringify({
+//     senderEmail: session.data.user.email,
+//     receiverEmail: profile.email,
+//     body: messages,
+//   });
+
+//   const requestOptions = {
+//     method: "POST",
+//     headers: myHeaders,
+//     body: raw,
+//     redirect: "follow",
+//   };
+
+//   async function sendRequest() {
+//     try {
+//       var response = await fetch("/api/v2/messages", requestOptions);
+//       var result = await response.json();
+
+//       if (response.ok) {
+//         setRecentMessages((state) => {
+//           return { ...state, messages: [...state.messages, result] };
+//         });
+//         setMessages((state) => "");
+//       }
+//     } catch (error) {
+//       setMessages(error.message);
+//     }
+//   }
+//   // const [requestResult, unseenResult] = await Promise.all([
+//   //   sendRequest(),
+//   //   fetchUnseen(session.data.user.id, profile._id, setRecentMessages),
+//   // ]);
+//   await sendRequest();
+//   await fetchUnseen(session.data.user.id, profile._id, setRecentMessages);
+// };
