@@ -2,6 +2,7 @@ import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import { parseForm } from "@/helper/backend/parseForm";
 import { hashPassword } from "@/helper/encrypt/hashPassword";
+import makeId from "@/helper/helperFunc/makeId";
 export const config = {
   api: {
     bodyParser: false,
@@ -44,11 +45,11 @@ export default async function handler(req, res) {
 
         return;
       }
-
       const data = {
         username,
         email,
         password: hashPass,
+        verifyString,
       };
 
       if (image) {

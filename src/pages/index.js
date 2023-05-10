@@ -99,6 +99,12 @@ export default function Home({ data, error }) {
           <ModalSignUpDiv></ModalSignUpDiv>
         </ModalComponent>
       )}
+      {router.query.modal == "verify" && (
+        <ModalComponent>
+          <ModalSignUpDiv></ModalSignUpDiv>
+        </ModalComponent>
+      )}
+
       {router.query.modal == "post" && (
         <ModalComponent>
           <Post width="600px"></Post>

@@ -6,9 +6,11 @@ export default function Button({
   children = "Tweet",
   style,
   disabled = false,
+  type = "submit",
 }) {
   return (
     <button
+      type={type}
       className={`btn-primary`}
       onClick={onclick}
       style={style}

@@ -6,6 +6,9 @@ const userSchemaV2 = new Schema(
       type: Boolean,
       default: false,
     },
+    verifyString: {
+      type: String,
+    },
     email: {
       type: String,
       unique: true,
@@ -126,7 +129,7 @@ const userSchemaV2 = new Schema(
         },
       },
     ],
-    
+
     messages: [
       {
         sender: {

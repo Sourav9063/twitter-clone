@@ -10,3 +10,5 @@ export const NOTIFICATION_TYPE_SEND = "NOTIFICATION_TYPE_SEND";
 export const NOTIFICATION_TYPE_SEEN = "NOTIFICATION_TYPE_SEEN";
 
 // export let TWEET_SKIP = 0;
+
+export const BASE_URL = "http://localhost:3000/";
