@@ -5,7 +5,9 @@ import { formatDistanceToNow } from "date-fns";
 import { LikedPostsContext } from "@/providers/LikedPosts";
 import { useRouter } from "next/router";
 import { EMPTY_TWEET_RETWEET } from "@/helper/constStrings";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 export default function RecentLiked() {
+  const [parent] = useAutoAnimate();
   const header = "Recent Liked";
   const router = useRouter();
 
@@ -27,7 +29,7 @@ export default function RecentLiked() {
       const data = await res.json();
       if (data) {
         //
-
+        console.log(data);
         data.likedb != null && setLiked(data.likedb?.likedPost.reverse());
       }
     }
@@ -41,7 +43,7 @@ export default function RecentLiked() {
       {liked.length != 0 && (
         <div className="follow">
           <h1>{header}</h1>
-          <div className="inner">
+          <div ref={parent} className="inner">
             {liked.map((tweet, index) => {
               return (
                 <div

@@ -1,12 +1,14 @@
 import Button from "@/components/common/button/button";
 import ProfilePill from "@/components/profilePill/ProfilePill";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 
 export default function Follow({ header = "Who to Follow?", profiles }) {
   const [users, setUsers] = useState([]);
   const session = useSession();
-  async function getUsers(number = 3) {
+  const [parent] = useAutoAnimate();
+  async function getUsers(number = 4) {
     try {
       const res = await fetch("/api/v2/users?number=" + number, {
         method: "GET",
@@ -16,7 +18,7 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
       });
       const result = await res.json();
 
-      res.ok && setUsers(result.users);
+      res.ok && setUsers(result.users.reverse());
     } catch (error) {}
   }
   useEffect(() => {
@@ -28,58 +30,18 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
   return (
     <div className="follow">
       <h1>{header}</h1>
-      <div className="inner">
+      <div className="inner" ref={parent}>
         {users.map((user, index) => {
           if (user._id == session.data?.user.id) return;
           return (
-            <ProfilePill key={user._id} data={user} showOption={false}>
-              {/* <Button
-                style={{
-                  paddingBlock: ".5rem",
-                  backgroundColor: "Black",
-                  width: "30%",
-                }}
-              >
-                Follow
-              </Button> */}
-            </ProfilePill>
+            <ProfilePill
+              key={user._id}
+              data={user}
+              showOption={false}
+            ></ProfilePill>
           );
         })}
       </div>
-      {/* <ProfilePill data={profiles} showOption={false}>
-        <Button
-          style={{
-            paddingBlock: ".5rem",
-            backgroundColor: "Black",
-            width: "30%",
-          }}
-        >
-          Follow
-        </Button>
-      </ProfilePill>
-      <ProfilePill showOption={false}>
-        <Button
-          style={{
-            paddingBlock: ".5rem",
-            backgroundColor: "Black",
-            width: "30%",
-          }}
-        >
-          Follow
-        </Button>
-      </ProfilePill>
-      <ProfilePill showOption={false}>
-        <Button
-          style={{
-            paddingBlock: ".5rem",
-            backgroundColor: "Black",
-            width: "30%",
-          }}
-        >
-          Follow
-        </Button>
-      </ProfilePill> */}
-
       <Button
         style={{
           paddingBlock: ".5rem",
@@ -87,7 +49,7 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
           color: "var(--primary-color)",
         }}
         onclick={() => {
-          getUsers(users.length + 5);
+          getUsers(users.length + 3);
         }}
       >
         Show more
@@ -123,4 +85,52 @@ export default function Follow({ header = "Who to Follow?", profiles }) {
       </style>
     </div>
   );
+}
+
+{
+  /* <ProfilePill data={profiles} showOption={false}>
+        <Button
+          style={{
+            paddingBlock: ".5rem",
+            backgroundColor: "Black",
+            width: "30%",
+          }}
+        >
+          Follow
+        </Button>
+      </ProfilePill>
+      <ProfilePill showOption={false}>
+        <Button
+          style={{
+            paddingBlock: ".5rem",
+            backgroundColor: "Black",
+            width: "30%",
+          }}
+        >
+          Follow
+        </Button>
+      </ProfilePill>
+      <ProfilePill showOption={false}>
+        <Button
+          style={{
+            paddingBlock: ".5rem",
+            backgroundColor: "Black",
+            width: "30%",
+          }}
+        >
+          Follow
+        </Button>
+      </ProfilePill> */
+}
+
+{
+  /* <Button
+                style={{
+                  paddingBlock: ".5rem",
+                  backgroundColor: "Black",
+                  width: "30%",
+                }}
+              >
+                Follow
+              </Button> */
 }
