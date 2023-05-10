@@ -187,14 +187,18 @@ export default function ModalSignUpDiv() {
         (verifyString?.length != 6 ? (
           <>
             <Or></Or>
-            <Button
-              type="button"
-              onclick={userDispatch({
-                type: UserActions.postVerificationEmail,
-              })}
-            >
-              Send Verification Email
-            </Button>
+            {loading ? (
+              <Loader />
+            ) : (
+              <Button
+                type="button"
+                onclick={userDispatch({
+                  type: UserActions.postVerificationEmail,
+                })}
+              >
+                Send Verification Email
+              </Button>
+            )}
           </>
         ) : (
           <Button
