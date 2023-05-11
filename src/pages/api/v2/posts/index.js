@@ -2,6 +2,9 @@ import connectMongo from "@/db/dbConnect";
 import PostDB from "@/db/models/postModel";
 import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
 import { parseForm } from "@/helper/backend/parseForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]";
+import UserDBV2 from "@/db/modelsV2/userModelV2";
 
 export const config = {
   api: {
@@ -54,37 +57,92 @@ export default async function handler(req, res) {
       await connectMongo();
 
       // Get all posts from the database
-      const posts = await TweetDBV2.find({
-        type: {
-          $in: ["tweet", "retweet"],
-        },
-      })
-        .populate({
-          path: "owner",
-          select: "username email image",
-        })
-        .populate({
-          path: "head",
-          populate: {
-            path: "owner",
-            // select: {},
-          },
-        })
-        .populate({
-          path: "commentsList",
-          // select: "tweetText",
-          populate: {
-            path: "owner",
-            select: "username image email _id",
-          },
-          options: { sort: { createdAt: -1 }, limit: 20 },
-        })
-        .sort({ createdAt: -1 })
-        .limit(limit)
-        .skip(skip);
+      // const posts = await TweetDBV2.find({
+      //   type: {
+      //     $in: ["tweet", "retweet"],
+      //   },
+      // })
+      //   .populate({
+      //     path: "owner",
+      //     select: "username email image",
+      //   })
+      //   .populate({
+      //     path: "head",
+      //     populate: {
+      //       path: "owner",
+      //       // select: {},
+      //     },
+      //   })
+      //   .populate({
+      //     path: "commentsList",
+      //     // select: "tweetText",
+      //     populate: {
+      //       path: "owner",
+      //       select: "username image email _id",
+      //     },
+      //     options: { sort: { createdAt: -1 }, limit: 20 },
+      //   })
+      //   .sort({ createdAt: -1 })
+      //   .limit(limit)
+      //   .skip(skip);
 
-      return res.status(200).json({ posts });
+      // const session = await getServerSession(req, res, authOptions(req));
+
+      const [posts, session] = await Promise.all([
+        TweetDBV2.find({
+          type: {
+            $in: ["tweet", "retweet"],
+          },
+        })
+          .populate({
+            path: "owner",
+            select: "username email image",
+          })
+          .populate({
+            path: "head",
+            populate: {
+              path: "owner",
+              // select: {},
+            },
+          })
+          .populate({
+            path: "commentsList",
+            // select: "tweetText",
+            populate: {
+              path: "owner",
+              select: "username image email _id",
+            },
+            options: { sort: { createdAt: -1 }, limit: 20 },
+          })
+          .sort({ createdAt: -1 })
+          .limit(limit)
+          .skip(skip),
+        getServerSession(req, res, authOptions(req)),
+      ]);
+      let tweet = [];
+      if (session && session.user) {
+        const user = await UserDBV2.findById(session.user.id).select(
+          "following"
+        );
+        const following = JSON.parse(JSON.stringify(user.following));
+        const tmpPosts = JSON.parse(JSON.stringify(posts));
+        const tweetf = [];
+        const tweetuf = [];
+        for (const post of tmpPosts) {
+          if (following.includes(post.owner?._id)) {
+            tweetf.push(post);
+          } else {
+            tweetuf.push(post);
+          }
+        }
+        tweet = [...tweetf, ...tweetuf];
+      } else {
+        tweet = posts;
+      }
+
+      return res.status(200).json({ posts: tweet });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ msg: "Internal server error", ...error });
     }
   } else if (req.method === "DELETE") {

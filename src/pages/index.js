@@ -26,13 +26,15 @@ import { RandomContext } from "@/providers/RandomProvider";
 import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
 
 import { TWEET_LIMIT } from "@/helper/constStrings";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 export async function getServerSideProps(context) {
   let postsArray = [];
   let error = null;
   try {
     await connectMongo();
-    const [user, posts] = await Promise.all([
+    const [user, posts, session] = await Promise.all([
       UserDBV2.find().limit(1),
       TweetDBV2.find({ type: { $in: ["tweet", "retweet"] } })
         .populate({
@@ -56,8 +58,29 @@ export async function getServerSideProps(context) {
         })
         .sort({ createdAt: -1 })
         .limit(TWEET_LIMIT),
+      getServerSession(context.req, context.res, authOptions(context.req)),
     ]);
-    postsArray = posts;
+
+    if (session && session.user) {
+      console.log(session);
+      const user = await UserDBV2.findById(session.user.id).select("following");
+      const following = JSON.parse(JSON.stringify(user.following));
+      const tmpPosts = JSON.parse(JSON.stringify(posts));
+      const tweetf = [];
+      const tweetuf = [];
+      for (const post of tmpPosts) {
+        if (following.includes(post.owner?._id)) {
+          tweetf.push(post);
+        } else {
+          tweetuf.push(post);
+        }
+      }
+      console.log(tweetf);
+      console.log(tweetuf);
+      postsArray = [...tweetf, ...tweetuf];
+    } else {
+      postsArray = posts;
+    }
   } catch (e) {
     error = e.message;
   }
@@ -75,15 +98,10 @@ export default function Home({ data, error }) {
   const session = useSession();
   const [random] = useContext(RandomContext);
   const [, setFeedTweets] = useContext(FeedTweetsContext);
-
   useEffect(() => {
     setFeedTweets([...data]);
     return () => {};
   }, [setFeedTweets, data]);
-  // useEffect(() => {
-
-  //   return () => {};
-  // }, [session.data]);
 
   return (
     <>
@@ -178,3 +196,12 @@ export default function Home({ data, error }) {
 {
   /* </SelectedTweetProvider> */
 }
+
+// useEffect(() => {
+//   setFeedTweets([...data]);
+//   return () => {};
+// }, [setFeedTweets, data]);
+// useEffect(() => {
+
+//   return () => {};
+// }, [session.data]);
