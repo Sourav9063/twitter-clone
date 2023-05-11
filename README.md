@@ -10,7 +10,7 @@
 
 - [Message](#message)
 
-  - [New Request](#1-new-request)
+  - [delete Message](#1-delete-message)
   - [get Message List](#2-get-message-list)
   - [get Messages with one user](#3-get-messages-with-one-user)
   - [get unseen list](#4-get-unseen-list)
@@ -442,7 +442,7 @@ URL: http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034
 
 ## Message
 
-### 1. New Request
+### 1. delete Message
 
 **_Endpoint:_**
 
@@ -454,10 +454,10 @@ URL: http://localhost:3000/api/v2/users/getNotification
 
 **_Query params:_**
 
-| Key    | Value                    | Description              |
-| ------ | ------------------------ | ------------------------ |
-| id     | 642f7cdd8d1cecb1945c6537 | 642f7cdd8d1cecb1945c6536 |
-| sender | 642e6248e538c6d0b0a11601 |                          |
+| Key    | Value                    | Description |
+| ------ | ------------------------ | ----------- |
+| id     | 642f7cdd8d1cecb1945c6537 |             |
+| sender | 642e6248e538c6d0b0a11601 |             |
 
 ### 2. get Message List
 
