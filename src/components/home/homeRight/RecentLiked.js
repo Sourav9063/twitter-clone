@@ -29,7 +29,7 @@ export default function RecentLiked() {
       const data = await res.json();
       if (data) {
         //
-        console.log(data);
+
         data.likedb != null && setLiked(data.likedb?.likedPost.reverse());
       }
     }

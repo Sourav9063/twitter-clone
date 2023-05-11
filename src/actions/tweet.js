@@ -55,9 +55,7 @@ const postTweetFn = async ({ formData, setFeedData }) => {
     const response = await fetch("/api/v2/posts", requestOptions);
     const result = await response.json();
     setFeedData((state) => [result.post, ...state]);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 const postRetweetFn = async ({
   setRetweetCount,
@@ -80,9 +78,7 @@ const postRetweetFn = async ({
     }
     //
     //   route.replace(returnTo);
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
   setShowRetweet(false);
 };
 
@@ -107,9 +103,7 @@ const patchTweetFn = async ({ formData, tweetData, setFeedData, FeedData }) => {
         setFeedData([...FeedData]);
       }
     }
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };
 
 const postLikeFn = async ({
@@ -140,7 +134,5 @@ const postLikeFn = async ({
         setLiked((state) => state.filter((like) => like._id != data.tweet._id));
       }
     }
-  } catch (e) {
-    console.log(e);
-  }
+  } catch (e) {}
 };

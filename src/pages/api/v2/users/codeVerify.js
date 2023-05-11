@@ -2,7 +2,6 @@ import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 
 export default async function handler(req, res) {
-  console.log("hit codeVerity");
   if (req.method === "POST") {
     const { email, verifyString } = req.body;
     if (!email || !verifyString) {
@@ -25,8 +24,6 @@ export default async function handler(req, res) {
       } else {
         return res.status(200).json({ msg: "NOT MATCHED" });
       }
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
   }
 }

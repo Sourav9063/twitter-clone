@@ -67,12 +67,6 @@ const getAllMessages = async (req, res) => {
     if (!messages) {
       return res.status(404).json({ msg: "Not found", messages: [] });
     }
-    console.log(session.user.id);
-    console.log(messages.sender.toString());
-    console.log(messages.receiver.toString());
-
-    console.log(session.user.id === messages.sender.toString());
-    console.log(session.user.id === messages.receiver.toString());
 
     if (
       !session ||
@@ -91,7 +85,6 @@ const getAllMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (err) {
-    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };
@@ -194,7 +187,7 @@ const postMessages = async (req, res) => {
     //   senderImage: receiver.image,
     // });
     res.status(201).json(mainData);
-    console.log(receiver.token);
+
     const sendNotification = async () => {
       if (receiver.token) {
         if (admin.apps.length == 0) {
@@ -313,7 +306,6 @@ const postMessages = async (req, res) => {
       ),
     ]);
   } catch (error) {
-    console.log(error);
     res.status(400).json({ success: false, error: error.message });
   }
   return;

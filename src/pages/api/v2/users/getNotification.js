@@ -120,7 +120,6 @@ export default async function handler(req, res) {
         // notifications: newUser.notifications,
       });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Server error" });
     }
   }

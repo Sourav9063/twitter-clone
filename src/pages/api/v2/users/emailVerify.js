@@ -5,7 +5,6 @@ import makeId from "@/helper/helperFunc/makeId";
 import { transporter } from "@/helper/nodemailer/nodemailer";
 
 export default async function handler(req, res) {
-  console.log("hit");
   if (req.method === "POST") {
     const { email, username } = req.body;
     const verifyString = makeId(6);
@@ -53,12 +52,11 @@ export default async function handler(req, res) {
         <p style="color:red;">If you didn't signup for <a href="${BASE_URL}">Twitter Clone</a> then ignore this email</p>
         </div>`,
       });
-      console.log("Message sent: %s", info.messageId);
+
       return res
         .status(200)
         .json({ msg: "Email sent. Check you email and spam folder" });
     } catch (e) {
-      console.log(e);
       return res.status(500).json({ msg: "Error", e });
     }
   }

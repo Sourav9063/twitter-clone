@@ -47,11 +47,9 @@ export default function ProfileMidFollowing({
                         });
                         const result = await res.json();
                         const follower = following.filter((f) => {
-                          console.log(f._id);
-                          console.log(follow._id);
                           return f._id != follow._id;
                         });
-                        console.log(follower.length);
+
                         setUserData((state) => {
                           return { ...state, following: follower };
                         });

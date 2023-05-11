@@ -81,7 +81,7 @@ export default function Home({ data, error }) {
     return () => {};
   }, [setFeedTweets, data]);
   // useEffect(() => {
-  //   console.count("Session change");
+
   //   return () => {};
   // }, [session.data]);
 

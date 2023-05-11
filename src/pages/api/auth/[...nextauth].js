@@ -22,15 +22,14 @@ export const authOptions = (reqm) => {
         credentials: {},
         async authorize(credentials, req) {
           const { email, password } = credentials;
-          console.log(email);
-          console.log(password);
+
           try {
             await connectMongo();
             if (!email && !password) {
               const token = await getToken({ req: reqm });
 
               const user = await UserDBV2.findById(token.id);
-              console.log(user);
+
               return user;
             }
             const user = await UserDBV2.findOne({
@@ -57,7 +56,6 @@ export const authOptions = (reqm) => {
             }
             return user;
           } catch (e) {
-            console.log(e);
             throw new Error(e.message);
           }
 

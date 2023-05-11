@@ -62,7 +62,6 @@ export default async function handler(req, res) {
 
       return res.status(201).json({ msg: "Sign Up Successful", existingUser });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ msg: "Server Error", e });
     }
   }

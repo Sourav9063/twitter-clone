@@ -37,7 +37,6 @@ export const postMessageFn = async (
         throw new Error(result);
       }
     } catch (error) {
-      console.log(error);
       setError({ status: true, message: error.message });
     } finally {
       setLoading(false);

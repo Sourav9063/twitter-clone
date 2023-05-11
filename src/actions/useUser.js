@@ -19,7 +19,6 @@ const useUser = (init) => {
       : router.query.verifyString
   );
   const [isVerified, setIsVerified] = useState(false);
-  console.log(verifyString);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -38,7 +37,6 @@ const useUser = (init) => {
     selectedImage: "",
     selectedFile: null,
   });
-  console.log(userSignUpForm);
 
   const { userName, email, password, image, selectedImage, selectedFile } =
     userSignUpForm;
@@ -48,10 +46,8 @@ const useUser = (init) => {
       verifyString?.length == 6 &&
       userSignUpForm.email
     ) {
-      console.log("Veri call");
       postCheckVerificationCodeFn();
     } else {
-      console.log("not call");
     }
     return () => {};
   }, [verifyString, userSignUpForm.email]);
@@ -80,7 +76,6 @@ const useUser = (init) => {
     return userReducer(null, action);
   };
   const postCheckVerificationCodeFn = async (e) => {
-    console.log("called");
     setLoading(true);
     setError("Verifying");
     const data = {
@@ -98,7 +93,7 @@ const useUser = (init) => {
     try {
       var response = await fetch("/api/v2/users/codeVerify", requestOptions);
       var result = await response.json();
-      console.log(result);
+
       if (response.ok) {
         if (result.msg == "MATCHED") {
           setIsVerified(true);
@@ -111,14 +106,12 @@ const useUser = (init) => {
         throw new Error(result.msg);
       }
     } catch (error) {
-      console.log(error.message);
       setError(error.message);
     }
     setLoading(false);
   };
 
   const postVerificationFn = async (e) => {
-    console.log("called");
     setLoading(true);
     const data = {
       email: userSignUpForm.email,
@@ -136,14 +129,12 @@ const useUser = (init) => {
       var response = await fetch("/api/v2/users/emailVerify", requestOptions);
       var result = await response.json();
 
-      console.log(result);
       if (response.ok) {
         setError("Verification email sent. Check inbox and span folder.");
       } else {
         throw new Error(result.msg);
       }
     } catch (error) {
-      console.log(error);
       setError(error.message);
     }
     setLoading(false);
@@ -168,7 +159,6 @@ const useUser = (init) => {
     setLoading(false);
   };
   const postSignUpEmailFn = async (e) => {
-    console.log("Signup");
     e.preventDefault();
     setLoading(true);
     const data = {

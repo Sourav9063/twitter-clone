@@ -153,7 +153,7 @@ export default function User({ data, posts }) {
                             body: JSON.stringify(body),
                           });
                           const result = await res.json();
-                          console.log(result);
+
                           const isFollowingNow =
                             result.msg == "Following" ? true : false;
                           amIFollowing = isFollowingNow;
@@ -168,11 +168,9 @@ export default function User({ data, posts }) {
                             });
                           } else {
                             const follower = userData.follower.filter((f) => {
-                              console.log(f._id);
-                              console.log(result.data._id);
                               return f._id != result.data._id;
                             });
-                            console.log(follower);
+
                             setUserData({ ...userData, follower: follower });
                           }
                         }}

@@ -35,14 +35,13 @@ export default async function handler(req, res) {
         return res.status(404).json({ msg: "User not found" });
       }
       user.token = "";
-      console.log(session);
+
       if (!session.user || session.user.id != user._id) {
         return res.status(401).json({ msg: "Not authorize", users: {} });
       }
       await user.save();
       return res.status(200).json({ msg: "Token updated", user });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Server Error" });
     }
   }
