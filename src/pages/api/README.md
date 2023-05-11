@@ -1,113 +1,92 @@
-
 # twitter-clone
-
-
 
 ## Indices
 
-* [Comments](#comments)
+- [Comments](#comments)
 
-  * [delete reply or comment](#1-delete-reply-or-comment)
-  * [get Comments](#2-get-comments)
-  * [get Reply](#3-get-reply)
+  - [delete reply or comment](#1-delete-reply-or-comment)
+  - [get Comments](#2-get-comments)
+  - [get Reply](#3-get-reply)
 
-* [Message](#message)
+- [Message](#message)
 
-  * [New Request](#1-new-request)
-  * [get Message List](#2-get-message-list)
-  * [get Messages with one user](#3-get-messages-with-one-user)
-  * [get unseen list](#4-get-unseen-list)
-  * [post message](#5-post-message)
+  - [New Request](#1-new-request)
+  - [get Message List](#2-get-message-list)
+  - [get Messages with one user](#3-get-messages-with-one-user)
+  - [get unseen list](#4-get-unseen-list)
+  - [post message](#5-post-message)
 
-* [Retweet](#retweet)
+- [Retweet](#retweet)
 
-  * [post Retweet](#1-post-retweet)
+  - [post Retweet](#1-post-retweet)
 
-* [User](#user)
+- [User](#user)
 
-  * [delete  token](#1-delete--token)
-  * [get notification](#2-get-notification)
-  * [get user by email or id](#3-get-user-by-email-or-id)
-  * [patch token](#4-patch-token)
-  * [post Check verifiation code](#5-post-check-verifiation-code)
-  * [post email verification code](#6-post-email-verification-code)
-  * [signup](#7-signup)
+  - [delete token](#1-delete--token)
+  - [get notification](#2-get-notification)
+  - [get user by email or id](#3-get-user-by-email-or-id)
+  - [patch token](#4-patch-token)
+  - [post Check verifiation code](#5-post-check-verifiation-code)
+  - [post email verification code](#6-post-email-verification-code)
+  - [signup](#7-signup)
 
-* [tweet](#tweet)
+- [tweet](#tweet)
 
-  * [delete tweet](#1-delete-tweet)
-  * [get tweet by id](#2-get-tweet-by-id)
-  * [get tweets](#3-get-tweets)
-  * [patch tweet](#4-patch-tweet)
-  * [post Like and unlike tweet](#5-post-like-and-unlike-tweet)
-  * [post tweet](#6-post-tweet)
+  - [delete tweet](#1-delete-tweet)
+  - [get tweet by id](#2-get-tweet-by-id)
+  - [get tweets](#3-get-tweets)
+  - [patch tweet](#4-patch-tweet)
+  - [post Like and unlike tweet](#5-post-like-and-unlike-tweet)
+  - [post tweet](#6-post-tweet)
 
-
---------
-
+---
 
 ## Comments
 
-
-
 ### 1. delete reply or comment
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/comments/645c77883b53a43f28c62051
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: delete reply or Comment success
 
-
-
 ##### I. Example Response: delete reply or Comment success
+
 ```js
 {
     "msg": "Comment deleted"
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
+##### II. Example Request: delete Reply or comment Not authorize
 
+##### II. Example Response: delete Reply or comment Not authorize
 
-##### II. Example Request: delete Reply or comment  Not authorize
-
-
-
-##### II. Example Response: delete Reply or comment  Not authorize
 ```js
 {
     "msg": "Not authorized"
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ##### III. Example Request: delete reply or comment not found
 
-
-
 ##### III. Example Response: delete reply or comment not found
+
 ```js
 {
     "msg": "Internal server error",
@@ -115,35 +94,26 @@ URL: http://localhost:3000/api/v2/comments/645c77883b53a43f28c62051
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
-
-
 
 ### 2. get Comments
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/comments/643cff131335c25599b50299
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get comments success
 
-
-
 ##### I. Example Response: get comments success
+
 ```js
 {
     "msg": "Success",
@@ -242,35 +212,26 @@ URL: http://localhost:3000/api/v2/comments/643cff131335c25599b50299
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ### 3. get Reply
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get comments success
 
-
-
 ##### I. Example Response: get comments success
+
 ```js
 {
     "msg": "Success",
@@ -369,18 +330,14 @@ URL: http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
-
-
 
 ##### II. Example Request: get Reply Success
 
-
-
 ##### II. Example Response: get Reply Success
+
 ```js
 {
     "msg": "Success",
@@ -479,78 +436,57 @@ URL: http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ## Message
-
-
 
 ### 1. New Request
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/users/getNotification
 ```
 
+**_Query params:_**
 
-
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 642f7cdd8d1cecb1945c6537 | 642f7cdd8d1cecb1945c6536 |
-| sender | 642e6248e538c6d0b0a11601 |  |
-
-
+| Key    | Value                    | Description              |
+| ------ | ------------------------ | ------------------------ |
+| id     | 642f7cdd8d1cecb1945c6537 | 642f7cdd8d1cecb1945c6536 |
+| sender | 642e6248e538c6d0b0a11601 |                          |
 
 ### 2. get Message List
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/users/getMessages
 ```
 
+**_Query params:_**
 
+| Key | Value                    | Description |
+| --- | ------------------------ | ----------- |
+| id  | 645b89d45b0bc1d9a10bf9ed |             |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 645b89d45b0bc1d9a10bf9ed |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get Message List Success
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 645b89d45b0bc1d9a10bf9ed |  |
-
-
+| Key | Value                    | Description |
+| --- | ------------------------ | ----------- |
+| id  | 645b89d45b0bc1d9a10bf9ed |             |
 
 ##### I. Example Response: get Message List Success
+
 ```js
 {
     "msg": "Success",
@@ -625,26 +561,20 @@ URL: http://localhost:3000/api/v2/users/getMessages
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: get Message List Not authorize
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 645b89d45b0bc1d9a10bf9ed |  |
-
-
+| Key | Value                    | Description |
+| --- | ------------------------ | ----------- |
+| id  | 645b89d45b0bc1d9a10bf9ed |             |
 
 ##### II. Example Response: get Message List Not authorize
+
 ```js
 {
     "msg": "Not authorize",
@@ -652,53 +582,40 @@ URL: http://localhost:3000/api/v2/users/getMessages
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ### 3. get Messages with one user
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/messages
 ```
 
+**_Query params:_**
 
+| Key        | Value                    | Description |
+| ---------- | ------------------------ | ----------- |
+| senderId   | 645b89d45b0bc1d9a10bf9ed |             |
+| receiverId | 643cf9ec28271f6cc91b53e7 |             |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| senderId | 645b89d45b0bc1d9a10bf9ed |  |
-| receiverId | 643cf9ec28271f6cc91b53e7 |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get Messages with one user Success
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| senderId | 643cf9ec28271f6cc91b53e7 |  |
-| receiverId | 64363dfc356c5a8aa8fa494e |  |
-
-
+| Key        | Value                    | Description |
+| ---------- | ------------------------ | ----------- |
+| senderId   | 643cf9ec28271f6cc91b53e7 |             |
+| receiverId | 64363dfc356c5a8aa8fa494e |             |
 
 ##### I. Example Response: get Messages with one user Success
+
 ```js
 {
     "_id": "644bad9ad9172f7cad7ba8dc",
@@ -853,27 +770,21 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: get Messages with one user Not authorize
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| senderId | 643cf9ec28271f6cc91b53e7 |  |
-| receiverId | 643cf9ec28271f6cc91b53e7 |  |
-
-
+| Key        | Value                    | Description |
+| ---------- | ------------------------ | ----------- |
+| senderId   | 643cf9ec28271f6cc91b53e7 |             |
+| receiverId | 643cf9ec28271f6cc91b53e7 |             |
 
 ##### II. Example Response: get Messages with one user Not authorize
+
 ```js
 {
     "msg": "Not authorized",
@@ -881,55 +792,42 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ### 4. get unseen list
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/users/getNotification
 ```
 
+**_Query params:_**
 
+| Key    | Value                    | Description |
+| ------ | ------------------------ | ----------- |
+| id     | 645b89d45b0bc1d9a10bf9ed | receiver id |
+| type   | unseen                   |             |
+| sender | 64326d06498c08c135977357 | my id       |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 645b89d45b0bc1d9a10bf9ed | receiver id |
-| type | unseen |  |
-| sender | 64326d06498c08c135977357 | my id |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get unseen list Success
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 643cf9ec28271f6cc91b53e7 | receiver id |
-| type | unseen |  |
-| sender | 642f7cdd8d1cecb1945c6536 | my id |
-
-
+| Key    | Value                    | Description |
+| ------ | ------------------------ | ----------- |
+| id     | 643cf9ec28271f6cc91b53e7 | receiver id |
+| type   | unseen                   |             |
+| sender | 642f7cdd8d1cecb1945c6536 | my id       |
 
 ##### I. Example Response: get unseen list Success
+
 ```js
 {
     "msg": "Success",
@@ -977,46 +875,35 @@ URL: http://localhost:3000/api/v2/users/getNotification
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: get unseen list Not found
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 642e6248e538c6d0b0a1160d | receiver id |
-| type | unseen |  |
-| sender | 642e6248e538c6d0b0a11601 | my id |
-
-
+| Key    | Value                    | Description |
+| ------ | ------------------------ | ----------- |
+| id     | 642e6248e538c6d0b0a1160d | receiver id |
+| type   | unseen                   |             |
+| sender | 642e6248e538c6d0b0a11601 | my id       |
 
 ##### II. Example Response: get unseen list Not found
+
 ```js
 {
     "msg": "User not found"
 }
 ```
 
-
-***Status Code:*** 404
+**_Status Code:_** 404
 
 <br>
 
-
-
 ### 5. post message
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1024,11 +911,9 @@ Type: RAW
 URL: http://localhost:3000/api/v2/messages
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "senderEmail": "sourav.shellbeehaken@gmail.com",
     "receiverEmail": "edge@gmail.com",
@@ -1036,18 +921,13 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post message Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "senderEmail": "user@gmail.com",
     "receiverEmail": "edge@gmail.com",
@@ -1055,9 +935,8 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-
 ##### I. Example Response: post message Success
+
 ```js
 {
     "_id": "64522fe9f7edf3e77684b797",
@@ -1074,20 +953,15 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ##### II. Example Request: post message Not valid
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "senderEmail": "user@gmail.com",
     "receiverEmail": "edge@gmail.com",
@@ -1095,9 +969,8 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-
 ##### II. Example Response: post message Not valid
+
 ```js
 {
     "success": false,
@@ -1105,20 +978,15 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-***Status Code:*** 400
+**_Status Code:_** 400
 
 <br>
 
-
-
 ##### III. Example Request: post message Not Found
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "senderEmail": "user@gmail.com",
     "receiverEmail": "edgeasdfa@gmail.com",
@@ -1126,9 +994,8 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-
 ##### III. Example Response: post message Not Found
+
 ```js
 {
     "success": false,
@@ -1136,22 +1003,15 @@ URL: http://localhost:3000/api/v2/messages
 }
 ```
 
-
-***Status Code:*** 400
+**_Status Code:_** 400
 
 <br>
 
-
-
 ## Retweet
-
-
 
 ### 1. post Retweet
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1159,18 +1019,15 @@ Type: RAW
 URL: http://localhost:3000/api/v2/posts/retweet
 ```
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value            | Description |
+| ------------ | ---------------- | ----------- |
+| Content-Type | application/json |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| Content-Type | application/json |  |
+**_Body:_**
 
-
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"642f7cdd8d1cecb1945c6536",
     "head":"64521bf7f7edf3e784b03e",
@@ -1178,25 +1035,19 @@ URL: http://localhost:3000/api/v2/posts/retweet
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post Retweet Success
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value            | Description |
+| ------------ | ---------------- | ----------- |
+| Content-Type | application/json |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| Content-Type | application/json |  |
+**_Body:_**
 
-
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"642f7cdd8d1cecb1945c6536",
     "head":"64521bf7f7edf3e77684b03e",
@@ -1204,9 +1055,8 @@ URL: http://localhost:3000/api/v2/posts/retweet
 }
 ```
 
-
-
 ##### I. Example Response: post Retweet Success
+
 ```js
 {
     "tweet": {
@@ -1270,27 +1120,21 @@ URL: http://localhost:3000/api/v2/posts/retweet
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ##### II. Example Request: post Retweet Error
 
+**_Headers:_**
 
-***Headers:***
+| Key          | Value            | Description |
+| ------------ | ---------------- | ----------- |
+| Content-Type | application/json |             |
 
-| Key | Value | Description |
-| --- | ------|-------------|
-| Content-Type | application/json |  |
+**_Body:_**
 
-
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"642f7cdd8d1cecb1945c6536",
     "head":"64521bf7f7edf3e784b03e",
@@ -1298,9 +1142,8 @@ URL: http://localhost:3000/api/v2/posts/retweet
 }
 ```
 
-
-
 ##### II. Example Response: post Retweet Error
+
 ```js
 {
     "msg": "Server Error",
@@ -1324,22 +1167,15 @@ URL: http://localhost:3000/api/v2/posts/retweet
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ## User
 
+### 1. delete token
 
-
-### 1. delete  token
-
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
@@ -1347,36 +1183,28 @@ Type: RAW
 URL: http://localhost:3000/api/v2/users/token
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "_id":"645b89d45b0bc1d9a10bf9ed"
 }
 ```
 
+**_More example Requests/Responses:_**
 
+##### I. Example Request: delete token Not authorize
 
-***More example Requests/Responses:***
+**_Body:_**
 
-
-##### I. Example Request: delete  token Not authorize
-
-
-
-***Body:***
-
-```js        
+```js
 {
     "_id":"64326d06498c08c135977357"
 }
 ```
 
+##### I. Example Response: delete token Not authorize
 
-
-##### I. Example Response: delete  token Not authorize
 ```js
 {
     "msg": "Not authorize",
@@ -1384,28 +1212,22 @@ URL: http://localhost:3000/api/v2/users/token
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
+##### II. Example Request: delete token Success
 
+**_Body:_**
 
-##### II. Example Request: delete  token Success
-
-
-
-***Body:***
-
-```js        
+```js
 {
     "_id":"645b89d45b0bc1d9a10bf9ed"
 }
 ```
 
+##### II. Example Response: delete token Success
 
-
-##### II. Example Response: delete  token Success
 ```js
 {
     "msg": "Token updated",
@@ -1417,77 +1239,58 @@ URL: http://localhost:3000/api/v2/users/token
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 2. get notification
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/users/getNotification
 ```
 
+**_Query params:_**
 
+| Key | Value                    | Description |
+| --- | ------------------------ | ----------- |
+| id  | 643cf9ec28271f6cc91b53e7 |             |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 643cf9ec28271f6cc91b53e7 |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get notification Error
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 643cf9ec28271f6cc91b53e7fa |  |
-
-
+| Key | Value                      | Description |
+| --- | -------------------------- | ----------- |
+| id  | 643cf9ec28271f6cc91b53e7fa |             |
 
 ##### I. Example Response: get notification Error
+
 ```js
 {
     "msg": "Server error"
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ##### II. Example Request: get notification Success
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| id | 643cf9ec28271f6cc91b53e7 |  |
-
-
+| Key | Value                    | Description |
+| --- | ------------------------ | ----------- |
+| id  | 643cf9ec28271f6cc91b53e7 |             |
 
 ##### II. Example Response: get notification Success
+
 ```js
 {
     "msg": "Success",
@@ -1535,18 +1338,13 @@ URL: http://localhost:3000/api/v2/users/getNotification
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 3. get user by email or id
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1554,42 +1352,34 @@ Type: RAW
 URL: http://localhost:3000/api/v2/users/user
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"sourav.shellbeehaken@gmail.com",
     "id":"111111111111111111111111"
 
- 
+
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get user by email or id Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"sourav.shellbeehaken@gmail.com",
     "id":"111111111111111111111111"
 
- 
+
 }
 ```
 
-
-
 ##### I. Example Response: get user by email or id Success
+
 ```js
 {
     "msg": "User found",
@@ -1637,49 +1427,38 @@ URL: http://localhost:3000/api/v2/users/user
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: get user by email or id Not found
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"souravadssfeehaken@gmail.com",
     "id":"111111111111111111111111"
 
- 
+
 }
 ```
 
-
-
 ##### II. Example Response: get user by email or id Not found
+
 ```js
 {
     "msg": "User not found"
 }
 ```
 
-
-***Status Code:*** 400
+**_Status Code:_** 400
 
 <br>
 
-
-
 ### 4. patch token
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PATCH
@@ -1687,38 +1466,30 @@ Type: RAW
 URL: http://localhost:3000/api/v2/users/token
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "_id":"64326d06498c08c135977357",
     "token":"Update"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: patch token Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "_id":"64326d06498c08c135977357",
     "token":"Update"
 }
 ```
 
-
-
 ##### I. Example Response: patch token Success
+
 ```js
 {
     "msg": "Token updated",
@@ -1798,18 +1569,13 @@ URL: http://localhost:3000/api/v2/users/token
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 5. post Check verifiation code
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1817,114 +1583,89 @@ Type: RAW
 URL: http://localhost:3000/api/v2/users/codeVerify
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"shawon.shellbeehaken@gmail.com",
     "verifyString":"DtriO1"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post Check verifiation code User Exists
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"sourav.shellbeehaken@gmail.com",
     "verifyString":"Hiiiii"
 }
 ```
 
-
-
 ##### I. Example Response: post Check verifiation code User Exists
+
 ```js
 {
     "msg": "User already exist. Please log in."
 }
 ```
 
-
-***Status Code:*** 422
+**_Status Code:_** 422
 
 <br>
 
-
-
 ##### II. Example Request: post Check verifiation code Not matched
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"shawon.shellbeehaken@gmail.com",
     "verifyString":"Hiiiii"
 }
 ```
 
-
-
 ##### II. Example Response: post Check verifiation code Not matched
+
 ```js
 {
     "msg": "NOT MATCHED"
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### III. Example Request: post Check verifiation code Matched
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "email":"shawon.shellbeehaken@gmail.com",
     "verifyString":"DtriO1"
 }
 ```
 
-
-
 ##### III. Example Response: post Check verifiation code Matched
+
 ```js
 {
     "msg": "MATCHED"
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 6. post email verification code
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -1932,85 +1673,66 @@ Type: RAW
 URL: http://localhost:3000//api/v2/users/emailVerify
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"Sourav",
     "email":"shawon.shellbeehaken@gmail.com"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post email verification code User exists
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"Sourav",
     "email":"sourav.ahmed5654@gmail.com"
 }
 ```
 
-
-
 ##### I. Example Response: post email verification code User exists
+
 ```js
 {
     "msg": "User already exist. Please log in."
 }
 ```
 
-
-***Status Code:*** 422
+**_Status Code:_** 422
 
 <br>
 
-
-
 ##### II. Example Request: post email verification code Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"Sourav",
     "email":"shawon.shellbeehaken@gmail.com"
 }
 ```
 
-
-
 ##### II. Example Response: post email verification code Success
+
 ```js
 {
     "msg": "Email sent. Check you email and spam folder"
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 7. signup
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -2018,11 +1740,9 @@ Type: RAW
 URL: http://localhost:3000/api/auth/signup
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"sourav",
     "email":"shawon.shellbeehaken@gmail.com",
@@ -2030,18 +1750,13 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: signup Already exist
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"sourav",
     "email":"123456@gmail.com",
@@ -2049,29 +1764,23 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-
 ##### I. Example Response: signup Already exist
+
 ```js
 {
     "msg": "User already exist. Please log in."
 }
 ```
 
-
-***Status Code:*** 422
+**_Status Code:_** 422
 
 <br>
 
-
-
 ##### II. Example Request: signup Not valid
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"sourav",
     "email":"123456@gmail.com",
@@ -2079,29 +1788,23 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-
 ##### II. Example Response: signup Not valid
+
 ```js
 {
     "msg": "Email is not valid or Password is too short"
 }
 ```
 
-
-***Status Code:*** 422
+**_Status Code:_** 422
 
 <br>
 
-
-
 ##### III. Example Request: signup
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"sourav",
     "email":"1234567@gmail.com",
@@ -2109,9 +1812,8 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-
 ##### III. Example Response: signup
+
 ```js
 {
     "msg": "Sign Up Successful",
@@ -2138,20 +1840,15 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ##### IV. Example Request: signup Success with email verified
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "username":"sourav",
     "email":"shawon.shellbeehaken@gmail.com",
@@ -2159,9 +1856,8 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-
 ##### IV. Example Response: signup Success with email verified
+
 ```js
 {
     "msg": "Sign Up Successful",
@@ -2189,128 +1885,96 @@ URL: http://localhost:3000/api/auth/signup
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ## tweet
-
-
 
 ### 1. delete tweet
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: DELETE
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: delete tweet Not authorized
 
-
-
 ##### I. Example Response: delete tweet Not authorized
+
 ```js
 {
     "msg": "Not authorized"
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ##### II. Example Request: delete tweet Success
 
-
-
 ##### II. Example Response: delete tweet Success
+
 ```js
 {
     "msg": "Post deleted"
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 2. get tweet by id
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/posts/64536f0b8c5400e75a1569f7
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get tweet by id not found
 
-
-
 ##### I. Example Response: get tweet by id not found
+
 ```js
 {
     "msg": "Tweet not found"
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ##### II. Example Request: get tweet by id error
 
-
-
 ##### II. Example Response: get tweet by id error
+
 ```js
 {
     "msg": "Internal server error"
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ##### III. Example Request: get tweet by id Success
 
-
-
 ##### III. Example Response: get tweet by id Success
+
 ```js
 {
     "post": {
@@ -2434,53 +2098,40 @@ URL: http://localhost:3000/api/v2/posts/64536f0b8c5400e75a1569f7
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ### 3. get tweets
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: GET
-Type: 
+Type:
 URL: http://localhost:3000/api/v2/posts
 ```
 
+**_Query params:_**
 
+| Key   | Value | Description |
+| ----- | ----- | ----------- |
+| skip  | 5     |             |
+| limit | 5     |             |
 
-***Query params:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| skip | 5 |  |
-| limit | 5 |  |
-
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: get tweets Success
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| skip | 5 |  |
-| limit | 5 |  |
-
-
+| Key   | Value | Description |
+| ----- | ----- | ----------- |
+| skip  | 5     |             |
+| limit | 5     |             |
 
 ##### I. Example Response: get tweets Success
+
 ```js
 {
     "posts": [
@@ -2866,27 +2517,21 @@ URL: http://localhost:3000/api/v2/posts
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: get tweets Error
 
+**_Query:_**
 
-
-***Query:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| skip | m.m |  |
-| limit | mlk |  |
-
-
+| Key   | Value | Description |
+| ----- | ----- | ----------- |
+| skip  | m.m   |             |
+| limit | mlk   |             |
 
 ##### II. Example Response: get tweets Error
+
 ```js
 {
     "msg": "Internal server error",
@@ -2898,18 +2543,13 @@ URL: http://localhost:3000/api/v2/posts
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ### 4. patch tweet
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: PATCH
@@ -2917,73 +2557,59 @@ Type: RAW
 URL: http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"645b89d45b0bc1d9a10bf9ed",
     "tweetText":"Postmant"
-    
+
 
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: patch tweet Not authorized
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"645b89d45b0bc1d9a10bf9ed",
     "tweetText":"Postmant"
-    
+
 
 }
 ```
 
-
-
 ##### I. Example Response: patch tweet Not authorized
+
 ```js
 {
     "msg": "Not authorized"
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ##### II. Example Request: patch tweet Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"645b89d45b0bc1d9a10bf9ed",
     "tweetText":"Postmant"
-    
+
 
 }
 ```
 
-
-
 ##### II. Example Response: patch tweet Success
+
 ```js
 {
     "msg": "Updated",
@@ -3016,49 +2642,38 @@ URL: http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### III. Example Request: patch tweet not found
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"645b89d45b0bc1d9a10bf9ed",
     "tweetText":"Postmant"
-    
+
 
 }
 ```
 
-
-
 ##### III. Example Response: patch tweet not found
+
 ```js
 {
     "msg": "Post not found"
 }
 ```
 
-
-***Status Code:*** 404
+**_Status Code:_** 404
 
 <br>
 
-
-
 ### 5. post Like and unlike tweet
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -3066,36 +2681,28 @@ Type: RAW
 URL: http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userid":"645b89d45b0bc1d9a10bf9ed"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post Like tweet Unliked Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userid":"645b89d45b0bc1d9a10bf9ed"
 }
 ```
 
-
-
 ##### I. Example Response: post Like tweet Unliked Success
+
 ```js
 {
     "tweet": {
@@ -3116,28 +2723,22 @@ URL: http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### II. Example Request: post Like tweet Liked Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userid":"645b89d45b0bc1d9a10bf9ed"
 }
 ```
 
-
-
 ##### II. Example Response: post Like tweet Liked Success
+
 ```js
 {
     "tweet": {
@@ -3160,56 +2761,44 @@ URL: http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like
 }
 ```
 
-
-***Status Code:*** 200
+**_Status Code:_** 200
 
 <br>
 
-
-
 ##### III. Example Request: post Like and unlike tweet Error
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userid":"643cf9ec28271f6cc91b53e7"
 }
 ```
 
-
-
 ##### III. Example Response: post Like and unlike tweet Error
+
 ```js
 {
     "msg": "Server error"
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ##### IV. Example Request: post Like and unlike tweet Unauthorize
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "userid":"643cf9ec28271f6cc91b53e7"
 }
 ```
 
-
-
 ##### IV. Example Response: post Like and unlike tweet Unauthorize
+
 ```js
 {
     "msg": "Not authorize",
@@ -3217,18 +2806,13 @@ URL: http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like
 }
 ```
 
-
-***Status Code:*** 401
+**_Status Code:_** 401
 
 <br>
 
-
-
 ### 6. post tweet
 
-
-
-***Endpoint:***
+**_Endpoint:_**
 
 ```bash
 Method: POST
@@ -3236,38 +2820,30 @@ Type: RAW
 URL: http://localhost:3000/api/v2/posts
 ```
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"645b89d45b0bc1d9a10bf9ed",
     "tweetText":"Tweet Postman"
 }
 ```
 
-
-
-***More example Requests/Responses:***
-
+**_More example Requests/Responses:_**
 
 ##### I. Example Request: post tweet Success
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"643cf9ec28271f6cc91b53e7",
     "tweetText":"Hiiiiii text"
 }
 ```
 
-
-
 ##### I. Example Response: post tweet Success
+
 ```js
 {
     "post": {
@@ -3299,29 +2875,23 @@ URL: http://localhost:3000/api/v2/posts
 }
 ```
 
-
-***Status Code:*** 201
+**_Status Code:_** 201
 
 <br>
 
-
-
 ##### II. Example Request: post tweet Error
 
+**_Body:_**
 
-
-***Body:***
-
-```js        
+```js
 {
     "owner":"643cf9ec28271f6cc91b53e7",
     "tweetText":""
 }
 ```
 
-
-
 ##### II. Example Response: post tweet Error
+
 ```js
 {
     "msg": "Internal server error",
@@ -3348,13 +2918,10 @@ URL: http://localhost:3000/api/v2/posts
 }
 ```
 
-
-***Status Code:*** 500
+**_Status Code:_** 500
 
 <br>
 
-
-
 ---
+
 [Back to top](#twitter-clone)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2023-05-11 14:53:50 by [docgen](https://github.com/thedevsaddam/docgen)
