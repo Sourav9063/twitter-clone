@@ -5,6 +5,8 @@ import service from "./service.json";
 import * as admin from "firebase-admin";
 import { NOTIFICATION_TYPE_SEND } from "@/helper/constStrings";
 import mongoose from "mongoose";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]";
 
 //Get Messages
 const getAllMessages = async (req, res) => {
@@ -16,27 +18,71 @@ const getAllMessages = async (req, res) => {
     //   sender: senderId,
     //   receiver: receiverId,
     // }).sort({ "messages.createdAt": -1 });
-    const messages = await MessageDBV2.findOne({
-      // cus_id: "643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536",
-      cus_id:
-        senderId >= receiverId ? senderId + receiverId : receiverId + senderId,
-    })
-      .sort({ "messages.createdAt": -1 })
-      .select({
-        "messages.createdAt": 1,
-        "messages.body": 1,
-        "messages.react": 1,
-        "messages.seen": 1,
-        "messages.seenAt": 1,
-        "messages.sender": 1,
-        "messages.receiver": 1,
-        "messages._id": 1,
-        "messages.cus_id": 1,
-      });
+    // const messages = await MessageDBV2.findOne({
+    //   // cus_id: "643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536",
+    //   cus_id:
+    //     senderId >= receiverId ? senderId + receiverId : receiverId + senderId,
+    // })
+    //   .sort({ "messages.createdAt": -1 })
+    //   .select({
+    //     "messages.createdAt": 1,
+    //     "messages.body": 1,
+    //     "messages.react": 1,
+    //     "messages.seen": 1,
+    //     "messages.seenAt": 1,
+    //     "messages.sender": 1,
+    //     "messages.receiver": 1,
+    //     "messages._id": 1,
+    //     "messages.cus_id": 1,
+    //   });
 
-    // if (!messages) {
-    //   return res.status(404).JSON({ msg: "Not found" });
-    // }
+    // const session = await getServerSession(req, res, authOptions(req));
+
+    const [messages, session] = await Promise.all([
+      await MessageDBV2.findOne({
+        // cus_id: "643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536",
+        cus_id:
+          senderId >= receiverId
+            ? senderId + receiverId
+            : receiverId + senderId,
+      })
+        .sort({ "messages.createdAt": -1 })
+        .select({
+          sender: 1,
+          receiver: 1,
+          cus_id: 1,
+          "messages.createdAt": 1,
+          "messages.body": 1,
+          "messages.react": 1,
+          "messages.seen": 1,
+          "messages.seenAt": 1,
+          "messages.sender": 1,
+          "messages.receiver": 1,
+          "messages._id": 1,
+          "messages.cus_id": 1,
+        }),
+      getServerSession(req, res, authOptions(req)),
+    ]);
+
+    if (!messages) {
+      return res.status(404).json({ msg: "Not found", messages: [] });
+    }
+    console.log(session.user.id);
+    console.log(messages.sender.toString());
+    console.log(messages.receiver.toString());
+
+    console.log(session.user.id === messages.sender.toString());
+    console.log(session.user.id === messages.receiver.toString());
+
+    if (
+      !session ||
+      !(
+        session.user.id == messages.sender ||
+        session.user.id == messages.receiver
+      )
+    ) {
+      return res.status(401).json({ msg: "Not authorized", messages: [] });
+    }
 
     // const messages2 = await MessageDBV2.findOne({
     //   sender: receiverId,
@@ -45,6 +91,7 @@ const getAllMessages = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (err) {
+    console.log(err);
     res.status(500).json({ error: err.message });
   }
 };

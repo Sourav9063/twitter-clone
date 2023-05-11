@@ -33,23 +33,55 @@ export default function HomeLeft() {
           <section>
             <TwitterLogo></TwitterLogo>
             <div className={style.logos}>
-              <div
-                onClick={() => {
-                  router.push({
-                    pathname: "/profile",
-                    query: {
-                      id: session.data?.user.id,
-                    },
-                  });
-                }}
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <g>
-                    <path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
-                  </g>
-                </svg>
-                <div className={style.text}>Profile</div>
-              </div>
+              {session.status == "authenticated" && (
+                <>
+                  <div
+                    onClick={() => {
+                      router.push({
+                        pathname: "/profile",
+                        query: {
+                          id: session.data?.user.id,
+                        },
+                      });
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <g>
+                        <path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"></path>
+                      </g>
+                    </svg>
+                    <div className={style.text}>Profile</div>
+                  </div>
+                  <Link
+                    // href={
+                    //   recentMessage.latestMessage
+                    //     ? `/message/?senderId=${session.data?.user.id}&receiverId=${recentMessage.latestMessage.sender}`
+                    //     : "/message"
+                    // }
+                    href={"/message"}
+                  >
+                    <div className={style.message}>
+                      {recentMessage.showNotification && (
+                        <span className={style.notificaion}></span>
+                      )}
+                      <svg
+                        className={
+                          recentMessage.showNotification
+                            ? style.notiShake
+                            : undefined
+                        }
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <g>
+                          <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
+                        </g>
+                      </svg>
+                      <div className={style.text}>Messages</div>
+                    </div>
+                  </Link>
+                </>
+              )}
               <div>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <g>
@@ -58,85 +90,14 @@ export default function HomeLeft() {
                 </svg>
                 <div className={style.text}>Settings</div>
               </div>
-              <Link
-                // href={
-                //   recentMessage.latestMessage
-                //     ? `/message/?senderId=${session.data?.user.id}&receiverId=${recentMessage.latestMessage.sender}`
-                //     : "/message"
-                // }
-                href={"/message"}
-              >
-                <div className={style.message}>
-                  {recentMessage.showNotification && (
-                    <span className={style.notificaion}></span>
-                  )}
-                  <svg
-                    className={
-                      recentMessage.showNotification
-                        ? style.notiShake
-                        : undefined
-                    }
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <g>
-                      <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
-                    </g>
-                  </svg>
-                  <div className={style.text}>Messages</div>
-                </div>
-              </Link>
-              {/* <Link href={"/message"}>
-                <div>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <g>
-                      <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
-                    </g>
-                  </svg>
-                  Notification
-                </div>
-              </Link> */}
+
               <ThemeToggle></ThemeToggle>
-              {/* <div
-                onClick={() => {
-                  router.push({
-                    pathname: "/profile",
-                    query: {
-                      id: session.data?.user.id,
-                    },
-                  });
-                }}
-              >
-                <svg
-                  className={
-                    recentMessage.showNotification ? style.notiShake : undefined
-                  }
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <g>
-                    <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
-                  </g>
-                </svg>
-                <div className={style.text}>Verify Email</div>
-              </div> */}
             </div>
             {session.status == "authenticated" && (
               <>
                 <Button onclick={onclick}></Button>
                 {recentMessage.latestMessage && (
                   <div className={style.recentMessages}>
-                    {/* <div className={style.recentMessage}>
-                      <ProfilePill
-                        data={{
-                          _id: recentMessage.latestMessage,
-                          username: recentMessage.latestMessage.senderUsername,
-                          // text: msg.body,
-                          image: recentMessage.latestMessage.senderImage,
-                        }}
-                      ></ProfilePill>
-                      <p>{recentMessage.latestMessage.body}</p>
-                    </div> */}
                     {recentMessage.latestMessages &&
                       recentMessage.latestMessages.map((msg, index) => {
                         return (
@@ -271,3 +232,56 @@ export default function HomeLeft() {
 //   });
 //   return () => {};
 // }, [setRecentMessage, router.query.receiverId]);
+
+{
+  /* <Link href={"/message"}>
+                <div>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <g>
+                      <path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236l-1.143-8.958zM12 20c-1.306 0-2.417-.835-2.829-2h5.658c-.412 1.165-1.523 2-2.829 2zm-6.866-4l.847-6.698C6.364 6.272 8.941 4 11.996 4s5.627 2.268 6.013 5.295L18.864 16H5.134z"></path>
+                    </g>
+                  </svg>
+                  Notification
+                </div>
+              </Link> */
+}
+
+{
+  /* <div
+                onClick={() => {
+                  router.push({
+                    pathname: "/profile",
+                    query: {
+                      id: session.data?.user.id,
+                    },
+                  });
+                }}
+              >
+                <svg
+                  className={
+                    recentMessage.showNotification ? style.notiShake : undefined
+                  }
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <g>
+                    <path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5v-13zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5h-15zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5v-8.037z"></path>
+                  </g>
+                </svg>
+                <div className={style.text}>Verify Email</div>
+              </div> */
+}
+
+{
+  /* <div className={style.recentMessage}>
+                      <ProfilePill
+                        data={{
+                          _id: recentMessage.latestMessage,
+                          username: recentMessage.latestMessage.senderUsername,
+                          // text: msg.body,
+                          image: recentMessage.latestMessage.senderImage,
+                        }}
+                      ></ProfilePill>
+                      <p>{recentMessage.latestMessage.body}</p>
+                    </div> */
+}

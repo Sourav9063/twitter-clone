@@ -100,6 +100,7 @@ export default function EditProfile() {
               });
             }
           } catch (error) {
+            console.log(error);
             setError(error.message);
           }
 

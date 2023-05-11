@@ -22,13 +22,15 @@ export const authOptions = (reqm) => {
         credentials: {},
         async authorize(credentials, req) {
           const { email, password } = credentials;
-
+          console.log(email);
+          console.log(password);
           try {
             await connectMongo();
             if (!email && !password) {
               const token = await getToken({ req: reqm });
 
               const user = await UserDBV2.findById(token.id);
+              console.log(user);
               return user;
             }
             const user = await UserDBV2.findOne({
@@ -40,6 +42,11 @@ export const authOptions = (reqm) => {
             if (!user) {
               throw new Error("User doesn't exist.");
             }
+            if (!user.isEmailVerified) {
+              throw new Error(
+                "Your email is not verified. Please sign up properly."
+              );
+            }
             if (user.password == null) {
               throw new Error("You have signed up in using Github.");
             }
@@ -50,6 +57,7 @@ export const authOptions = (reqm) => {
             }
             return user;
           } catch (e) {
+            console.log(e);
             throw new Error(e.message);
           }
 

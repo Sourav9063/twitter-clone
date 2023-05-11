@@ -27,8 +27,8 @@ export default async function handler(req, res) {
   if (req.method == "PATCH") {
     const { id } = req.query;
 
-    const session = await getServerSession(req, res, authOptions(req));
     try {
+      const session = await getServerSession(req, res, authOptions(req));
       const { fields, files } = await parseForm(req);
 
       const tweetImage = files.tweetImage
@@ -38,13 +38,11 @@ export default async function handler(req, res) {
       const { tweetText } = fields;
 
       const post = await TweetDBV2.findById(id);
-
-      if (session.user.id != post.owner) {
-        return res.status(401).json({ msg: "Not authorized" });
-      }
-
       if (!post) {
         return res.status(404).json({ msg: "Post not found" });
+      }
+      if (!session || session.user.id != post.owner) {
+        return res.status(401).json({ msg: "Not authorized" });
       }
 
       // post.tweetText = tweetText ?? post.tweetText;
@@ -64,6 +62,8 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ msg: "Updated", post });
     } catch (error) {
+      console.log(error);
+
       return res.status(500).json({ msg: "Internal server error", error });
     }
   }
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
         getServerSession(req, res, authOptions(req)),
         TweetDBV2.findById(id),
       ]);
-      if (session.user.id != post.owner) {
+      if (!session || session.user.id != post.owner) {
         return res.status(401).json({ msg: "Not authorized" });
       }
 

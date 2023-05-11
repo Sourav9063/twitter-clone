@@ -204,6 +204,19 @@ export default function User({ data, posts }) {
                   <div className="followbtn">
                     <Button
                       onclick={async () => {
+                        try {
+                          const res = await fetch("/api/v2/users/token", {
+                            method: "DELETE",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                              _id: session.data.user._id,
+                            }),
+                          });
+
+                          const result = await res.json();
+                        } catch (error) {}
                         signOut({
                           callbackUrl: "/",
                         });

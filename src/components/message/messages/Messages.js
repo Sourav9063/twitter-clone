@@ -54,7 +54,7 @@ export default function Messages({ receiver, email }) {
           requestOptions
         );
         const result = await response.json();
-
+        console.log(result);
         if (result) {
           setRecentMessages((state) => {
             return { ...state, messages: result.messages };

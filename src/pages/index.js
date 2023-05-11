@@ -80,6 +80,10 @@ export default function Home({ data, error }) {
     setFeedTweets([...data]);
     return () => {};
   }, [setFeedTweets, data]);
+  // useEffect(() => {
+  //   console.count("Session change");
+  //   return () => {};
+  // }, [session.data]);
 
   return (
     <>

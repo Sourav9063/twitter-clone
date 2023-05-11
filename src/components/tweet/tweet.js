@@ -94,8 +94,14 @@ export default function Tweet(props) {
                   href={"/profile?id=" + owner?._id}
                 >
                   <div className={style.names}>
-                    <span className={style["name"]}>{owner?.username}</span>
-                    <span className={style["username"]}>@{owner?.email}</span>
+                    {owner ? (
+                      <span className={style["name"]}>{owner?.username}</span>
+                    ) : (
+                      <span className={style["name"]}>User not found</span>
+                    )}
+                    {owner && (
+                      <span className={style["username"]}>@{owner?.email}</span>
+                    )}
                     {!router.asPath.includes("posts") &&
                       (createdDate || createdAt) && (
                         <>

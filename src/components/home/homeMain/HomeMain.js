@@ -41,7 +41,7 @@ export default function HomeMain({ posts }) {
 
         if (response.ok) {
           if (result.posts.length > 0) {
-            setFeedTweets([...FeedTweets, ...result.posts]);
+            setFeedTweets((state) => [...state, ...result.posts]);
           } else {
             // btnRef.current.style.display = "none";
             setBtnText(NO_MORE_TWEETS);
@@ -55,7 +55,7 @@ export default function HomeMain({ posts }) {
       fetchPosts();
     }
     return () => {};
-  }, [onScreen]);
+  }, [onScreen, setFeedTweets]);
 
   return (
     <section
