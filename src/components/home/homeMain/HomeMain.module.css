@@ -24,12 +24,27 @@
     overflow: scroll;
     scrollbar-width: none; */
 }
+.btnOutline {
+    width: 100%;
+    
+    background-color:var(--bg);
+    color: var(--text-color-primary);
+    border: 1px var(--border-color) solid;
+    padding-block: .5rem;
+
+}
+
+.btnOutline:hover {
+    background-color: var(--hover-secondary-trans-color);
+}
 .load{
 
     width: 100%;
     text-align: center;
 }
-
+.mtvh{
+    margin-top: 150vh;
+}
 /* Hide scrollbar for Chrome, Safari and Opera */
 /* .main::-webkit-scrollbar {
     display: none;

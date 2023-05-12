@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             likedBy: 1,
             tweetText: 1,
             createdAt: 1,
+            type: 1,
           })
           .populate({ path: "owner", select: "username" }),
       ]);

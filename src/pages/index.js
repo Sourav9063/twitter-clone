@@ -28,6 +28,8 @@ import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
 import { TWEET_LIMIT } from "@/helper/constStrings";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import Loader from "@/components/common/loader/Loader";
+import ThemeToggle from "@/components/common/ThemeToggle";
 
 export async function getServerSideProps(context) {
   let postsArray = [];
@@ -62,7 +64,6 @@ export async function getServerSideProps(context) {
     ]);
 
     if (session && session.user) {
-      console.log(session);
       const user = await UserDBV2.findById(session.user.id).select("following");
       const following = JSON.parse(JSON.stringify(user.following));
       const tmpPosts = JSON.parse(JSON.stringify(posts));
@@ -75,8 +76,6 @@ export async function getServerSideProps(context) {
           tweetuf.push(post);
         }
       }
-      console.log(tweetf);
-      console.log(tweetuf);
       postsArray = [...tweetf, ...tweetuf];
     } else {
       postsArray = posts;
@@ -153,16 +152,27 @@ export default function Home({ data, error }) {
           ></Post>
         </ModalComponent>
       )}
-      <main className={style.body}>
-        <HomeLeft></HomeLeft>
-        {error == null ? (
-          <HomeMain posts={data}></HomeMain>
-        ) : (
-          <div>{error}</div>
-        )}
-        <HomeRight></HomeRight>
-        {session.status == "unauthenticated" && <HomeBottom></HomeBottom>}
-      </main>
+      {session.status != "loading" ? (
+        <main className={style.body}>
+          <HomeLeft></HomeLeft>
+          {error == null ? (
+            <HomeMain posts={data}></HomeMain>
+          ) : (
+            <div>{error}</div>
+          )}
+          <HomeRight></HomeRight>
+          {session.status == "unauthenticated" && <HomeBottom></HomeBottom>}
+        </main>
+      ) : (
+        <main className={style.loadingBody}>
+          <div>
+            <div className={style.dis}>
+              <ThemeToggle />
+            </div>
+            <Loader size={100} />
+          </div>
+        </main>
+      )}
     </>
   );
 }

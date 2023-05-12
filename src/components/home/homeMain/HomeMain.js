@@ -47,8 +47,11 @@ export default function HomeMain({ posts }) {
             setBtnText(NO_MORE_TWEETS);
           }
         }
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
+    console.log(onScreen);
 
     if (onScreen) {
       setBtnText("Loading");
@@ -86,8 +89,40 @@ export default function HomeMain({ posts }) {
           ))}
         </div>
         {btnText != NO_MORE_TWEETS ? (
-          <div className={style.load} ref={btnRef}>
-            {onScreen ? <Loader /> : <Button>{btnText}</Button>}
+          <div
+            className={`${style.load} ${
+              FeedTweets.length == 0 ? style.mtvh : ""
+            }`}
+            ref={btnRef}
+          >
+            <Loader />
+            <button
+              className={style.btnOutline}
+              onClick={async (e) => {
+                const TWEET_SKIP = FeedTweets.length;
+                try {
+                  let response = await fetch(
+                    `/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,
+                    requestOptions
+                  );
+                  let result = await response.json();
+                  if (response.ok) {
+                    if (result.posts.length > 0) {
+                      setFeedTweets((state) => [...state, ...result.posts]);
+                    } else {
+                      // btnRef.current.style.display = "none";
+                      setBtnText(NO_MORE_TWEETS);
+                    }
+                  }
+                } catch (error) {
+                  console.log(error);
+                } finally {
+                  console.log(FeedTweets.length);
+                }
+              }}
+            >
+              {btnText}
+            </button>
           </div>
         ) : (
           <Or text={btnText} height="200px" padding="1rem"></Or>
@@ -133,3 +168,26 @@ export default function HomeMain({ posts }) {
 // }
 
 // const tweets = [ tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, tweet, tweet2, tweet3, ]
+
+// onclick={async (e) => {
+//   const TWEET_SKIP = FeedTweets.length;
+//   try {
+//     let response = await fetch(
+//       `/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,
+//       requestOptions
+//     );
+//     let result = await response.json();
+//     if (response.ok) {
+//       if (result.posts.length > 0) {
+//         setFeedTweets((state) => [...state, ...result.posts]);
+//       } else {
+//         // btnRef.current.style.display = "none";
+//         setBtnText(NO_MORE_TWEETS);
+//       }
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     console.log(FeedTweets.length);
+//   }
+// }}

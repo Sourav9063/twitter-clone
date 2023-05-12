@@ -28,8 +28,6 @@ export default function RecentLiked() {
       );
       const data = await res.json();
       if (data) {
-        //
-
         data.likedb != null && setLiked(data.likedb?.likedPost.reverse());
       }
     }
@@ -55,16 +53,16 @@ export default function RecentLiked() {
                   className="post"
                   key={tweet._id}
                 >
-                  {tweet.tweetText && tweet.owner.username && (
+                  {tweet.tweetText && (
                     <>
                       <div className="main-tweet">
                         {tweet.tweetText == EMPTY_TWEET_RETWEET
                           ? tweet.type == "tweet"
-                            ? "Photo of "
-                            : "Retweet of " + tweet.owner.username
+                            ? `Photo of ${tweet.owner?.username}`
+                            : `Retweet of ${tweet.owner?.username}`
                           : tweet.tweetText}
                       </div>
-                      <p>{"Tweeted by " + tweet.owner.username}</p>
+                      <p>{`Tweet by ${tweet.owner?.username}`}</p>
                     </>
                   )}
                   {/* {tweet.createdAt && (
