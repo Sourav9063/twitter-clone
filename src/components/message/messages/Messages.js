@@ -12,6 +12,7 @@ import MessagePortion from "./MessagePortion";
 import MessageInput from "./MessageInput";
 import deleteNotification from "@/helper/frontend/deleteNotification";
 import fetchUnseen from "@/helper/frontend/fetchUnseen";
+import Link from "next/link";
 export default function Messages({ receiver, email }) {
   const [profile, setProfile] = useState(receiver);
 
@@ -151,7 +152,11 @@ export default function Messages({ receiver, email }) {
           <>
             <div className={styleList.glassPortion}>
               <div className={styleList.header}>
-                {profile && <h3>{profile.username} </h3>}
+                {profile && (
+                  <Link href={"/profile?id=" + profile._id}>
+                    <h3>{profile.username} </h3>
+                  </Link>
+                )}
               </div>
             </div>
             <div

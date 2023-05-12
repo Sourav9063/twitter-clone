@@ -10,11 +10,12 @@ export default function LikeButton({
   _id,
   userid,
 }) {
-  const [, setLiked] = useContext(LikedPostsContext);
-
+  const [liked, setLiked] = useContext(LikedPostsContext);
+  let likedPost = liked.find((post) => post._id == _id);
+  likedPost = likedPost ? true : false;
   return (
     <div
-      className={`${likesState ? style.likedPost : ""} ${style.likes}`}
+      className={`${likedPost ? style.likedPost : ""} ${style.likes}`}
       onClick={async (e) => {
         e.stopPropagation();
         TweetDispatch({

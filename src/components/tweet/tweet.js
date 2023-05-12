@@ -51,8 +51,7 @@ export default function Tweet(props) {
   const router = useRouter();
   // const [, setLiked] = useContext(LikedPostsContext);
   const [curTweet, setCurTweet] = useContext(SelectedTweetContext);
-  // let likedPost = liked.find((post) => post._id == _id);
-  // likedPost = likedPost ? true : false;
+
   const [random, setRandom] = useContext(RandomContext);
 
   const [parent] = useAutoAnimate();
