@@ -62,8 +62,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ msg: "Updated", post });
     } catch (error) {
-      console.log(error);
-
       return res.status(500).json({ msg: "Internal server error", error });
     }
   }

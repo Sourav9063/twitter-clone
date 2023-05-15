@@ -16,7 +16,6 @@ export default function MessagePortion({ profile }) {
 
   return (
     <div className={style.messagePortion}>
-      {/* {console.count("rerender")} */}
       <section className={style.description}>
         <Avatar image={profile.image}></Avatar>
         <div className={style.name}>{profile.username}</div>

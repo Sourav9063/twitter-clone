@@ -12,7 +12,9 @@ import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
-
+import Loader from "@/components/common/loader/Loader";
+import msgLottie from "./lottie/noMsgDark.json";
+import { useLottie } from "lottie-react";
 export async function getServerSideProps(context) {
   const { senderId, receiverId } = context.query;
 
@@ -56,9 +58,26 @@ export async function getServerSideProps(context) {
   };
 }
 
+const MsgLottieDark = () => {
+  const options = {
+    animationData: msgLottie,
+    loop: true,
+    autoplay: true,
+  };
+
+  const { View } = useLottie(options);
+  return View;
+};
 export default function Message({ receiver, messages }) {
   const session = useSession();
   const [selectedID, setselectedID] = useState(receiver);
+  const options = {
+    animationData: msgLottie,
+    loop: true,
+    autoplay: true,
+  };
+
+  const { View } = useLottie(options);
 
   useEffect(() => {
     async function requestPermission() {
@@ -107,7 +126,16 @@ export default function Message({ receiver, messages }) {
           messages={messages}
           setselectedID={setselectedID}
         ></MessageList>
-        {selectedID && <Messages receiver={selectedID}></Messages>}
+        {selectedID ? (
+          <Messages receiver={selectedID}></Messages>
+        ) : (
+          <section className="empty-wrapper">
+            <div>
+              <MsgLottieDark />
+              <h2>Select a conversation.</h2>
+            </div>
+          </section>
+        )}
       </main>
       <style jsx>{`
         .body {
@@ -119,6 +147,19 @@ export default function Message({ receiver, messages }) {
         }
         .left {
           margin-right: 1rem;
+        }
+        .empty-wrapper {
+          width: var(--main-width);
+          display: grid;
+          place-items: center;
+          border-right: 1px solid var(--border-color);
+          width: var(--main-width);
+          height: 100vh;
+          position: relative;
+          overflow: hidden;
+        }
+        h2 {
+          text-align: center;
         }
       `}</style>
     </>

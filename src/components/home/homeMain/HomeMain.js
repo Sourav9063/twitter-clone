@@ -47,11 +47,8 @@ export default function HomeMain({ posts }) {
             setBtnText(NO_MORE_TWEETS);
           }
         }
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     }
-    console.log(onScreen);
 
     if (onScreen) {
       setBtnText("Loading");
@@ -115,9 +112,7 @@ export default function HomeMain({ posts }) {
                     }
                   }
                 } catch (error) {
-                  console.log(error);
                 } finally {
-                  console.log(FeedTweets.length);
                 }
               }}
             >
@@ -186,8 +181,8 @@ export default function HomeMain({ posts }) {
 //       }
 //     }
 //   } catch (error) {
-//     console.log(error);
+
 //   } finally {
-//     console.log(FeedTweets.length);
+
 //   }
 // }}

@@ -139,7 +139,7 @@
 
 .picSVG {
   width: 1.8rem;
-  color: var(--primary-color);
+  color: var(--text-color);
   fill: currentColor;
   box-sizing: content-box;
   padding: 0.5rem;

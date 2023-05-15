@@ -142,7 +142,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ posts: tweet });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ msg: "Internal server error", ...error });
     }
   } else if (req.method === "DELETE") {

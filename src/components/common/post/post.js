@@ -75,11 +75,11 @@ export default function Post({
               formData,
               tweetData,
               setFeedData,
-              FeedData,
+              // FeedData,
             },
           });
         }
-        route.replace(returnTo);
+        route.replace(returnTo, undefined, { shallow: true });
 
         setSelectedFile("");
         setSelectedImage("");

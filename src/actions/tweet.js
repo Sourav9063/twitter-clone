@@ -82,7 +82,7 @@ const postRetweetFn = async ({
   setShowRetweet(false);
 };
 
-const patchTweetFn = async ({ formData, tweetData, setFeedData, FeedData }) => {
+const patchTweetFn = async ({ formData, tweetData, setFeedData }) => {
   try {
     const requestOptions = {
       method: "PATCH",
@@ -97,11 +97,19 @@ const patchTweetFn = async ({ formData, tweetData, setFeedData, FeedData }) => {
     const result = await response.json();
 
     if (result.post) {
-      const index = FeedData.findIndex((e) => e._id == result.post._id);
-      if (index != -1) {
-        FeedData[index] = result.post;
-        setFeedData([...FeedData]);
-      }
+      setFeedData((state) => {
+        const index = state.findIndex((e) => e._id == result.post._id);
+        if (index != -1) {
+          state[index] = result.post;
+
+          return [...state];
+        }
+      });
+      // const index = FeedData.findIndex((e) => e._id == result.post._id);
+      // if (index != -1) {
+      //   FeedData[index] = result.post;
+      //   setFeedData([...FeedData]);
+      // }
     }
   } catch (e) {}
 };
