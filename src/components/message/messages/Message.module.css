@@ -169,6 +169,8 @@
   position: relative;
 }
 .msgComponent {
+  white-space: pre-wrap;
+overflow-wrap: break-word;
   max-width: 80%;
   width: fit-content;
   padding: 0.4rem 0.8rem;
