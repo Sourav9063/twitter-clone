@@ -5,6 +5,7 @@ import FeedTweetsProvider, { FeedTweetsContext } from "./FeedTweetsProvider";
 import RandomProvider from "./RandomProvider";
 import SelectedTweetProvider from "./SelectedTweet";
 import LikedPostsProvider from "./LikedPosts";
+import PageLoaderProvider from "./PageLoaderProvider";
 
 export default function ProviderWrapper({ children, pageProps }) {
   return (
@@ -13,7 +14,9 @@ export default function ProviderWrapper({ children, pageProps }) {
         <FeedTweetsProvider>
           <RandomProvider>
             <SelectedTweetProvider>
-              <LikedPostsProvider>{children}</LikedPostsProvider>
+              <LikedPostsProvider>
+                <PageLoaderProvider>{children}</PageLoaderProvider>
+              </LikedPostsProvider>
             </SelectedTweetProvider>
           </RandomProvider>
         </FeedTweetsProvider>

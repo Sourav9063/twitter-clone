@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { app, firebaseConfig } from "@/helper/Firebase/FirebaseInit";
 import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
+import { getMessaging, isSupported } from "firebase/messaging";
 import { useEffect } from "react";
 import ProviderWrapper from "@/providers/ProviderWrapper";
 export default function App({ Component, pageProps }) {

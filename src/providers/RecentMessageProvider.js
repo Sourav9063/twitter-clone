@@ -7,6 +7,8 @@ import {
 } from "@/helper/constStrings";
 import React from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
+import { firebaseConfig } from "@/helper/Firebase/FirebaseInit";
+import { initializeApp } from "firebase/app";
 
 export const RecentMessageContext = createContext(null);
 
@@ -55,7 +57,10 @@ export default function RecentMessageProvider({ children }) {
   useEffect(() => {
     const beat = new Audio("/sounds/noti_sound.wav");
     const seenBeat = new Audio("/sounds/seen.wav");
-    const messaging = getMessaging();
+    // firebaseConfig
+    initializeApp(firebaseConfig);
+    const firebaseApp = initializeApp(firebaseConfig);
+    const messaging = getMessaging(firebaseApp);
     onMessage(messaging, (payload) => {
       const msg = JSON.parse(payload.data.message);
       if (msg.notificationType === NOTIFICATION_TYPE_SEND) {

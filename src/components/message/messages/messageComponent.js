@@ -20,7 +20,13 @@ export default function MessageComponent({ message, sender, showAvatar }) {
       );
     }
     return () => {};
-  }, [session.data, message.sender, message.cus_id, recentMsg.unseenMessages]);
+  }, [
+    session.data,
+    message.sender,
+    message.cus_id,
+    recentMsg.unseenMessages,
+    message._id,
+  ]);
 
   return (
     <>

@@ -15,6 +15,7 @@ import EditProfile from "@/components/modalComponents/editProfile/EditProfile";
 import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import TweetDBV2 from "@/db/modelsV2/tweetModelV2";
+import PageLoading from "@/components/pageLoading/PageLoading";
 
 export async function getServerSideProps(context) {
   const { id, email } = context.query;
@@ -101,141 +102,145 @@ export default function User({ data, posts }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
-      <main className="main">
-        {router.query.modal == "edit-profile" && (
-          <ModalComponent returnTo={router.pathname}>
-            <EditProfile>Test</EditProfile>
-          </ModalComponent>
-        )}
-        <HomeLeft></HomeLeft>
-        {data && (
-          <section className="mid">
-            <div className="profileMT">
-              <div className="cover"></div>
-              <div className="bottom">
-                <div className="avWrapper">
-                  <Avatar width="180px" image={data.image}></Avatar>
-                </div>
-                {session.data?.user.id == data._id && (
-                  <button
-                    className="edit-profile"
-                    onClick={() => {
-                      router.push({
-                        pathname: router.pathname,
-                        query: { id: data._id, modal: "edit-profile" },
-                      });
-                    }}
-                  >
-                    Edit Profile
-                  </button>
-                )}
-              </div>
-              <section className="names">
-                {data.username && <div>{data.username}</div>}
-                {data.email && <div>@{data.email}</div>}
-                {data.bio && <div className="bio">{data.bio}</div>}
-                {session.data?.user.id != data._id ? (
-                  <div style={{ display: "flex" }}>
-                    <div className="followbtn" style={{ width: "70%" }}>
-                      <Button
-                        onclick={async () => {
-                          setBtnTex("Loading");
-                          const body = {
-                            owner: session.data.user.id,
-                            who: data._id,
-                            what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
-                          };
-                          const res = await fetch("/api/v2/users/follow", {
-                            method: "POST",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify(body),
-                          });
-                          const result = await res.json();
-
-                          const isFollowingNow =
-                            result.msg == "Following" ? true : false;
-                          amIFollowing = isFollowingNow;
-                          setAmIFollowingState(amIFollowing);
-                          setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
-                          if (result.msg == "Following") {
-                            userData.follower.push(result.data);
-                            setUserData({
-                              ...userData,
-
-                              // follower: [...userData.follower, result.data],
-                            });
-                          } else {
-                            const follower = userData.follower.filter((f) => {
-                              return f._id != result.data._id;
-                            });
-
-                            setUserData({ ...userData, follower: follower });
-                          }
-                        }}
-                      >
-                        {btnTex}
-                      </Button>
-                    </div>
-                    <div
-                      className="followbtn"
-                      style={{ width: "29%", marginLeft: "1%" }}
-                    >
-                      <Button
-                        onclick={() => {
-                          //
-                          router.push({
-                            pathname: "/message",
-                            query: {
-                              senderId: session.data?.user.id,
-                              receiverId: data._id,
-                            },
-                          });
-                        }}
-                      >
-                        Message
-                      </Button>
-                    </div>
+      {session.status != "loading" ? (
+        <main className="main revealAnimation">
+          {router.query.modal == "edit-profile" && (
+            <ModalComponent returnTo={router.pathname}>
+              <EditProfile>Test</EditProfile>
+            </ModalComponent>
+          )}
+          <HomeLeft></HomeLeft>
+          {data && (
+            <section className="mid">
+              <div className="profileMT">
+                <div className="cover"></div>
+                <div className="bottom">
+                  <div className="avWrapper">
+                    <Avatar width="180px" image={data.image}></Avatar>
                   </div>
-                ) : (
-                  <div className="followbtn">
-                    <Button
-                      onclick={async () => {
-                        try {
-                          const res = await fetch("/api/v2/users/token", {
-                            method: "DELETE",
-                            headers: {
-                              "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                              _id: session.data.user._id,
-                            }),
-                          });
-
-                          const result = await res.json();
-                        } catch (error) {}
-                        signOut({
-                          callbackUrl: "/",
+                  {session.data?.user.id == data._id && (
+                    <button
+                      className="edit-profile"
+                      onClick={() => {
+                        router.push({
+                          pathname: router.pathname,
+                          query: { id: data._id, modal: "edit-profile" },
                         });
                       }}
                     >
-                      Sign Out
-                    </Button>
-                  </div>
-                )}
-              </section>
-            </div>
-            <ProfileMid
-              userData={userData}
-              setUserData={setUserData}
-              posts={posts}
-            ></ProfileMid>
-          </section>
-        )}
+                      Edit Profile
+                    </button>
+                  )}
+                </div>
+                <section className="names">
+                  {data.username && <div>{data.username}</div>}
+                  {data.email && <div>@{data.email}</div>}
+                  {data.bio && <div className="bio">{data.bio}</div>}
+                  {session.data?.user.id != data._id ? (
+                    <div style={{ display: "flex" }}>
+                      <div className="followbtn" style={{ width: "70%" }}>
+                        <Button
+                          onclick={async () => {
+                            setBtnTex("Loading");
+                            const body = {
+                              owner: session.data.user.id,
+                              who: data._id,
+                              what: amIFollowingState ? "UNFOLLOW" : "FOLLOW",
+                            };
+                            const res = await fetch("/api/v2/users/follow", {
+                              method: "POST",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify(body),
+                            });
+                            const result = await res.json();
 
-        <HomeRight></HomeRight>
-      </main>
+                            const isFollowingNow =
+                              result.msg == "Following" ? true : false;
+                            amIFollowing = isFollowingNow;
+                            setAmIFollowingState(amIFollowing);
+                            setBtnTex(isFollowingNow ? "Unfollow" : "Follow");
+                            if (result.msg == "Following") {
+                              userData.follower.push(result.data);
+                              setUserData({
+                                ...userData,
+
+                                // follower: [...userData.follower, result.data],
+                              });
+                            } else {
+                              const follower = userData.follower.filter((f) => {
+                                return f._id != result.data._id;
+                              });
+
+                              setUserData({ ...userData, follower: follower });
+                            }
+                          }}
+                        >
+                          {btnTex}
+                        </Button>
+                      </div>
+                      <div
+                        className="followbtn"
+                        style={{ width: "29%", marginLeft: "1%" }}
+                      >
+                        <Button
+                          onclick={() => {
+                            //
+                            router.push({
+                              pathname: "/message",
+                              query: {
+                                senderId: session.data?.user.id,
+                                receiverId: data._id,
+                              },
+                            });
+                          }}
+                        >
+                          Message
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="followbtn">
+                      <Button
+                        onclick={async () => {
+                          try {
+                            const res = await fetch("/api/v2/users/token", {
+                              method: "DELETE",
+                              headers: {
+                                "Content-Type": "application/json",
+                              },
+                              body: JSON.stringify({
+                                _id: session.data.user._id,
+                              }),
+                            });
+
+                            const result = await res.json();
+                          } catch (error) {}
+                          signOut({
+                            callbackUrl: "/",
+                          });
+                        }}
+                      >
+                        Sign Out
+                      </Button>
+                    </div>
+                  )}
+                </section>
+              </div>
+              <ProfileMid
+                userData={userData}
+                setUserData={setUserData}
+                posts={posts}
+              ></ProfileMid>
+            </section>
+          )}
+
+          <HomeRight></HomeRight>
+        </main>
+      ) : (
+        <PageLoading />
+      )}
       <style jsx>{`
         .main {
           width: 100%;

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
+import { getMessaging, isSupported } from "firebase/messaging";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -18,9 +18,12 @@ const firebaseConfig = {
 // Initialize Firebase
 let app;
 let messaging;
-try {
-  app = initializeApp(firebaseConfig);
+// try {
+//   app = initializeApp(firebaseConfig);
 
-  messaging = getMessaging(app);
-} catch (e) {}
-export { app, messaging, firebaseConfig };
+//   messaging = getMessaging(app);
+// } catch (e) {
+//   console.log(e);
+// }
+
+export { app, messaging, isSupported, firebaseConfig };

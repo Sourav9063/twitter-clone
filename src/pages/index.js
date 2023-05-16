@@ -30,6 +30,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import Loader from "@/components/common/loader/Loader";
 import ThemeToggle from "@/components/common/ThemeToggle";
+import PageLoading from "@/components/pageLoading/PageLoading";
 
 export async function getServerSideProps(context) {
   let postsArray = [];
@@ -153,7 +154,7 @@ export default function Home({ data, error }) {
         </ModalComponent>
       )}
       {session.status != "loading" ? (
-        <main className={style.body}>
+        <main className={`${style.body} revealAnimation`}>
           <HomeLeft></HomeLeft>
           {error == null ? (
             <HomeMain posts={data}></HomeMain>
@@ -164,14 +165,7 @@ export default function Home({ data, error }) {
           {session.status == "unauthenticated" && <HomeBottom></HomeBottom>}
         </main>
       ) : (
-        <main className={style.loadingBody}>
-          <div>
-            <div className={style.dis}>
-              <ThemeToggle />
-            </div>
-            <Loader size={100} />
-          </div>
-        </main>
+        <PageLoading />
       )}
     </>
   );

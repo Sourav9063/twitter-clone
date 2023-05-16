@@ -2,19 +2,18 @@ import HomeLeft from "@/components/home/homeLeft/HomeLeft";
 import MessageList from "@/components/message/messageList/MessageList";
 import Messages from "@/components/message/messages/Messages";
 
-// import { messaging } from "@/helper/Firebase/FirebaseInit";
 import { getToken } from "firebase/messaging";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { getMessaging, onMessage } from "firebase/messaging";
+import { getMessaging } from "firebase/messaging";
 import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
-import Loader from "@/components/common/loader/Loader";
 import msgLottie from "./lottie/noMsgDark.json";
 import { useLottie } from "lottie-react";
+import PageLoading from "@/components/pageLoading/PageLoading";
 export async function getServerSideProps(context) {
   const { senderId, receiverId } = context.query;
 
@@ -120,23 +119,27 @@ export default function Message({ receiver, messages }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
-      <main className="body">
-        <HomeLeft></HomeLeft>
-        <MessageList
-          messages={messages}
-          setselectedID={setselectedID}
-        ></MessageList>
-        {selectedID ? (
-          <Messages receiver={selectedID}></Messages>
-        ) : (
-          <section className="empty-wrapper">
-            <div>
-              <MsgLottieDark />
-              <h2>Select a conversation.</h2>
-            </div>
-          </section>
-        )}
-      </main>
+      {session.status != "loading" ? (
+        <main className="body revealAnimation">
+          <HomeLeft></HomeLeft>
+          <MessageList
+            messages={messages}
+            setselectedID={setselectedID}
+          ></MessageList>
+          {selectedID ? (
+            <Messages receiver={selectedID}></Messages>
+          ) : (
+            <section className="empty-wrapper">
+              <div>
+                <MsgLottieDark />
+                <h2>Select a conversation.</h2>
+              </div>
+            </section>
+          )}
+        </main>
+      ) : (
+        <PageLoading />
+      )}
       <style jsx>{`
         .body {
           width: 100%;
