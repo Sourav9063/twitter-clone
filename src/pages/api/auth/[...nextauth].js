@@ -52,7 +52,7 @@ export const authOptions = (reqm) => {
             const isPasswordCorrect = await compare(password, user.password);
 
             if (!isPasswordCorrect) {
-              throw new Error("Password doesn't match.");
+              throw new Error("Credentials doesn't match.");
             }
             return user;
           } catch (e) {

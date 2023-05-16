@@ -60,7 +60,8 @@ const getAllMessages = async (req, res) => {
           "messages.receiver": 1,
           "messages._id": 1,
           "messages.cus_id": 1,
-        }),
+        })
+        .limit(100),
       getServerSession(req, res, authOptions(req)),
     ]);
 
