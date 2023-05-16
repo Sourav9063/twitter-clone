@@ -45,15 +45,16 @@ function PageLoaderComponent() {
 
           right: 0;
           bottom: 0;
-          background-color: rgba(0, 0, 0, 0.25);
+           {
+            /* background-color: rgba(0, 0, 0, 0.25); */
+          }
           z-index: 100;
           display: grid;
           justify-content: center;
           align-items: center;
           animation: outerAnimation 0.3s ease-out forwards;
           overflow-y: scroll;
-          backdrop-filter: blur(2px);
-          animation: loading 0.2s ease;
+          animation: loading 1s ease forwards;
         }
 
         .outer::-webkit-scrollbar {
@@ -62,12 +63,9 @@ function PageLoaderComponent() {
         @keyframes loading {
           0% {
             backdrop-filter: blur(0px);
-            background-color: rgba(0, 0, 0, 0);
           }
           100% {
-            background-color: rgba(0, 0, 0, 0.25);
-
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(8px);
           }
         }
 
