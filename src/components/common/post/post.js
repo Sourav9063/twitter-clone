@@ -8,6 +8,7 @@ import styles from "../../modalComponents/signInDiv/ModalSignInDiv.module.css";
 import { EMPTY_TWEET_RETWEET } from "@/helper/constStrings";
 import { FeedTweetsContext } from "@/providers/FeedTweetsProvider";
 import { TweetActions, TweetDispatch } from "@/actions/tweet";
+import Compressor from "compressorjs";
 export default function Post({
   width = "100%",
   placeholder = "What's happening?",
@@ -41,7 +42,8 @@ export default function Post({
         setLoading(true);
 
         const formData = new FormData();
-        selectedFile && formData.append("tweetImage", selectedFile);
+        selectedFile &&
+          formData.append("tweetImage", selectedFile, selectedFile.name);
         formData.append("owner", session.data.user.id);
         formData.append("tweetText", tweet ? tweet : EMPTY_TWEET_RETWEET);
 
@@ -150,8 +152,20 @@ export default function Post({
                     try {
                       if (target.files) {
                         const file = target.files[0];
+
+                        new Compressor(file, {
+                          quality: 0.6,
+                          maxWidth: 600,
+                          success(result) {
+                            setSelectedFile(result);
+                          },
+                          error(err) {
+                            console.log(err.message);
+                          },
+                        });
+
                         setSelectedImage(URL.createObjectURL(file));
-                        setSelectedFile(file);
+                        // setSelectedFile(file);
                       }
                     } catch (e) {}
                   }}

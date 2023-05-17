@@ -171,7 +171,7 @@ const useUser = (init) => {
     }
 
     const formData = new FormData();
-    selectedFile && formData.append("image", selectedFile);
+    selectedFile && formData.append("image", selectedFile, selectedFile.name);
     formData.append("username", userName);
     formData.append("email", email);
     formData.append("password", password);

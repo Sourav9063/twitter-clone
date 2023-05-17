@@ -91,11 +91,14 @@ export default function PostOption({
             padding: 1rem;
             margin-top: 1rem;
             transition: height 300ms ease;
+            color: var(--text-color-primary);
           }
           .delete-post > * {
             margin-bottom: 0.5rem;
           }
           button {
+            color: var(--text-color-primary);
+
             display: block;
             width: 100%;
             border: none;

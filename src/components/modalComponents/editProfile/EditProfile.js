@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { MODAL_QUERY_SIGNIN } from "@/helper/constStrings";
 import { signIn, useSession } from "next-auth/react";
+import Compressor from "compressorjs";
 
 export default function EditProfile() {
   const session = useSession();
@@ -63,10 +64,10 @@ export default function EditProfile() {
               formData.append("username", userName);
             }
             if (selectedFile) {
-              formData.append("image", selectedFile);
+              formData.append("image", selectedFile, selectedFile.name);
             }
             if (selectedFile2) {
-              formData.append("coverImage", selectedFile2);
+              formData.append("coverImage", selectedFile2, selectedFile2.name);
             }
             if (bio != "") {
               formData.append("bio", bio);
@@ -163,8 +164,18 @@ export default function EditProfile() {
               onChange={({ target }) => {
                 if (target.files) {
                   const file = target.files[0];
+
+                  new Compressor(file, {
+                    quality: 0.6,
+                    maxWidth: 300,
+                    success(result) {
+                      setSelectedFile(result);
+                    },
+                    error(err) {
+                      console.log(err.message);
+                    },
+                  });
                   setSelectedImage(URL.createObjectURL(file));
-                  setSelectedFile(file);
                 }
               }}
             />
@@ -206,8 +217,17 @@ export default function EditProfile() {
               onChange={({ target }) => {
                 if (target.files) {
                   const file = target.files[0];
+                  new Compressor(file, {
+                    quality: 0.6,
+                    maxWidth: 600,
+                    success(result) {
+                      setSelectedFile2(result);
+                    },
+                    error(err) {
+                      console.log(err.message);
+                    },
+                  });
                   setSelectedImage2(URL.createObjectURL(file));
-                  setSelectedFile2(file);
                 }
               }}
             />

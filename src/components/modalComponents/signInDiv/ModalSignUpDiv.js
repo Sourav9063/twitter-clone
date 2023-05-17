@@ -8,6 +8,7 @@ import Loader from "@/components/common/loader/Loader";
 import useUser, { UserActions } from "@/actions/useUser";
 import Button from "@/components/common/button/button";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import Compressor from "compressorjs";
 
 export default function ModalSignUpDiv() {
   const {
@@ -128,11 +129,26 @@ export default function ModalSignUpDiv() {
                   onChange={({ target }) => {
                     if (target.files) {
                       const file = target.files[0];
+
+                      new Compressor(file, {
+                        quality: 0.6,
+                        maxWidth: 300,
+                        success(result) {
+                          setUserSignUpForm((state) => {
+                            return {
+                              ...state,
+                              selectedFile: result,
+                            };
+                          });
+                        },
+                        error(err) {
+                          console.log(err.message);
+                        },
+                      });
                       setUserSignUpForm((state) => {
                         return {
                           ...state,
                           selectedImage: URL.createObjectURL(file),
-                          selectedFile: file,
                         };
                       });
                     }
