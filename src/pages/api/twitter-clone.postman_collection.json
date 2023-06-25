@@ -1,0 +1,3882 @@
+{
+	"info": {
+		"_postman_id": "6e4a6e80-a4a3-4ea4-9272-3467a8225e7d",
+		"name": "twitter-clone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26959904",
+		"_collection_link": "https://www.postman.com/interstellar-satellite-335460/workspace/twitter-clone/collection/26959904-6e4a6e80-a4a3-4ea4-9272-3467a8225e7d?action=share&creator=26959904&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "tweet",
+			"item": [
+				{
+					"name": "get tweet by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts/64536f0b8c5400e75a1569f7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts",
+								"64536f0b8c5400e75a1569f7"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get tweet by id not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/643e4ee06da446cafe86158x",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"643e4ee06da446cafe86158x"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"jc1sifcsn6v\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:31:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Tweet not found\"\n}"
+						},
+						{
+							"name": "get tweet by id error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/643e4ee06da446cafe86158x",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"643e4ee06da446cafe86158x"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"jc1sifcsn6v\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:32:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Internal server error\"\n}"
+						},
+						{
+							"name": "get tweet by id Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/64536f0b8c5400e75a1569f7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"64536f0b8c5400e75a1569f7"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"oj95ui1xyp2kf\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:21:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"post\": {\n        \"_id\": \"64536f0b8c5400e75a1569f7\",\n        \"owner\": {\n            \"_id\": \"643cf9ec28271f6cc91b53e7\",\n            \"isEmailVerified\": false,\n            \"email\": \"edge@gmail.com\",\n            \"username\": \"Edge\",\n            \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n            \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n            \"bio\": \"This is my bio\",\n            \"follower\": [\n                \"645b7f665b0bc1d9a10bf0f4\",\n                \"645b89d45b0bc1d9a10bf9ed\"\n            ],\n            \"following\": [\n                \"642f7cdd8d1cecb1945c6536\",\n                \"645b7f665b0bc1d9a10bf0f4\"\n            ],\n            \"posts\": [],\n            \"likedPost\": [\n                \"643e4ee06da446cafe86158d\",\n                \"643bb5a0000d2d56ea8e5ad6\",\n                \"645370d88c5400e75a156ae7\",\n                \"645370968c5400e75a156a6b\",\n                \"64524834f7edf3e77684bef6\",\n                \"645384c98c5400e75a15706a\",\n                \"645b82df5b0bc1d9a10bf35c\"\n            ],\n            \"commentedPost\": [],\n            \"createdAt\": \"2023-04-17T07:49:00.459Z\",\n            \"updatedAt\": \"2023-05-11T08:20:13.608Z\",\n            \"__v\": 75,\n            \"token\": \"eT2bTHm-AAp16becQd3FzT:APA91bGVeY0d9tHzEl6NYLSpYwnXbOSMureUAza7pJv-exjx6CZBjJ5mwPKT_tBYqc8LYBaAlRILzOwFnWnSasE7XM_iCB8cwlmJl5E4REDwawz3doGd_22Yj0BHhxx779V3qS-4eemx\",\n            \"notifications\": [],\n            \"messages\": [\n                {\n                    \"sender\": \"642f7cdd8d1cecb1945c6536\",\n                    \"chatID\": \"643e5dde1dbdb1179d8cd018\",\n                    \"cus_id\": \"643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536\",\n                    \"username\": \"Username\",\n                    \"email\": \"sourav0123@gmail.com\",\n                    \"image\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n                    \"_id\": \"644a1602328b72f696d3c5cb\"\n                },\n                {\n                    \"sender\": \"642e6248e538c6d0b0a11601\",\n                    \"chatID\": \"644a35d78272d66a4e49fe0f\",\n                    \"cus_id\": \"643cf9ec28271f6cc91b53e7642e6248e538c6d0b0a11601\",\n                    \"username\": \"test2\",\n                    \"email\": \"sourav@gmail.com\",\n                    \"image\": \"/images/profiles/9177deb3dbe13dff3e3b0a409.png\",\n                    \"_id\": \"644a35d88272d66a4e49fe14\"\n                },\n                {\n                    \"sender\": \"64363dfc356c5a8aa8fa494e\",\n                    \"chatID\": \"644bad9ad9172f7cad7ba8dc\",\n                    \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n                    \"username\": \"test user\",\n                    \"email\": \"user@gmail.com\",\n                    \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                    \"_id\": \"644bad9bd9172f7cad7ba8e3\"\n                },\n                {\n                    \"sender\": \"64363de9356c5a8aa8fa4930\",\n                    \"chatID\": \"64475b10aa31aade5990bf11\",\n                    \"cus_id\": \"643cf9ec28271f6cc91b53e764363de9356c5a8aa8fa4930\",\n                    \"username\": \"Christiano Ronaldo\",\n                    \"email\": \"cr7@gmail.com\",\n                    \"image\": \"/images/profiles/14503fc457890ab1afab85e06.jpeg\",\n                    \"_id\": \"6451eabc37291ae9b0ca8bfb\"\n                },\n                {\n                    \"sender\": \"645b7f665b0bc1d9a10bf0f4\",\n                    \"chatID\": \"645b80515b0bc1d9a10bf135\",\n                    \"cus_id\": \"645b7f665b0bc1d9a10bf0f4643cf9ec28271f6cc91b53e7\",\n                    \"username\": \"Sabit\",\n                    \"email\": \"sabit.shellbeehaken@gmail.com\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d00.aee7abddddb9c68b52c5.png\",\n                    \"_id\": \"645b80525b0bc1d9a10bf13a\"\n                },\n                {\n                    \"sender\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"chatID\": \"645c63763b53a43f28c61f78\",\n                    \"cus_id\": \"645b89d45b0bc1d9a10bf9ed643cf9ec28271f6cc91b53e7\",\n                    \"username\": \"sourav\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\",\n                    \"_id\": \"645c63763b53a43f28c61f7d\"\n                },\n                {\n                    \"sender\": \"64326d06498c08c135977357\",\n                    \"chatID\": \"645c9c763b53a43f28c6393e\",\n                    \"cus_id\": \"643cf9ec28271f6cc91b53e764326d06498c08c135977357\",\n                    \"username\": \"Sourav Ahmed\",\n                    \"email\": \"sourav.ahmed5654@gmail.com\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d01.aee7abddddb9c68b52c5.png\",\n                    \"_id\": \"645c9c763b53a43f28c63943\"\n                }\n            ]\n        },\n        \"tweetImages\": [],\n        \"tweetText\": \"-1-1empty1-1-\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 0,\n        \"commentsList\": [],\n        \"commentByHashMap\": {},\n        \"type\": \"retweet\",\n        \"head\": \"64536ee28c5400e75a1569ae\",\n        \"nodes\": [],\n        \"createdAt\": \"2023-05-04T08:38:35.650Z\",\n        \"updatedAt\": \"2023-05-04T10:10:22.281Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get tweets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts?skip=5&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get tweets Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts?skip=5&limit=5",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "5"
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"2ic45j8pad5xh\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:34:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"posts\": [\n        {\n            \"_id\": \"64490f9ee3802dfa3093132e\",\n            \"owner\": {\n                \"_id\": \"643cf9ec28271f6cc91b53e7\",\n                \"email\": \"edge@gmail.com\",\n                \"username\": \"Edge\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\"\n            },\n            \"tweetImage\": null,\n            \"tweetImages\": [],\n            \"tweetText\": \"Shei noakhali\",\n            \"likes\": 1,\n            \"likedBy\": [\n                \"64363de9356c5a8aa8fa4930\"\n            ],\n            \"likedByHashMap\": {},\n            \"retweets\": 1,\n            \"retweetedBy\": [\n                \"643cf9ec28271f6cc91b53e7\"\n            ],\n            \"retweetedByHashMap\": {\n                \"643cf9ec28271f6cc91b53e7\": true\n            },\n            \"comments\": 1,\n            \"commentsList\": [\n                {\n                    \"_id\": \"644a2206c529a4e116274551\",\n                    \"owner\": {\n                        \"_id\": \"64363de9356c5a8aa8fa4930\",\n                        \"email\": \"cr7@gmail.com\",\n                        \"username\": \"Christiano Ronaldo\",\n                        \"image\": \"/images/profiles/14503fc457890ab1afab85e06.jpeg\"\n                    },\n                    \"tweetImages\": [],\n                    \"tweetText\": \"true\",\n                    \"likes\": 0,\n                    \"likedBy\": [],\n                    \"likedByHashMap\": {},\n                    \"retweets\": 0,\n                    \"retweetedBy\": [],\n                    \"retweetedByHashMap\": {},\n                    \"comments\": 0,\n                    \"commentsList\": [],\n                    \"commentByHashMap\": {},\n                    \"type\": \"comment\",\n                    \"head\": \"64490f9ee3802dfa3093132e\",\n                    \"nodes\": [],\n                    \"createdAt\": \"2023-04-27T07:19:34.658Z\",\n                    \"updatedAt\": \"2023-04-27T07:19:34.658Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"commentByHashMap\": {\n                \"64363de9356c5a8aa8fa4930\": true\n            },\n            \"type\": \"tweet\",\n            \"nodes\": [\n                \"64490fade3802dfa30931338\",\n                \"644a2206c529a4e116274551\"\n            ],\n            \"createdAt\": \"2023-04-26T11:48:46.330Z\",\n            \"updatedAt\": \"2023-04-27T07:19:34.767Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"643e4ee06da446cafe86158d\",\n            \"owner\": {\n                \"_id\": \"64363dfc356c5a8aa8fa494e\",\n                \"email\": \"user@gmail.com\",\n                \"username\": \"test user\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\"\n            },\n            \"tweetImages\": [],\n            \"tweetText\": \"Oh My God!!\",\n            \"likes\": 1,\n            \"likedBy\": [\n                \"643cf9ec28271f6cc91b53e7\"\n            ],\n            \"likedByHashMap\": {},\n            \"retweets\": 0,\n            \"retweetedBy\": [],\n            \"retweetedByHashMap\": {},\n            \"comments\": 0,\n            \"commentsList\": [],\n            \"commentByHashMap\": {},\n            \"type\": \"retweet\",\n            \"head\": {\n                \"_id\": \"643cff131335c25599b50299\",\n                \"owner\": {\n                    \"_id\": \"643cf649d21344a1a5b068e4\",\n                    \"isEmailVerified\": false,\n                    \"email\": \"demo@gmail.com\",\n                    \"username\": \"maruf\",\n                    \"image\": \"/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg\",\n                    \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                    \"bio\": \"This is my bio\",\n                    \"follower\": [],\n                    \"following\": [],\n                    \"posts\": [],\n                    \"likedPost\": [\n                        \"643bb5a0000d2d56ea8e5ad6\",\n                        \"643bb59d000d2d56ea8e5ac9\",\n                        \"6437881a4235dc5f6a17d5aa\"\n                    ],\n                    \"commentedPost\": [],\n                    \"createdAt\": \"2023-04-17T07:33:29.247Z\",\n                    \"updatedAt\": \"2023-04-17T08:25:09.722Z\",\n                    \"__v\": 0,\n                    \"token\": \"fUrq0QeduU9z8k5Gtt0Q3c:APA91bFrJzswi9VvfuBmGhhgm9siOQto1-ikji8Z7h-dOfr96Ue8mIBdJaZ9vgz2GRHD1Ivo3e9c_FFfSG8SKBx6J0cg-Hyx51wmiiG_8d-jQ0YBnIObvyyIc2ogMEsHnBeAaxFLGaRL\",\n                    \"notifications\": [],\n                    \"messages\": []\n                },\n                \"tweetImage\": \"/images/tweets/299c10739880f3cdb1d043001.jpg\",\n                \"tweetImages\": [],\n                \"tweetText\": \"-1-1empty1-1-\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 1,\n                \"retweetedBy\": [\n                    \"64363dfc356c5a8aa8fa494e\"\n                ],\n                \"retweetedByHashMap\": {\n                    \"64363dfc356c5a8aa8fa494e\": true\n                },\n                \"comments\": 1,\n                \"commentsList\": [\n                    \"643e4dda789e4ebeb20ffdf7\"\n                ],\n                \"commentByHashMap\": {\n                    \"642e6248e538c6d0b0a11601\": true\n                },\n                \"type\": \"tweet\",\n                \"nodes\": [\n                    \"643e4dda789e4ebeb20ffdf7\",\n                    \"643e4ee06da446cafe86158d\"\n                ],\n                \"createdAt\": \"2023-04-17T08:10:59.615Z\",\n                \"updatedAt\": \"2023-04-18T08:03:44.342Z\",\n                \"__v\": 0\n            },\n            \"nodes\": [],\n            \"createdAt\": \"2023-04-18T08:03:44.280Z\",\n            \"updatedAt\": \"2023-04-26T03:05:00.155Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"643cff131335c25599b50299\",\n            \"owner\": {\n                \"_id\": \"643cf649d21344a1a5b068e4\",\n                \"email\": \"demo@gmail.com\",\n                \"username\": \"maruf\",\n                \"image\": \"/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg\"\n            },\n            \"tweetImage\": \"/images/tweets/299c10739880f3cdb1d043001.jpg\",\n            \"tweetImages\": [],\n            \"tweetText\": \"-1-1empty1-1-\",\n            \"likes\": 0,\n            \"likedBy\": [],\n            \"likedByHashMap\": {},\n            \"retweets\": 1,\n            \"retweetedBy\": [\n                \"64363dfc356c5a8aa8fa494e\"\n            ],\n            \"retweetedByHashMap\": {\n                \"64363dfc356c5a8aa8fa494e\": true\n            },\n            \"comments\": 1,\n            \"commentsList\": [\n                {\n                    \"_id\": \"643e4dda789e4ebeb20ffdf7\",\n                    \"owner\": {\n                        \"_id\": \"642e6248e538c6d0b0a11601\",\n                        \"email\": \"sourav@gmail.com\",\n                        \"username\": \"test2\",\n                        \"image\": \"/images/profiles/9177deb3dbe13dff3e3b0a409.png\"\n                    },\n                    \"tweetImages\": [],\n                    \"tweetText\": \"nnnn\",\n                    \"likes\": 0,\n                    \"likedBy\": [],\n                    \"likedByHashMap\": {},\n                    \"retweets\": 0,\n                    \"retweetedBy\": [],\n                    \"retweetedByHashMap\": {},\n                    \"comments\": 0,\n                    \"commentsList\": [],\n                    \"commentByHashMap\": {},\n                    \"type\": \"comment\",\n                    \"head\": \"643cff131335c25599b50299\",\n                    \"nodes\": [],\n                    \"createdAt\": \"2023-04-18T07:59:22.584Z\",\n                    \"updatedAt\": \"2023-04-18T07:59:22.584Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"commentByHashMap\": {\n                \"642e6248e538c6d0b0a11601\": true\n            },\n            \"type\": \"tweet\",\n            \"nodes\": [\n                \"643e4dda789e4ebeb20ffdf7\",\n                \"643e4ee06da446cafe86158d\"\n            ],\n            \"createdAt\": \"2023-04-17T08:10:59.615Z\",\n            \"updatedAt\": \"2023-04-18T08:03:44.342Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"643cfed25d86196c2b7b23f7\",\n            \"owner\": {\n                \"_id\": \"643cfecc5d86196c2b7b23df\",\n                \"email\": \"farhan.mahi1999@gmail.com\",\n                \"username\": \"Farhan Mahtab Mahi\",\n                \"image\": \"https://avatars.githubusercontent.com/u/51365144?v=4\"\n            },\n            \"tweetImage\": null,\n            \"tweetImages\": [],\n            \"tweetText\": \"Holaaaaaa\",\n            \"likes\": 0,\n            \"likedBy\": [],\n            \"likedByHashMap\": {},\n            \"retweets\": 0,\n            \"retweetedBy\": [],\n            \"retweetedByHashMap\": {},\n            \"comments\": 1,\n            \"commentsList\": [\n                {\n                    \"_id\": \"643d02981335c25599b5037e\",\n                    \"owner\": {\n                        \"_id\": \"643cf649d21344a1a5b068e4\",\n                        \"email\": \"demo@gmail.com\",\n                        \"username\": \"maruf\",\n                        \"image\": \"/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg\"\n                    },\n                    \"tweetImages\": [],\n                    \"tweetText\": \"hi\",\n                    \"likes\": 0,\n                    \"likedBy\": [],\n                    \"likedByHashMap\": {},\n                    \"retweets\": 0,\n                    \"retweetedBy\": [],\n                    \"retweetedByHashMap\": {},\n                    \"comments\": 0,\n                    \"commentsList\": [],\n                    \"commentByHashMap\": {},\n                    \"type\": \"comment\",\n                    \"head\": \"643cfed25d86196c2b7b23f7\",\n                    \"nodes\": [],\n                    \"createdAt\": \"2023-04-17T08:26:00.052Z\",\n                    \"updatedAt\": \"2023-04-17T08:26:00.052Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"commentByHashMap\": {\n                \"643cf649d21344a1a5b068e4\": true\n            },\n            \"type\": \"tweet\",\n            \"nodes\": [\n                \"643d02981335c25599b5037e\"\n            ],\n            \"createdAt\": \"2023-04-17T08:09:54.793Z\",\n            \"updatedAt\": \"2023-04-17T08:26:00.211Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"643cfead1335c25599b5028c\",\n            \"owner\": {\n                \"_id\": \"643cf649d21344a1a5b068e4\",\n                \"email\": \"demo@gmail.com\",\n                \"username\": \"maruf\",\n                \"image\": \"/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg\"\n            },\n            \"tweetImages\": [],\n            \"tweetText\": \"hi\",\n            \"likes\": 1,\n            \"likedBy\": [\n                \"64363dfc356c5a8aa8fa494e\"\n            ],\n            \"likedByHashMap\": {},\n            \"retweets\": 0,\n            \"retweetedBy\": [],\n            \"retweetedByHashMap\": {},\n            \"comments\": 1,\n            \"commentsList\": [\n                {\n                    \"_id\": \"643d06975d86196c2b7b2497\",\n                    \"owner\": {\n                        \"_id\": \"64363dfc356c5a8aa8fa494e\",\n                        \"email\": \"user@gmail.com\",\n                        \"username\": \"test user\",\n                        \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\"\n                    },\n                    \"tweetImages\": [],\n                    \"tweetText\": \"kiree ??\",\n                    \"likes\": 0,\n                    \"likedBy\": [],\n                    \"likedByHashMap\": {},\n                    \"retweets\": 0,\n                    \"retweetedBy\": [],\n                    \"retweetedByHashMap\": {},\n                    \"comments\": 0,\n                    \"commentsList\": [],\n                    \"commentByHashMap\": {},\n                    \"type\": \"comment\",\n                    \"head\": \"643cfead1335c25599b5028c\",\n                    \"nodes\": [],\n                    \"createdAt\": \"2023-04-17T08:43:03.539Z\",\n                    \"updatedAt\": \"2023-04-17T08:43:03.539Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"commentByHashMap\": {\n                \"64363dfc356c5a8aa8fa494e\": true\n            },\n            \"type\": \"retweet\",\n            \"head\": {\n                \"_id\": \"643cfea11335c25599b50284\",\n                \"owner\": {\n                    \"_id\": \"643cf649d21344a1a5b068e4\",\n                    \"isEmailVerified\": false,\n                    \"email\": \"demo@gmail.com\",\n                    \"username\": \"maruf\",\n                    \"image\": \"/images/profiles/299c10739880f3cdb1d043002.com_wallpaper.jpg\",\n                    \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                    \"bio\": \"This is my bio\",\n                    \"follower\": [],\n                    \"following\": [],\n                    \"posts\": [],\n                    \"likedPost\": [\n                        \"643bb5a0000d2d56ea8e5ad6\",\n                        \"643bb59d000d2d56ea8e5ac9\",\n                        \"6437881a4235dc5f6a17d5aa\"\n                    ],\n                    \"commentedPost\": [],\n                    \"createdAt\": \"2023-04-17T07:33:29.247Z\",\n                    \"updatedAt\": \"2023-04-17T08:25:09.722Z\",\n                    \"__v\": 0,\n                    \"token\": \"fUrq0QeduU9z8k5Gtt0Q3c:APA91bFrJzswi9VvfuBmGhhgm9siOQto1-ikji8Z7h-dOfr96Ue8mIBdJaZ9vgz2GRHD1Ivo3e9c_FFfSG8SKBx6J0cg-Hyx51wmiiG_8d-jQ0YBnIObvyyIc2ogMEsHnBeAaxFLGaRL\",\n                    \"notifications\": [],\n                    \"messages\": []\n                },\n                \"tweetImage\": null,\n                \"tweetImages\": [],\n                \"tweetText\": \"hey\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 1,\n                \"retweetedBy\": [\n                    \"643cf649d21344a1a5b068e4\"\n                ],\n                \"retweetedByHashMap\": {\n                    \"643cf649d21344a1a5b068e4\": true\n                },\n                \"comments\": 1,\n                \"commentsList\": [\n                    \"643d07775d86196c2b7b254d\"\n                ],\n                \"commentByHashMap\": {\n                    \"64363dfc356c5a8aa8fa494e\": true\n                },\n                \"type\": \"tweet\",\n                \"nodes\": [\n                    \"643cfead1335c25599b5028c\",\n                    \"643d07775d86196c2b7b254d\"\n                ],\n                \"createdAt\": \"2023-04-17T08:09:05.377Z\",\n                \"updatedAt\": \"2023-04-17T08:46:47.732Z\",\n                \"__v\": 0\n            },\n            \"nodes\": [\n                \"643d06975d86196c2b7b2497\"\n            ],\n            \"createdAt\": \"2023-04-17T08:09:17.006Z\",\n            \"updatedAt\": \"2023-04-17T08:43:03.697Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						},
+						{
+							"name": "get tweets Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts?skip=m.m&limit=mlk",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "skip",
+											"value": "m.m"
+										},
+										{
+											"key": "limit",
+											"value": "mlk"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"dd997go9vx3d\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:34:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Internal server error\",\n    \"stringValue\": \"\\\"mlk\\\"\",\n    \"kind\": \"Number\",\n    \"value\": \"mlk\",\n    \"path\": \"limit\",\n    \"valueType\": \"string\"\n}"
+						}
+					]
+				},
+				{
+					"name": "post tweet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner\":\"645b89d45b0bc1d9a10bf9ed\",\n    \"tweetText\":\"Tweet Postman\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post tweet Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"643cf9ec28271f6cc91b53e7\",\n    \"tweetText\":\"Hiiiiii text\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"oq5ag71zc7e9\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "513"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:34:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"post\": {\n        \"owner\": {\n            \"_id\": \"643cf9ec28271f6cc91b53e7\",\n            \"email\": \"edge@gmail.com\",\n            \"username\": \"Edge\",\n            \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\"\n        },\n        \"tweetImage\": null,\n        \"tweetImages\": [],\n        \"tweetText\": \"Hiiiiii text\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 0,\n        \"commentsList\": [],\n        \"commentByHashMap\": {},\n        \"type\": \"tweet\",\n        \"nodes\": [],\n        \"_id\": \"64522abaf7edf3e77684b640\",\n        \"createdAt\": \"2023-05-03T09:34:50.161Z\",\n        \"updatedAt\": \"2023-05-03T09:34:50.161Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "post tweet Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"643cf9ec28271f6cc91b53e7\",\n    \"tweetText\":\"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"ub73pmmj4aas\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "388"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:35:09 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Internal server error\",\n    \"error\": {\n        \"errors\": {\n            \"tweetText\": {\n                \"name\": \"ValidatorError\",\n                \"message\": \"tweet required\",\n                \"properties\": {\n                    \"message\": \"tweet required\",\n                    \"type\": \"required\",\n                    \"path\": \"tweetText\",\n                    \"value\": \"\"\n                },\n                \"kind\": \"required\",\n                \"path\": \"tweetText\",\n                \"value\": \"\"\n            }\n        },\n        \"_message\": \"TweetDBV2 validation failed\",\n        \"name\": \"ValidationError\",\n        \"message\": \"TweetDBV2 validation failed: tweetText: tweet required\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "patch tweet",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner\":\"645b89d45b0bc1d9a10bf9ed\",\n    \"tweetText\":\"Postmant\"\n    \n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts",
+								"645c67143b53a43f28c61f91"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "patch tweet Not authorized",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"645b89d45b0bc1d9a10bf9ed\",\n    \"tweetText\":\"Postmant\"\n    \n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/64536f0b8c5400e75a1569f7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"64536f0b8c5400e75a1569f7"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"a3agh1pi3xo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 03:45:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorized\"\n}"
+						},
+						{
+							"name": "patch tweet Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"645b89d45b0bc1d9a10bf9ed\",\n    \"tweetText\":\"Postmant\"\n    \n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c67143b53a43f28c61f91"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wN23a8HK1layyr1h.MzvhqALDOw2eQLT8OwCHm6j0g5Cfsere9aAkC1dR24ZMZW6V-GmbidM1VTjJxbQppVv4bkYosweVL08sUAeh4BgHZxjMXDH8NRxLlc2UIb49gGqqXMV5Q6nNqw4GSrGhR7HN81LOOB5cgoII-6vZYCwKvFrf9WvBe_QCvBVCvHf6AodwivohjSuLcJ57RoPdl5s3tWdKoW5g5GOo-PrlP0y9utX4onIlpCKnNywWhrd0VnxZSiRtFGR945p1-c47rQCutyGf_Uh6O3LVX1cnMz5K2cPpt2lT5DvHQeZC0l_291vWjtDjEYuC3-4IgbvP0ekqqMvoDQGTeNDQt-K5bfb0kzd_b5Sj9T3OokqaS9Y6Vna2Q1xdMmbAPCW-EtJ8_dPbSncgKl93brcLrx6g2FLdtyFh4Sd5Q-nlQauZtRNMzctd.mZLtjd6pZArU8F5gmhpsVA; Path=/; Expires=Sat, 10 Jun 2023 03:55:17 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"41czg1yy5uf1\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "541"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 03:55:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Updated\",\n    \"post\": {\n        \"_id\": \"645c67143b53a43f28c61f91\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"email\": \"sourav.shellbeehaken@gmail.com\",\n            \"username\": \"sourav\",\n            \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n        },\n        \"tweetImage\": null,\n        \"tweetImages\": [],\n        \"tweetText\": \"Postmant\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 0,\n        \"commentsList\": [],\n        \"commentByHashMap\": {},\n        \"type\": \"tweet\",\n        \"nodes\": [],\n        \"createdAt\": \"2023-05-11T03:55:00.187Z\",\n        \"updatedAt\": \"2023-05-11T03:55:18.074Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "patch tweet not found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"645b89d45b0bc1d9a10bf9ed\",\n    \"tweetText\":\"Postmant\"\n    \n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c67143b53a43f28c61f91"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ufONHSTvevV1WNV_.jXj_0uRK03v7zeiLKRMhgH_eQp_fTk-xoE5-FHh6lF-ueOpaeh09M-N_qXAnBwppDAKa3GLQ_EbtZ0QpMR6BBRgyEgQR2mAzFpwAIeI4Lg7d_aeWdHh2slanp6CqALNgNLJ8B7LxQZBwyzAq0FDSBy4d9KZPX_SLX78huNs832uhwJsFS-TkRRihZclCTjsWPSseSL15i0giUrUSkw2FbjyM_Plo1C8FMnFPHe7VyNIIMWbb0hLt0xOgk7D1PXODO6NeEQds183zYczqPuAsFQD-2kDRVdimFTNQQIiiLFKIPz1YVSxWom5LAt5s1AO396urVeSDUv5wFZYKBhKM4xZqBt-QkW0wvsah05yBiuNWfwyw5LN8uqhhCiHOVVlsk08JuxmVmPSHmZmHSNxim436yR_3Z_iVqkFXcoSZCEh3t_4M.ShvdZZIhg35MT9VkKgUldw; Path=/; Expires=Sat, 10 Jun 2023 04:01:35 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"tbat94l2ujo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 04:01:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Post not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete tweet",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts",
+								"645c67143b53a43f28c61f91"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete tweet Not authorized",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/64522abaf7edf3e77684b640",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"64522abaf7edf3e77684b640"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..KpclKMBedsDDkjvc.Tpd76QLA1YwWqbv-x09ll3oegBRcZzwyuuTrDtHemIhfQa6LesfNcqqyNWPpmEthwiJ4pCQrWC4R-G_4iVXnSFW6kQxJMV-jWAYFewRxzJS9zjje_nucTT85DRMDLDAy3-oni1Z3Ac0NvnCqVRzNlQveoQhExs3RuE9p2QJQiYAp7W_5qTNxSvsc_url3ydC3z_LDFdIk1FP7It1lV3bP08a7ee4_Nt1Vynif1PEwXLnZ1GccSYm0s2vthWrNsH2m-C4edGwPYoYWm3dVtuMKX5QEvWwRqLssyZzCRzFyeX9qwvk4fYmZW5pP7sxWJK0ahgfF-5OAznq-25R9-Q_MIQWO559xM8VQBjmc0Er9thECdqSNS9y0h1TyPJahIH8SnJZIErR1AJV6DqohtPuARc3eCbMYtWY_P_uc5C8L3uGrt76.tXMcEaFDH_iezDM10B5f3Q; Path=/; Expires=Sat, 10 Jun 2023 03:59:50 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"a3agh1pi3xo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 03:59:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorized\"\n}"
+						},
+						{
+							"name": "delete tweet Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c67143b53a43f28c61f91",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c67143b53a43f28c61f91"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..F4x5BDg0s8WvxVfC.z5U0X43r6wFjTUPAhovYYFnD6YVhrNeJ8s37kW_UjnZ20iQ5j5C9pXyfCRGs9xgMxoxKxK25SuOMtU-MJkgde77om7kM4IGGuNY973S5jjEmetornyvSo0EN7BTPe9DbFtsWp2robTF7DaUE07zDGvFnVSKmEbw6k80yG2SDSMaPThn-9bvHKDoDVhWJ3xr1L9NGwfo4NgDJUs6ZohHsJEK6e1YpfPvtsJbS_0uYMqppdI7ffsLykTCPcRPFL0i0dxO8S8WHi4utr-dWMYt-WIe3O3T6D4YNJV7CIlzc5UdZvqpi86CKAvK_Ma8UGR0WLTMOiQr-YUMmFElT9NHm1hMCQ_dtipOBKg0VMRKO515ciHpp1R25lcfu_-le4DWidSMbeP9EjS7eG9zNJxBgx0MBGPsRgz8kas4n62D5868zZxBr.IfcFC9pgsFRxcvJzhf2xXw; Path=/; Expires=Sat, 10 Jun 2023 04:00:17 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"8darx0jbgzm\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 04:00:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Post deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "post Like and unlike tweet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userid\":\"645b89d45b0bc1d9a10bf9ed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts",
+								"645c775f3b53a43f28c62034",
+								"like"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post Like tweet Unliked Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userid\":\"645b89d45b0bc1d9a10bf9ed\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c775f3b53a43f28c62034",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"15ayfdn9bq67m\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "274"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:32:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tweet\": {\n        \"_id\": \"645c775f3b53a43f28c62034\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"username\": \"Sourav SBH\"\n        },\n        \"tweetText\": \"Nice kotha\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"createdAt\": \"2023-05-11T05:04:31.006Z\",\n        \"updatedAt\": \"2023-05-11T08:32:16.720Z\",\n        \"__v\": 1\n    },\n    \"likes\": 0,\n    \"status\": \"Unliked\"\n}"
+						},
+						{
+							"name": "post Like tweet Liked Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userid\":\"645b89d45b0bc1d9a10bf9ed\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c775f3b53a43f28c62034",
+										"like"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"rurkgmiokc8a\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "298"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:32:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tweet\": {\n        \"_id\": \"645c775f3b53a43f28c62034\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"username\": \"Sourav SBH\"\n        },\n        \"tweetText\": \"Nice kotha\",\n        \"likes\": 1,\n        \"likedBy\": [\n            \"645b89d45b0bc1d9a10bf9ed\"\n        ],\n        \"createdAt\": \"2023-05-11T05:04:31.006Z\",\n        \"updatedAt\": \"2023-05-11T08:32:39.713Z\",\n        \"__v\": 1\n    },\n    \"likes\": 1,\n    \"status\": \"Liked\"\n}"
+						},
+						{
+							"name": "post Like and unlike tweet Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userid\":\"643cf9ec28271f6cc91b53e7\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c775f3b53a43f28c62034",
+										"like"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"738yawqxyom\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:38:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Server error\"\n}"
+						},
+						{
+							"name": "post Like and unlike tweet Unauthorize",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userid\":\"643cf9ec28271f6cc91b53e7\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/posts/645c775f3b53a43f28c62034/like",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"posts",
+										"645c775f3b53a43f28c62034",
+										"like"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..TOe8mPBJ4Hm8H95s.6k42qEdSJ5rWERfxCGmANznqkojymv1ECpe0PK4s1xa6DHGIXBVVD1_CXAUjk6JscRPA1i-io8VC6YITEGcgMrUT3YjSoDi8Z6nhPPpe90fE0hdYwD3RZU42HLfL2ez5OsRua_4JuDMnBJ-JkW9FF-m-VoPfVinyyW4Ve7eUcfY7yjamk9TRXUtRnjzGZioeXFRKouH6ndqgyyOaZrISg-fxfRJkAGsmldwJvyfUFJAvfKpTdTcneV7psum7EjRaB_1q5e3BbXIwGsW6AqKWxvIAYfgqBfFFuVYf1EBANxFw5hT9gR4UgnKNBw1BWvd_wwsBm3r_YsD-8eTf5oOGAbND8UotYS5tkcOfydXuxL0_-L5HVWeLZCIP4O5K-YCQsNipQuN-cl1vPhjCuLkV2BImKErQbVThmtVNdBxZl10S77EG.ZBcvOpODq1B2RhXitdQCQw; Path=/; Expires=Sat, 10 Jun 2023 08:40:14 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"14vn5982t16y\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:40:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorize\",\n    \"users\": {}\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "get user by email or id",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"sourav.shellbeehaken@gmail.com\",\n    \"id\":\"111111111111111111111111\"\n\n \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get user by email or id Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"sourav.shellbeehaken@gmail.com\",\n    \"id\":\"111111111111111111111111\"\n\n \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"jmpcycj7aiw1\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:53:53 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User found\",\n    \"user\": {\n        \"_id\": \"642e61dfe538c6d0b0a115dd\",\n        \"email\": \"sourav.shellbeehaken@gmail.com\",\n        \"username\": \"SouravSBH\",\n        \"image\": \"https://avatars.githubusercontent.com/u/124552082?v=4\",\n        \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"bio\": \"This is my bio\",\n        \"follower\": [\n            \"6434e1c2d6976654e68781b8\"\n        ],\n        \"following\": [\n            \"64326d06498c08c135977357\"\n        ],\n        \"posts\": [],\n        \"likedPost\": [\n            \"642e6e0de538c6d0b0a11689\",\n            \"643372a5f29fc1fe4788b5d4\",\n            \"642e6bebe538c6d0b0a1165f\",\n            \"6433a016f29fc1fe4788c9c3\",\n            \"643398d7f29fc1fe4788c8ba\",\n            \"6433a23df29fc1fe4788ca7c\",\n            \"6433a662f29fc1fe4788cb2f\",\n            \"6433a63df29fc1fe4788cb28\",\n            \"6433a9d7f29fc1fe4788cb51\",\n            \"6432a29f30f1278ecd3b7d09\",\n            \"6432a687b0b1a79223e0810f\",\n            \"6433ae24f29fc1fe4788cbe3\",\n            \"6433ac9ff29fc1fe4788cbb1\",\n            \"6433b1a3f29fc1fe4788ccbf\",\n            \"6434dfa6d6976654e6877f55\",\n            \"6434e9b5d6976654e68785b5\"\n        ],\n        \"commentedPost\": [],\n        \"createdAt\": \"2023-04-06T06:08:31.535Z\",\n        \"updatedAt\": \"2023-04-26T06:07:43.205Z\",\n        \"__v\": 24,\n        \"isEmailVerified\": false,\n        \"token\": \"fUXD3MHdtyM_kwGHonBTjd:APA91bG0y07_Os-uTb_MPidQxud-5rY1TjdH6wmB0Kg3MWD1oLhm0CnD8mNO5WGStceOUPdoxgkdAkCY7iPen2TXgfisPzI-P7YFettWOhLB-civLID3x9HsA-aAajVMbWYdnFi4B1Fj\",\n        \"notifications\": [],\n        \"messages\": []\n    }\n}"
+						},
+						{
+							"name": "get user by email or id Not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"souravadssfeehaken@gmail.com\",\n    \"id\":\"111111111111111111111111\"\n\n \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"ud6112xezpo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:54:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"sourav\",\n    \"email\":\"shawon.shellbeehaken@gmail.com\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "signup Already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"sourav\",\n    \"email\":\"123456@gmail.com\",\n    \"password\":\"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"7s2seetxvf18\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:55:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User already exist. Please log in.\"\n}"
+						},
+						{
+							"name": "signup Not valid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"sourav\",\n    \"email\":\"123456@gmail.com\",\n    \"password\":\"1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"nt288o81bg1h\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:55:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Email is not valid or Password is too short\"\n}"
+						},
+						{
+							"name": "signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"sourav\",\n    \"email\":\"1234567@gmail.com\",\n    \"password\":\"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"12zyws1z30ifj\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "559"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:55:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Sign Up Successful\",\n    \"result\": {\n        \"isEmailVerified\": false,\n        \"email\": \"1234567@gmail.com\",\n        \"username\": \"sourav\",\n        \"password\": \"$2a$12$3XdeGkOLTwraJT81/7MMiemR9vUVHQs5ifZR6Hhot.8QhxlFKVaA6\",\n        \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"bio\": \"This is my bio\",\n        \"follower\": [],\n        \"following\": [],\n        \"posts\": [],\n        \"likedPost\": [],\n        \"commentedPost\": [],\n        \"_id\": \"64522fabf7edf3e77684b781\",\n        \"notifications\": [],\n        \"messages\": [],\n        \"createdAt\": \"2023-05-03T09:55:55.046Z\",\n        \"updatedAt\": \"2023-05-03T09:55:55.046Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "signup Success with email verified",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"sourav\",\n    \"email\":\"shawon.shellbeehaken@gmail.com\",\n    \"password\":\"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/auth/signup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"j1ua5a1r9jgp\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "601"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:26:00 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Sign Up Successful\",\n    \"existingUser\": {\n        \"_id\": \"645c89683b53a43f28c62ba3\",\n        \"isEmailVerified\": true,\n        \"verifyString\": \"DtriO1\",\n        \"email\": \"shawon.shellbeehaken@gmail.com\",\n        \"username\": \"Sourav\",\n        \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"bio\": \"This is my bio\",\n        \"follower\": [],\n        \"following\": [],\n        \"posts\": [],\n        \"likedPost\": [],\n        \"commentedPost\": [],\n        \"notifications\": [],\n        \"messages\": [],\n        \"createdAt\": \"2023-05-11T06:21:28.654Z\",\n        \"updatedAt\": \"2023-05-11T06:25:59.997Z\",\n        \"__v\": 0,\n        \"password\": \"$2a$12$NNzTmwTEVm3C9k3p6tyThe3KFyTU2cJtms3.lCvQQuhA3nybjzUTy\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get notification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/getNotification?id=643cf9ec28271f6cc91b53e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"getNotification"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "643cf9ec28271f6cc91b53e7"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get notification Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getNotification?id=643cf9ec28271f6cc91b53e7fa",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getNotification"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "643cf9ec28271f6cc91b53e7fa"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"738yawqxyom\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "22"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:56:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Server error\"\n}"
+						},
+						{
+							"name": "get notification Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getNotification?id=643cf9ec28271f6cc91b53e7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getNotification"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "643cf9ec28271f6cc91b53e7"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"10kijbltew3ye\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:58:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"notifications\": [\n        {\n            \"chatID\": \"644bad9ad9172f7cad7ba8dc\",\n            \"messageID\": \"64522674f7edf3e77684b620\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"senderUsername\": \"test user\",\n            \"senderEmail\": \"user@gmail.com\",\n            \"senderImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n            \"body\": \"new msg\",\n            \"seen\": false,\n            \"_id\": \"64522674f7edf3e77684b627\",\n            \"createdAt\": \"2023-05-03T09:16:36.803Z\"\n        },\n        {\n            \"chatID\": \"644bad9ad9172f7cad7ba8dc\",\n            \"messageID\": \"64522fe9f7edf3e77684b797\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"senderUsername\": \"test user\",\n            \"senderEmail\": \"user@gmail.com\",\n            \"senderImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n            \"body\": \"new msg\",\n            \"seen\": false,\n            \"_id\": \"64522fe9f7edf3e77684b79e\",\n            \"createdAt\": \"2023-05-03T09:56:57.465Z\"\n        },\n        {\n            \"chatID\": \"644bad9ad9172f7cad7ba8dc\",\n            \"messageID\": \"64523056f7edf3e77684b7c8\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"senderUsername\": \"test user\",\n            \"senderEmail\": \"user@gmail.com\",\n            \"senderImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n            \"body\": \"adfsadf\",\n            \"seen\": false,\n            \"_id\": \"64523056f7edf3e77684b7cf\",\n            \"createdAt\": \"2023-05-03T09:58:46.357Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "post Check verifiation code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"shawon.shellbeehaken@gmail.com\",\n    \"verifyString\":\"DtriO1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/codeVerify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"codeVerify"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post Check verifiation code User Exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"sourav.shellbeehaken@gmail.com\",\n    \"verifyString\":\"Hiiiii\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/codeVerify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"codeVerify"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"7s2seetxvf18\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:23:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User already exist. Please log in.\"\n}"
+						},
+						{
+							"name": "post Check verifiation code Not matched",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"shawon.shellbeehaken@gmail.com\",\n    \"verifyString\":\"Hiiiii\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/codeVerify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"codeVerify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"e7ckf82lg9l\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "21"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:23:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"NOT MATCHED\"\n}"
+						},
+						{
+							"name": "post Check verifiation code Matched",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"shawon.shellbeehaken@gmail.com\",\n    \"verifyString\":\"DtriO1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/codeVerify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"codeVerify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"qt8ckyamw8h\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "17"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:23:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"MATCHED\"\n}"
+						}
+					]
+				},
+				{
+					"name": "post email verification code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\":\"Sourav\",\n    \"email\":\"shawon.shellbeehaken@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000//api/v2/users/emailVerify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"",
+								"api",
+								"v2",
+								"users",
+								"emailVerify"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post email verification code User exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"Sourav\",\n    \"email\":\"sourav.ahmed5654@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000//api/v2/users/emailVerify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"",
+										"api",
+										"v2",
+										"users",
+										"emailVerify"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"7s2seetxvf18\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:20:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User already exist. Please log in.\"\n}"
+						},
+						{
+							"name": "post email verification code Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\":\"Sourav\",\n    \"email\":\"shawon.shellbeehaken@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000//api/v2/users/emailVerify",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"",
+										"api",
+										"v2",
+										"users",
+										"emailVerify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"8nimyqrle31h\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "53"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 06:21:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Email sent. Check you email and spam folder\"\n}"
+						}
+					]
+				},
+				{
+					"name": "patch token",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\":\"64326d06498c08c135977357\",\n    \"token\":\"Update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "patch token Success",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"_id\":\"64326d06498c08c135977357\",\n    \"token\":\"Update\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11ww59jcw0z1kg\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:17:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Token updated\",\n    \"user\": {\n        \"_id\": \"64326d06498c08c135977357\",\n        \"email\": \"sourav.ahmed5654@gmail.com\",\n        \"username\": \"Sourav Ahmed\",\n        \"image\": \"/images/profiles/45b414fa9582a48599ecd8d01.aee7abddddb9c68b52c5.png\",\n        \"coverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n        \"bio\": \"New Bio\",\n        \"follower\": [\n            \"642e61dfe538c6d0b0a115dd\"\n        ],\n        \"following\": [],\n        \"posts\": [],\n        \"likedPost\": [\n            \"642e6e39e538c6d0b0a1168e\",\n            \"642e6e0de538c6d0b0a11689\",\n            \"6432a90db0b1a79223e0811d\",\n            \"6432a916b0b1a79223e08126\",\n            \"6432a97cb0b1a79223e08146\",\n            \"643bb5a0000d2d56ea8e5ad6\",\n            \"643bb59d000d2d56ea8e5ac9\"\n        ],\n        \"commentedPost\": [],\n        \"createdAt\": \"2023-04-09T07:45:10.443Z\",\n        \"updatedAt\": \"2023-05-11T08:13:54.200Z\",\n        \"__v\": 0,\n        \"notifications\": [\n            {\n                \"chatID\": \"645c9c763b53a43f28c6393e\",\n                \"messageID\": \"645c9c8e3b53a43f28c63a35\",\n                \"sender\": \"643cf9ec28271f6cc91b53e7\",\n                \"cus_id\": \"643cf9ec28271f6cc91b53e764326d06498c08c135977357\",\n                \"senderUsername\": \"Edge\",\n                \"senderEmail\": \"edge@gmail.com\",\n                \"senderImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                \"body\": \"jkdjaflfl\",\n                \"seen\": false,\n                \"_id\": \"645c9c8e3b53a43f28c63a3c\",\n                \"createdAt\": \"2023-05-11T07:43:10.971Z\"\n            }\n        ],\n        \"messages\": [\n            {\n                \"sender\": \"642f7cdd8d1cecb1945c6536\",\n                \"chatID\": \"644a419499f6a877e31125c7\",\n                \"cus_id\": \"64326d06498c08c135977357642f7cdd8d1cecb1945c6536\",\n                \"username\": \"Username\",\n                \"email\": \"sourav0123@gmail.com\",\n                \"image\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n                \"_id\": \"644a419499f6a877e31125cc\"\n            },\n            {\n                \"sender\": \"645b89d45b0bc1d9a10bf9ed\",\n                \"chatID\": \"645c923e3b53a43f28c62f21\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed64326d06498c08c135977357\",\n                \"username\": \"Sourav SBH\",\n                \"email\": \"sourav.shellbeehaken@gmail.com\",\n                \"image\": \"/images/profiles/324f64b501d16214b66d3d102.aee7abddddb9c68b52c5.png\",\n                \"_id\": \"645c923e3b53a43f28c62f26\"\n            },\n            {\n                \"sender\": \"643cf9ec28271f6cc91b53e7\",\n                \"chatID\": \"645c9c763b53a43f28c6393e\",\n                \"cus_id\": \"643cf9ec28271f6cc91b53e764326d06498c08c135977357\",\n                \"username\": \"Edge\",\n                \"email\": \"edge@gmail.com\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                \"_id\": \"645c9c763b53a43f28c63941\"\n            }\n        ],\n        \"isEmailVerified\": true,\n        \"token\": \"Update\",\n        \"verifyString\": \"d4o7sD\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete  token",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"_id\":\"645b89d45b0bc1d9a10bf9ed\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"token"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete  token Not authorize",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"_id\":\"64326d06498c08c135977357\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"token"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..vH9hpUnrRZmVvcxM.BOs4RU0PjS49WByVsV7lgmxxTodjgGodHLMCeJlrOLHVxOb4zfF7yR9bJanaSgP7y3nlsV-xPbX-yYX0gTAsdptsfdOalApcz4iNK7u8G3VuK-DZz0zBEDvw90ex__j5RKhPPTeFaRu_C0ywlxBN_-gdT10GtsJahzLMqInNswu0XwfQS0YxBG-0tcaDXafIxtMSgRphjOiyJBbZMcyANERkUTPqugZaDNP3txR_QzODJzLjiqPVV_4FK3ejpacsBzPBbCtuSIpkAFvhOHwHiQasqry6tX0fYqPvRRplYjrJPRbhyoIHayA-jkf8I1_77P-ptTDSMLzoJfRXKXntV2G1XQZKR09VWoSWuAgydUgw3n-beypEByZBY9g7rO34va7RqcPtdkvA9zacSYs_Xiq8yInBFI2iTmtqzVTY51apGnu6.PIX0S-kAkSrUbdPMGYIYDQ; Path=/; Expires=Sat, 10 Jun 2023 08:16:48 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"14vn5982t16y\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:16:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorize\",\n    \"users\": {}\n}"
+						},
+						{
+							"name": "delete  token Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"_id\":\"645b89d45b0bc1d9a10bf9ed\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..MbkRzdziQ4qhubjO.z-UdAKwL1Lyyu71OwmnQX8YYeg9cwb826Hmi4Vzy5C4OClh_egaSq4C1T4NTh2o4AxFqablPDJIb7BY1Udv3pl_9kxISimfmlhPq-E6N8UO4op0-gqq4eoUQpRP-8Z4Q_-oocUz0lDoEi8BKoiI3NDOVIpBw9kPgJFlfbZ0sqh1yycwCBtw1npidAO3UzHfubhY2iTDoiRGWLjKzDUD_9f72TV_w_ET5SrawLuomEvaGssAAOdEwpnk2UnIkkZuGoPbCqBCmCyiWTomr5BXW5keMC69JIn9oHuF5GnwBz1mwy9KV2JG6Nrd8JRPHSzoyRMpEHUCzU-TySSEBN2zHb6pWqjMR4drU8fqccUrwT5jtP7BsF9Xrd3jlhrF6Qojed1LUKWJbJtqlZx1vWJoeEh7mum0THi2blCbIQKZBDUJUrjS4.2du7UAQI3SsB-17WCBICXw; Path=/; Expires=Sat, 10 Jun 2023 08:18:24 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"qqf0yx6rc637\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "115"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 08:18:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Token updated\",\n    \"user\": {\n        \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n        \"token\": \"\",\n        \"updatedAt\": \"2023-05-11T08:18:24.820Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "post message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderEmail\": \"sourav.shellbeehaken@gmail.com\",\n    \"receiverEmail\": \"edge@gmail.com\",\n    \"body\": \"adfsadf\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"messages"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post message Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"senderEmail\": \"user@gmail.com\",\n    \"receiverEmail\": \"edge@gmail.com\",\n    \"body\": \"new msg\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/messages",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"messages"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"agee9lybs7c6\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "438"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:56:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"64522fe9f7edf3e77684b797\",\n    \"sender\": \"64363dfc356c5a8aa8fa494e\",\n    \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n    \"senderUsername\": \"test user\",\n    \"senderEmail\": \"user@gmail.com\",\n    \"senderImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n    \"receiverUsername\": \"Edge\",\n    \"receiverEmail\": \"edge@gmail.com\",\n    \"receiverImage\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n    \"body\": \"new msg\",\n    \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\"\n}"
+						},
+						{
+							"name": "post message Not valid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"senderEmail\": \"user@gmail.com\",\n    \"receiverEmail\": \"edge@gmail.com\",\n    \"body\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/messages",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"messages"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"a2xbwa6ugd2t\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "101"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:57:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"MessageDBV2 validation failed: messages.14.body: Path `body` is required.\"\n}"
+						},
+						{
+							"name": "post message Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"senderEmail\": \"user@gmail.com\",\n    \"receiverEmail\": \"edgeasdfa@gmail.com\",\n    \"body\": \"adfsadf\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/v2/messages",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"messages"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"8skwzjt0sg22\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:57:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"error\": \"Cannot read properties of null (reading '_id')\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get Messages with one user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/messages?senderId=645b89d45b0bc1d9a10bf9ed&receiverId=643cf9ec28271f6cc91b53e7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "senderId",
+									"value": "645b89d45b0bc1d9a10bf9ed"
+								},
+								{
+									"key": "receiverId",
+									"value": "643cf9ec28271f6cc91b53e7"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get Messages with one user Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/messages?senderId=643cf9ec28271f6cc91b53e7&receiverId=64363dfc356c5a8aa8fa494e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"messages"
+									],
+									"query": [
+										{
+											"key": "senderId",
+											"value": "643cf9ec28271f6cc91b53e7"
+										},
+										{
+											"key": "receiverId",
+											"value": "64363dfc356c5a8aa8fa494e"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"4h06xmtoxw2sd\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 09:59:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"644bad9ad9172f7cad7ba8dc\",\n    \"messages\": [\n        {\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"Onek kaj korechiiii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"644bad9ad9172f7cad7ba8dd\",\n            \"createdAt\": \"2023-04-28T11:27:22.583Z\"\n        },\n        {\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"Yo Yo Yoo\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"644bada0d9172f7cad7ba8ee\",\n            \"createdAt\": \"2023-04-28T11:27:28.424Z\"\n        },\n        {\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"reply\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"644bae40d9172f7cad7baa6c\",\n            \"createdAt\": \"2023-04-28T11:30:08.256Z\"\n        },\n        {\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"from firefox\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"644baf4fd9172f7cad7bacf3\",\n            \"createdAt\": \"2023-04-28T11:34:39.938Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"hiii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451e8c8f7edf3e77684a9fb\",\n            \"createdAt\": \"2023-05-03T04:53:28.070Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"Hiiiiii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451e8db573d43ea6e13bb8d\",\n            \"createdAt\": \"2023-05-03T04:53:47.016Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"oiii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451e9d2f7edf3e77684aa24\",\n            \"createdAt\": \"2023-05-03T04:57:54.993Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"oiii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451e9f7573d43ea6e13bc8a\",\n            \"createdAt\": \"2023-05-03T04:58:31.708Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"Hii\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451ea1af7edf3e77684aa59\",\n            \"createdAt\": \"2023-05-03T04:59:06.964Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"jflkajsfkljljsdf\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451ea25f7edf3e77684aa80\",\n            \"createdAt\": \"2023-05-03T04:59:17.985Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"643cf9ec28271f6cc91b53e7\",\n            \"receiver\": \"64363dfc356c5a8aa8fa494e\",\n            \"body\": \"holaaaa\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451ea93f7edf3e77684aaa8\",\n            \"createdAt\": \"2023-05-03T05:01:07.431Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"hello\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"6451ea9d573d43ea6e13bd30\",\n            \"createdAt\": \"2023-05-03T05:01:17.407Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"new msg\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"64522674f7edf3e77684b620\",\n            \"createdAt\": \"2023-05-03T09:16:36.744Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"new msg\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"64522fe9f7edf3e77684b797\",\n            \"createdAt\": \"2023-05-03T09:56:57.412Z\"\n        },\n        {\n            \"cus_id\": \"643cf9ec28271f6cc91b53e764363dfc356c5a8aa8fa494e\",\n            \"sender\": \"64363dfc356c5a8aa8fa494e\",\n            \"receiver\": \"643cf9ec28271f6cc91b53e7\",\n            \"body\": \"adfsadf\",\n            \"react\": \"none\",\n            \"seen\": false,\n            \"_id\": \"64523056f7edf3e77684b7c8\",\n            \"createdAt\": \"2023-05-03T09:58:46.293Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "get Messages with one user Not authorize",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/messages?senderId=643cf9ec28271f6cc91b53e7&receiverId=643cf9ec28271f6cc91b53e7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"messages"
+									],
+									"query": [
+										{
+											"key": "senderId",
+											"value": "643cf9ec28271f6cc91b53e7"
+										},
+										{
+											"key": "receiverId",
+											"value": "643cf9ec28271f6cc91b53e7"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ymtA1nE65irzSgbA.NUSbdCwbHBe1PWGz996lFmjpB6g5syKcZ8n4xpdptiJZoXXIOp3iCbt9j-WzYa16EXzkdSMEBbgt4CO2h9C3v2E_Y8KB-SlpQtZEUE9U9ShhSqVHqwVOMF6cxG5Ud_G8JBqd2cNISqQomdQ4U8UBrLIbwYMKCr5zZLh2csAgAp4A1fEbedLAu8OU6pqIJe43ICT77i4Rc9c8-sZzKhqkQx0_rChvwVU0rCsoB8WFBAciOHuVv2Q-kplR9Iyiq9cskhkEFKQzJgQKs4PenC2Q49rY2SE3AaOcluN-rvK4yJ4nihVqHSwdawnYP9AGBTU_rmBil55cXlTnlZ0RIS3klp-0V-CqEdeWWODygLIt-3vUwDMB0IsjjADnKeKTueemR-wwLVclo0H86oyKZcZt7dmXhL6ThPZXqVY1p2nT3Hbpgtky.-hK0I3sBHpVtSNVxKKgvOw; Path=/; Expires=Sat, 10 Jun 2023 07:39:40 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11l3s58jhzr12\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "38"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 07:39:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorized\",\n    \"messages\": []\n}"
+						}
+					]
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/getNotification?id=642f7cdd8d1cecb1945c6537&sender=642e6248e538c6d0b0a11601",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"getNotification"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "642f7cdd8d1cecb1945c6537",
+									"description": "642f7cdd8d1cecb1945c6536"
+								},
+								{
+									"key": "sender",
+									"value": "642e6248e538c6d0b0a11601"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get unseen list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/getNotification?id=645b89d45b0bc1d9a10bf9ed&type=unseen&sender=64326d06498c08c135977357",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"getNotification"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "645b89d45b0bc1d9a10bf9ed",
+									"description": "receiver id"
+								},
+								{
+									"key": "type",
+									"value": "unseen"
+								},
+								{
+									"key": "sender",
+									"value": "64326d06498c08c135977357",
+									"description": "my id"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get unseen list Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getNotification?id=643cf9ec28271f6cc91b53e7&type=unseen&sender=642f7cdd8d1cecb1945c6536",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getNotification"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "643cf9ec28271f6cc91b53e7",
+											"description": "receiver id"
+										},
+										{
+											"key": "type",
+											"value": "unseen"
+										},
+										{
+											"key": "sender",
+											"value": "642f7cdd8d1cecb1945c6536",
+											"description": "my id"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"5jxxsinsxg109\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 10:05:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"notifications\": [\n        {\n            \"chatID\": \"643e5dde1dbdb1179d8cd018\",\n            \"messageID\": \"64523140f7edf3e77684ba3d\",\n            \"sender\": \"642f7cdd8d1cecb1945c6536\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536\",\n            \"senderUsername\": \"Username\",\n            \"senderEmail\": \"sourav0123@gmail.com\",\n            \"senderImage\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n            \"body\": \"kjadflsjfl\",\n            \"seen\": false,\n            \"_id\": \"64523140f7edf3e77684ba44\",\n            \"createdAt\": \"2023-05-03T10:02:40.663Z\"\n        },\n        {\n            \"chatID\": \"643e5dde1dbdb1179d8cd018\",\n            \"messageID\": \"64523145f7edf3e77684bb5e\",\n            \"sender\": \"642f7cdd8d1cecb1945c6536\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536\",\n            \"senderUsername\": \"Username\",\n            \"senderEmail\": \"sourav0123@gmail.com\",\n            \"senderImage\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n            \"body\": \"Hii\",\n            \"seen\": false,\n            \"_id\": \"64523145f7edf3e77684bb65\",\n            \"createdAt\": \"2023-05-03T10:02:45.406Z\"\n        },\n        {\n            \"chatID\": \"643e5dde1dbdb1179d8cd018\",\n            \"messageID\": \"6452314df7edf3e77684bc91\",\n            \"sender\": \"642f7cdd8d1cecb1945c6536\",\n            \"cus_id\": \"643cf9ec28271f6cc91b53e7642f7cdd8d1cecb1945c6536\",\n            \"senderUsername\": \"Username\",\n            \"senderEmail\": \"sourav0123@gmail.com\",\n            \"senderImage\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n            \"body\": \"unseen\",\n            \"seen\": false,\n            \"_id\": \"6452314df7edf3e77684bc98\",\n            \"createdAt\": \"2023-05-03T10:02:53.377Z\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "get unseen list Not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getNotification?id=642e6248e538c6d0b0a1160d&type=unseen&sender=642e6248e538c6d0b0a11601",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getNotification"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "642e6248e538c6d0b0a1160d",
+											"description": "receiver id"
+										},
+										{
+											"key": "type",
+											"value": "unseen"
+										},
+										{
+											"key": "sender",
+											"value": "642e6248e538c6d0b0a11601",
+											"description": "my id"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"ud6112xezpo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 10:05:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"User not found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get Message List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/users/getMessages?id=645b89d45b0bc1d9a10bf9ed",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"users",
+								"getMessages"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "645b89d45b0bc1d9a10bf9ed"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get Message List Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getMessages?id=645b89d45b0bc1d9a10bf9ed",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getMessages"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "645b89d45b0bc1d9a10bf9ed"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"kufupdv86r1lw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 07:49:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"users\": {\n        \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n        \"messages\": [\n            {\n                \"sender\": \"643cf9ec28271f6cc91b53e7\",\n                \"chatID\": \"645c63763b53a43f28c61f78\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed643cf9ec28271f6cc91b53e7\",\n                \"username\": \"Edge\",\n                \"email\": \"edge@gmail.com\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                \"_id\": \"645c63763b53a43f28c61f7b\"\n            },\n            {\n                \"sender\": \"64326d06498c08c135977357\",\n                \"chatID\": \"645c923e3b53a43f28c62f21\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed64326d06498c08c135977357\",\n                \"username\": \"Sourav Ahmed\",\n                \"email\": \"sourav.ahmed5654@gmail.com\",\n                \"image\": \"/images/profiles/45b414fa9582a48599ecd8d01.aee7abddddb9c68b52c5.png\",\n                \"_id\": \"645c923e3b53a43f28c62f24\"\n            },\n            {\n                \"sender\": \"645b89d45b0bc1d9a10bf9ed\",\n                \"chatID\": \"645c92c33b53a43f28c62fe2\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed645b89d45b0bc1d9a10bf9ed\",\n                \"username\": \"Sourav SBH\",\n                \"email\": \"sourav.shellbeehaken@gmail.com\",\n                \"image\": \"/images/profiles/324f64b501d16214b66d3d102.aee7abddddb9c68b52c5.png\",\n                \"_id\": \"645c92c33b53a43f28c62fe5\"\n            },\n            {\n                \"sender\": \"642f7cdd8d1cecb1945c6536\",\n                \"chatID\": \"645c93c93b53a43f28c6311b\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed642f7cdd8d1cecb1945c6536\",\n                \"username\": \"Username\",\n                \"email\": \"sourav0123@gmail.com\",\n                \"image\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\",\n                \"_id\": \"645c93c93b53a43f28c6311e\"\n            },\n            {\n                \"sender\": \"64363dfc356c5a8aa8fa494e\",\n                \"chatID\": \"645c960a3b53a43f28c631a3\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed64363dfc356c5a8aa8fa494e\",\n                \"username\": \"test user\",\n                \"email\": \"user@gmail.com\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                \"_id\": \"645c960a3b53a43f28c631a6\"\n            },\n            {\n                \"sender\": \"642e6154e538c6d0b0a115ca\",\n                \"chatID\": \"645c964a3b53a43f28c6323a\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed642e6154e538c6d0b0a115ca\",\n                \"username\": \"testing\",\n                \"email\": \"sourav112@gmail.com\",\n                \"image\": \"/images/profiles/9177deb3dbe13dff3e3b0a408.png\",\n                \"_id\": \"645c964a3b53a43f28c6323d\"\n            },\n            {\n                \"sender\": \"64522fabf7edf3e77684b781\",\n                \"chatID\": \"645c966c3b53a43f28c632e7\",\n                \"cus_id\": \"645b89d45b0bc1d9a10bf9ed64522fabf7edf3e77684b781\",\n                \"username\": \"sourav\",\n                \"email\": \"1234567@gmail.com\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\",\n                \"_id\": \"645c966c3b53a43f28c632ea\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "get Message List Not authorize",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/users/getMessages?id=645b89d45b0bc1d9a10bf9ed",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"users",
+										"getMessages"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "645b89d45b0bc1d9a10bf9ed"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..yz1amOr0-J8n1Z2L.2KBrsCqvPwC1XapcqphZkOPXEuC_ACmPx9qmUUCtDwjQEim_tdRI4fJG6caC6SzGNc_pSyYiBaWuo2FZP1XO-UYxfvj0xM9fdBhcKCDxg8A_0_0R1p9u07NnpsILJfCuAxjbED077qH4UWIYz3Q_hDRPr77OzCd_1cce90ugcYpYud-PWz1p_REpfM2-oQGrw5j70yldIWYoo3z2lD0nbU528cDiz1-IN18Ixo-TzCro8eVli1NtMjwb3FKKVUHc9wiRpCcRQFDEcLEVh897SPmqfkiB2hhK6ykr3xD4X0y64ky44948iXCoLFdac07PabwP3Q1oT0XSAzfVlTvZ9onqHtg69_wGV1s4UyJYoONPunEm8Hwa8ky2KflRSqseimyb6-zmv0d8elShvz4MEzkJh6N0KneifNGNzm3dA30dB5sh.XjPMv7EN-KnqW3zBSfxIkA; Path=/; Expires=Sat, 10 Jun 2023 07:59:38 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"14vn5982t16y\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 07:59:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorize\",\n    \"users\": {}\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "get Comments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/comments/643cff131335c25599b50299",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"comments",
+								"643cff131335c25599b50299"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get comments success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"645c775f3b53a43f28c62034"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11yb4yc518b1f2\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:05:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"comment\": {\n        \"_id\": \"645c775f3b53a43f28c62034\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"email\": \"sourav.shellbeehaken@gmail.com\",\n            \"username\": \"sourav\",\n            \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n        },\n        \"tweetImage\": null,\n        \"tweetImages\": [],\n        \"tweetText\": \"Nice kotha\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 2,\n        \"commentsList\": [\n            {\n                \"_id\": \"645c77883b53a43f28c62051\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"comment 2\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 0,\n                \"commentsList\": [],\n                \"commentByHashMap\": {},\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [],\n                \"createdAt\": \"2023-05-11T05:05:12.060Z\",\n                \"updatedAt\": \"2023-05-11T05:05:12.060Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"645c776b3b53a43f28c6203e\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"Normal ??\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 2,\n                \"commentsList\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"commentByHashMap\": {\n                    \"645b89d45b0bc1d9a10bf9ed\": true\n                },\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"createdAt\": \"2023-05-11T05:04:43.013Z\",\n                \"updatedAt\": \"2023-05-11T05:04:54.748Z\",\n                \"__v\": 0\n            }\n        ],\n        \"commentByHashMap\": {\n            \"645b89d45b0bc1d9a10bf9ed\": true\n        },\n        \"type\": \"tweet\",\n        \"nodes\": [\n            \"645c776b3b53a43f28c6203e\",\n            \"645c77883b53a43f28c62051\"\n        ],\n        \"createdAt\": \"2023-05-11T05:04:31.006Z\",\n        \"updatedAt\": \"2023-05-11T05:05:12.163Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get Reply",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"comments",
+								"645c775f3b53a43f28c62034"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get comments success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"645c775f3b53a43f28c62034"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11yb4yc518b1f2\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:05:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"comment\": {\n        \"_id\": \"645c775f3b53a43f28c62034\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"email\": \"sourav.shellbeehaken@gmail.com\",\n            \"username\": \"sourav\",\n            \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n        },\n        \"tweetImage\": null,\n        \"tweetImages\": [],\n        \"tweetText\": \"Nice kotha\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 2,\n        \"commentsList\": [\n            {\n                \"_id\": \"645c77883b53a43f28c62051\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"comment 2\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 0,\n                \"commentsList\": [],\n                \"commentByHashMap\": {},\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [],\n                \"createdAt\": \"2023-05-11T05:05:12.060Z\",\n                \"updatedAt\": \"2023-05-11T05:05:12.060Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"645c776b3b53a43f28c6203e\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"Normal ??\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 2,\n                \"commentsList\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"commentByHashMap\": {\n                    \"645b89d45b0bc1d9a10bf9ed\": true\n                },\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"createdAt\": \"2023-05-11T05:04:43.013Z\",\n                \"updatedAt\": \"2023-05-11T05:04:54.748Z\",\n                \"__v\": 0\n            }\n        ],\n        \"commentByHashMap\": {\n            \"645b89d45b0bc1d9a10bf9ed\": true\n        },\n        \"type\": \"tweet\",\n        \"nodes\": [\n            \"645c776b3b53a43f28c6203e\",\n            \"645c77883b53a43f28c62051\"\n        ],\n        \"createdAt\": \"2023-05-11T05:04:31.006Z\",\n        \"updatedAt\": \"2023-05-11T05:05:12.163Z\",\n        \"__v\": 0\n    }\n}"
+						},
+						{
+							"name": "get Reply Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/645c775f3b53a43f28c62034",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"645c775f3b53a43f28c62034"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11yb4yc518b1f2\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:07:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Success\",\n    \"comment\": {\n        \"_id\": \"645c775f3b53a43f28c62034\",\n        \"owner\": {\n            \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n            \"email\": \"sourav.shellbeehaken@gmail.com\",\n            \"username\": \"sourav\",\n            \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n        },\n        \"tweetImage\": null,\n        \"tweetImages\": [],\n        \"tweetText\": \"Nice kotha\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 2,\n        \"commentsList\": [\n            {\n                \"_id\": \"645c77883b53a43f28c62051\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"comment 2\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 0,\n                \"commentsList\": [],\n                \"commentByHashMap\": {},\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [],\n                \"createdAt\": \"2023-05-11T05:05:12.060Z\",\n                \"updatedAt\": \"2023-05-11T05:05:12.060Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"645c776b3b53a43f28c6203e\",\n                \"owner\": {\n                    \"_id\": \"645b89d45b0bc1d9a10bf9ed\",\n                    \"email\": \"sourav.shellbeehaken@gmail.com\",\n                    \"username\": \"sourav\",\n                    \"image\": \"/images/profiles/45b414fa9582a48599ecd8d02.jpeg\"\n                },\n                \"tweetImages\": [],\n                \"tweetText\": \"Normal ??\",\n                \"likes\": 0,\n                \"likedBy\": [],\n                \"likedByHashMap\": {},\n                \"retweets\": 0,\n                \"retweetedBy\": [],\n                \"retweetedByHashMap\": {},\n                \"comments\": 2,\n                \"commentsList\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"commentByHashMap\": {\n                    \"645b89d45b0bc1d9a10bf9ed\": true\n                },\n                \"type\": \"comment\",\n                \"head\": \"645c775f3b53a43f28c62034\",\n                \"nodes\": [\n                    \"645c77703b53a43f28c62047\",\n                    \"645c77763b53a43f28c6204c\"\n                ],\n                \"createdAt\": \"2023-05-11T05:04:43.013Z\",\n                \"updatedAt\": \"2023-05-11T05:04:54.748Z\",\n                \"__v\": 0\n            }\n        ],\n        \"commentByHashMap\": {\n            \"645b89d45b0bc1d9a10bf9ed\": true\n        },\n        \"type\": \"tweet\",\n        \"nodes\": [\n            \"645c776b3b53a43f28c6203e\",\n            \"645c77883b53a43f28c62051\"\n        ],\n        \"createdAt\": \"2023-05-11T05:04:31.006Z\",\n        \"updatedAt\": \"2023-05-11T05:05:12.163Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "delete reply or comment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v2/comments/645c77883b53a43f28c62051",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"comments",
+								"645c77883b53a43f28c62051"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete reply or Comment success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/645c77883b53a43f28c62051",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"645c77883b53a43f28c62051"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..J8oazbPCcaHnHrvq.WaRHorbR_W9BsyHyZdtfSDq-U2TbDSWYuSIPZksi8Go7uJUqybcNG0o4Ydzbq6cUhbV_-6k5uoJ4OnzvphmL4NCJZHhB9IXcLt8t0gxDI5McThh1RT_j7Mi6aMtELIrQS23hpBVDvWtRwfoEyw9pCx6ILCX4zFfcB_zkmQfQUnh3aezTbEaB4VK_VLdxuz44ddhNk0qNpOh5xQme3pWpraYpM75heFUIttTkevVJ_0GMCtN7NjSW6KEwrBFzZW3g687bQf4dXqWm-9IZlkKfpYZtqXelz8uAZrBG-PhwvHayytXRG-2uP9YAejD0DSaHK7XFBtrG0sYqce4jvlRc9dTDzohVYEzMec8E4BatjA-4wHoOmOp-Ve0HKkV5NQDmMd1Cl6nUKrZocQLYxL_v6Ns1lUtDMHehrjOGzinoklVkoECv.sQeMFydlFxxZx-WWgYi8XQ; Path=/; Expires=Sat, 10 Jun 2023 05:10:48 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"x6p2l71f21p\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "25"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:10:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Comment deleted\"\n}"
+						},
+						{
+							"name": "delete Reply or comment  Not authorize",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/643e4dda789e4ebeb20ffdf7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"643e4dda789e4ebeb20ffdf7"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..GbqD8Z3a6lBsVhwA.qD_jrKC_Q_pV-oe9yOMlIJqM4mKM9rzkqbyj6F03NMVzh9Rs5bkF6k58LVl8XdoNSCekV3t1dUerIsjZAC2KwwOGxIwC48DX6i7oRBWlw-pURjxuB0gNip_Pp7H8KOo40yCS2mqtEFXFI0odb_twgK3_siGhEE0Zk4aM09Pg2qSv3bMAzGZde6nTL55h_Hq_bwbOToUvt0dpoDn6RfmrIZsL6GKPF57zNCmOJAgReTSc0uwsxkF5wAxY5mU4o3mYIxTLQXqBrL8qyB-iPHKB8XRl2UmiZg7thoiswiixI8h0rJki2CPSQDTwM_5UN2VPm_ai7M6CR3grVBCgY23C29WwJ5eKt_NayLrXtWMxWdha8IO6m-z9dZ8xkyQnqQWLESZb60lzmAkpA7SBZYe1y5ahMXsJUIy-9wxezqVfXl67O7zP.3UAQW3oaEYWgW7U1-7EFag; Path=/; Expires=Sat, 10 Jun 2023 05:12:36 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"a3agh1pi3xo\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "24"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:12:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Not authorized\"\n}"
+						},
+						{
+							"name": "delete reply or comment not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/v2/comments/645c77883b53a43f28c62051",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"v2",
+										"comments",
+										"645c77883b53a43f28c62051"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..rN9dHmjJVSDGbPNS.R1nDfMcGQUEA5gZT1G_iZEArElaJ14wd0GaOVZ16fUtj54rBzidJktpXY497q7RovPcwfpYz59FiIRThfLrQ06QJLhf8SPTfO_xBVyPX7qY-0BOlnJS4DlgCD2IZqBhTyfEAwNLrkJmZviyIv6s1c9pSno_t4Z5LmrfuIFfym9U0xnNWWfaXWGCst60G7YvCXHj31gRQJCja7cZqAeZNrLTl31B7AGhkCRmXEgsfAwgBLweiMpg98_A95qRJ-2mPhRx9gpjhy1Au13Xyb7DNSwp40INGys9FrbzCsReJkhxePxLkVBjnCZ7-NEEVgbLEN3V1GNJ228U2AkNQbMvo__Y8Ifia4OFYYUGYhFzcyL5oiTt4A9ZRxy039SFBn12beRruhJA96wRB5n3ZJoZTQdiUgEjNTmimbiOmGSmBY-iLObIU.8MGYCWfqiB9RyoZj4fLuiw; Path=/; Expires=Sat, 10 Jun 2023 05:14:21 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"mjmcwd0msr16\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 May 2023 05:14:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Internal server error\",\n    \"error\": {}\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Retweet",
+			"item": [
+				{
+					"name": "post Retweet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"owner\":\"642f7cdd8d1cecb1945c6536\",\n    \"head\":\"64521bf7f7edf3e784b03e\",\n    \"tweetText\":\"Retweet from postman\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v2/posts/retweet",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v2",
+								"posts",
+								"retweet"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "post Retweet Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"642f7cdd8d1cecb1945c6536\",\n    \"head\":\"64521bf7f7edf3e77684b03e\",\n    \"tweetText\":\"Retweet from postman\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000//api/v2/posts/retweet",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"",
+										"api",
+										"v2",
+										"posts",
+										"retweet"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"vfnvt4a6ebvq\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 11:40:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tweet\": {\n        \"_id\": \"64524834f7edf3e77684bef6\",\n        \"owner\": {\n            \"_id\": \"642f7cdd8d1cecb1945c6536\",\n            \"email\": \"sourav0123@gmail.com\",\n            \"username\": \"Username\",\n            \"image\": \"/images/profiles/07fd1843e9997ac08f09ead14.aee7abddddb9c68b52c5.png\"\n        },\n        \"tweetImages\": [],\n        \"tweetText\": \"Retweet from postman\",\n        \"likes\": 0,\n        \"likedBy\": [],\n        \"likedByHashMap\": {},\n        \"retweets\": 0,\n        \"retweetedBy\": [],\n        \"retweetedByHashMap\": {},\n        \"comments\": 0,\n        \"commentsList\": [],\n        \"commentByHashMap\": {},\n        \"type\": \"retweet\",\n        \"head\": {\n            \"_id\": \"64521bf7f7edf3e77684b03e\",\n            \"owner\": {\n                \"_id\": \"643cf9ec28271f6cc91b53e7\",\n                \"email\": \"edge@gmail.com\",\n                \"username\": \"Edge\",\n                \"image\": \"https://api.dicebear.com/5.x/thumbs/svg?radius=50\"\n            },\n            \"tweetImage\": null,\n            \"tweetImages\": [],\n            \"tweetText\": \"Hiiiiii text\",\n            \"likes\": 0,\n            \"likedBy\": [],\n            \"likedByHashMap\": {},\n            \"retweets\": 1,\n            \"retweetedBy\": [\n                \"642f7cdd8d1cecb1945c6536\"\n            ],\n            \"retweetedByHashMap\": {\n                \"642f7cdd8d1cecb1945c6536\": true\n            },\n            \"comments\": 0,\n            \"commentsList\": [],\n            \"commentByHashMap\": {},\n            \"type\": \"tweet\",\n            \"nodes\": [\n                \"64524834f7edf3e77684bef6\"\n            ],\n            \"createdAt\": \"2023-05-03T08:31:51.316Z\",\n            \"updatedAt\": \"2023-05-03T11:40:36.676Z\",\n            \"__v\": 0\n        },\n        \"nodes\": [],\n        \"createdAt\": \"2023-05-03T11:40:36.620Z\",\n        \"updatedAt\": \"2023-05-03T11:40:36.620Z\",\n        \"__v\": 0\n    },\n    \"retweets\": 1\n}"
+						},
+						{
+							"name": "post Retweet Error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"owner\":\"642f7cdd8d1cecb1945c6536\",\n    \"head\":\"64521bf7f7edf3e784b03e\",\n    \"tweetText\":\"Retweet from postman\"\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000//api/v2/posts/retweet",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"",
+										"api",
+										"v2",
+										"posts",
+										"retweet"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"tpxowi4f8xfv\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "571"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 May 2023 11:42:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"Server Error\",\n    \"error\": {\n        \"errors\": {\n            \"head\": {\n                \"stringValue\": \"\\\"64521bf7f7edf3e784b03e\\\"\",\n                \"valueType\": \"string\",\n                \"kind\": \"ObjectId\",\n                \"value\": \"64521bf7f7edf3e784b03e\",\n                \"path\": \"head\",\n                \"reason\": {},\n                \"name\": \"CastError\",\n                \"message\": \"Cast to ObjectId failed for value \\\"64521bf7f7edf3e784b03e\\\" (type string) at path \\\"head\\\" because of \\\"BSONError\\\"\"\n            }\n        },\n        \"_message\": \"TweetDBV2 validation failed\",\n        \"name\": \"ValidationError\",\n        \"message\": \"TweetDBV2 validation failed: head: Cast to ObjectId failed for value \\\"64521bf7f7edf3e784b03e\\\" (type string) at path \\\"head\\\" because of \\\"BSONError\\\"\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
