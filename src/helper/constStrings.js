@@ -11,4 +11,7 @@ export const NOTIFICATION_TYPE_SEEN = "NOTIFICATION_TYPE_SEEN";
 
 // export let TWEET_SKIP = 0;
 
-export const BASE_URL = "http://localhost:3000/";
+export const BASE_URL =
+  process.env.NODE_ENV == "development"
+    ? "http://localhost:3000"
+    : "https://twitterbysourav.vercel.app";

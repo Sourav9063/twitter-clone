@@ -3,7 +3,6 @@ import UserDBV2 from "@/db/modelsV2/userModelV2";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
 import * as admin from "firebase-admin";
-import service from "../messages/service.json";
 import { NOTIFICATION_TYPE_SEEN } from "@/helper/constStrings";
 import get_cus_id from "@/helper/helperFunc/get_cus_id";
 
@@ -77,7 +76,9 @@ export default async function handler(req, res) {
           if (senderDB.token) {
             if (admin.apps.length == 0) {
               admin.initializeApp({
-                credential: admin.credential.cert(service),
+                credential: admin.credential.cert(
+                  JSON.parse(process.env.FIREBASE_ADMIN_CONFIG)
+                ),
               });
             }
             const messaging = admin.messaging();
@@ -104,7 +105,11 @@ export default async function handler(req, res) {
                   Urgency: "high",
                 },
                 fcm_options: {
-                  link: `http://localhost:3000/message?senderId=${id}&receiverId=${sender}`,
+                  link:
+                    process.env.NODE_ENV == "development"
+                      ? `http://localhost:3000`
+                      : `https://twitterbysourav.vercel.app` +
+                        `http://localhost:3000/message?senderId=${id}&receiverId=${sender}`,
                 },
               },
             });

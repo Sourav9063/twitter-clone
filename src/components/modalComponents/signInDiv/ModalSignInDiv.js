@@ -10,7 +10,7 @@ import Or from "@/components/common/Or";
 import { objectValueSetter } from "@/helper/helperFunc/objectValueSetter";
 import Loader from "@/components/common/loader/Loader";
 import { useRouter } from "next/router";
-import { MODAL_QUERY_SIGNUP } from "@/helper/constStrings";
+import { BASE_URL, MODAL_QUERY_SIGNUP } from "@/helper/constStrings";
 import Link from "next/link";
 import useUser, { UserActions } from "@/actions/useUser";
 
@@ -82,6 +82,14 @@ export default function ModalSignInDiv() {
           />
           <label className={styles["user-label"]}>Password</label>
         </div>
+        <p>
+          <a
+            className={styles.resetpass}
+            href={BASE_URL + "/?modal=reset-password"}
+          >
+            Forgot password
+          </a>
+        </p>
 
         {error && (
           <p className={styles.error} style={{ color: "red" }}>

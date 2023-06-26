@@ -31,7 +31,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import Loader from "@/components/common/loader/Loader";
 import ThemeToggle from "@/components/common/ThemeToggle";
 import PageLoading from "@/components/pageLoading/PageLoading";
-
+import ModalResetPass from "@/components/modalComponents/signInDiv/ModalResetPass";
 export async function getServerSideProps(context) {
   let postsArray = [];
   let error = null;
@@ -111,6 +111,11 @@ export default function Home({ data, error }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
+      {router.query.modal == "reset-password" && (
+        <ModalComponent>
+          <ModalResetPass></ModalResetPass>
+        </ModalComponent>
+      )}
       {router.query.modal == "signin" && (
         <ModalComponent>
           <ModalSignInDiv></ModalSignInDiv>

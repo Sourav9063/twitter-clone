@@ -56,14 +56,16 @@
     color: var(--text-color-tertiary);
 }
 
-.signUpDiv>p>a {
+.signUpDiv>p>a,
+.resetpass {
     font-size: .85rem;
     letter-spacing: normal;
     color: var(--primary-color);
     text-decoration: none;
 }
 
-.signUpDiv>p>a:hover {
+.signUpDiv>p>a:hover,
+.resetpass:hover {
     text-decoration: underline;
 }
 
@@ -164,7 +166,7 @@
 /* ,
 .input:valid */
 
-{
+    {
     outline: none;
     border: 1.5px solid #1a73e8;
 }
@@ -173,7 +175,7 @@
 /* ,
 .input:valid~.user-label */
 
-{
+    {
     top: 0;
     left: 0;
     transform: translateY(-50%) scale(0.7);
@@ -201,7 +203,7 @@
 
 
 
-.picSVG{
+.picSVG {
     width: 2.3rem;
     color: var(--primary-color);
     fill: currentColor;
@@ -209,11 +211,12 @@
     padding: .5rem;
     border-radius: 10000px;
 }
+
 .picSVG:hover {
     background-color: var(--hover-primary-trans-color);
 }
-.uploadPic{
+
+.uploadPic {
     width: 100%;
     border-radius: 1rem;
 }
-

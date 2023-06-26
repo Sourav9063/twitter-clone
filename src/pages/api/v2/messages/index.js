@@ -1,7 +1,6 @@
 import connectMongo from "@/db/dbConnect";
 import UserDBV2 from "@/db/modelsV2/userModelV2";
 import MessageDBV2 from "@/db/modelsV2/messageModelV2";
-import service from "./service.json";
 import * as admin from "firebase-admin";
 import { NOTIFICATION_TYPE_SEND } from "@/helper/constStrings";
 import mongoose from "mongoose";
@@ -193,7 +192,9 @@ const postMessages = async (req, res) => {
       if (receiver.token) {
         if (admin.apps.length == 0) {
           admin.initializeApp({
-            credential: admin.credential.cert(service),
+            credential: admin.credential.cert(
+              JSON.parse(process.env.FIREBASE_ADMIN_CONFIG)
+            ),
           });
         }
         const messaging = admin.messaging();
@@ -216,7 +217,11 @@ const postMessages = async (req, res) => {
               Urgency: "high",
             },
             fcm_options: {
-              link: `http://localhost:3000/message?senderId=${receiver._id}&receiverId=${sender._id}`,
+              link:
+                process.env.NODE_ENV == "development"
+                  ? `http://localhost:3000`
+                  : `https://twitterbysourav.vercel.app` +
+                    `/message?senderId=${receiver._id}&receiverId=${sender._id}`,
             },
           },
         });

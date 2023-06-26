@@ -8,6 +8,7 @@ export const UserActions = {
   postSignUpGithub: "POST_SIGNUP_GITHUB",
   postVerificationEmail: "POST_VERIFICATION_EMAIL",
   postCheckVerificationCode: "POST_CHECK_VERIFICATION_CODE",
+  postResetPassword: "POST_RESET_PASSWORD",
 };
 
 const useUser = (init) => {
@@ -69,12 +70,40 @@ const useUser = (init) => {
       case UserActions.postCheckVerificationCode:
         return postCheckVerificationCodeFn;
         break;
+      case UserActions.postResetPassword:
+        return postResetPasswordFn;
+        break;
     }
   };
 
   const userDispatch = (action) => {
     return userReducer(null, action);
   };
+
+  const postResetPasswordFn = async (e) => {
+    setLoading(true);
+    const data = {
+      email: userSignUpForm.email,
+      password: userSignUpForm.password,
+      verifyString: verifyString,
+    };
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: JSON.stringify(data),
+      redirect: "follow",
+    };
+    try {
+      var response = await fetch("/api/v2/users/resetPassword", requestOptions);
+      var result = await response.json();
+    } catch (error) {
+      setError(error.message);
+    }
+    setLoading(false);
+  };
+
   const postCheckVerificationCodeFn = async (e) => {
     setLoading(true);
     setError("Verifying");
@@ -116,6 +145,7 @@ const useUser = (init) => {
     const data = {
       email: userSignUpForm.email,
       username: userSignUpForm.userName,
+      type: "signup",
     };
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
