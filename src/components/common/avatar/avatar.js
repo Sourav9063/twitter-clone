@@ -3,7 +3,7 @@ import React from "react";
 export default function Avatar({ image, width = "70px" }) {
   return (
     <>
-      <div className="img" style={{ backgroundImage: `url("${image}")` }}></div>
+      <div className="img"></div>
       <style jsx>{`
         .img {
           width: ${width};
@@ -13,6 +13,8 @@ export default function Avatar({ image, width = "70px" }) {
           background-repeat: no-repeat;
           border: 1px var(--border-color) solid;
           border-radius: 50%;
+          background-image: url("${image}"),
+            url("https://api.dicebear.com/5.x/thumbs/svg?radius=50");
         }
       `}</style>
     </>

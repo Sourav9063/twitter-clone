@@ -154,8 +154,8 @@ export default function Post({
                         const file = target.files[0];
 
                         new Compressor(file, {
-                          quality: 0.6,
-                          maxWidth: 600,
+                          quality: 0.4,
+                          maxWidth: 500,
                           success(result) {
                             setSelectedFile(result);
                           },

@@ -104,8 +104,8 @@ export default function ModalSignUpDiv() {
                       const file = target.files[0];
 
                       new Compressor(file, {
-                        quality: 0.6,
-                        maxWidth: 300,
+                        quality: 0.4,
+                        maxWidth: 100,
                         success(result) {
                           setUserSignUpForm((state) => {
                             return {

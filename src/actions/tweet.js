@@ -104,6 +104,7 @@ const patchTweetFn = async ({ formData, tweetData, setFeedData }) => {
 
           return [...state];
         }
+        return state;
       });
       // const index = FeedData.findIndex((e) => e._id == result.post._id);
       // if (index != -1) {

@@ -30,7 +30,7 @@ export default function HomeMain({ posts }) {
     };
 
     async function fetchPosts() {
-      const TWEET_SKIP = FeedTweets.length;
+      const TWEET_SKIP = FeedTweets?.length;
 
       try {
         let response = await fetch(
@@ -71,7 +71,7 @@ export default function HomeMain({ posts }) {
                 }}></div> */}
         {session.status == "authenticated" && <Post></Post>}
         <div ref={parent}>
-          {FeedTweets.map((tweet, index) => (
+          {FeedTweets?.map((tweet, index) => (
             <div
               key={tweet._id}
               onClick={() => {
@@ -88,7 +88,7 @@ export default function HomeMain({ posts }) {
         {btnText != NO_MORE_TWEETS ? (
           <div
             className={`${style.load} ${
-              FeedTweets.length == 0 ? style.mtvh : ""
+              FeedTweets?.length == 0 ? style.mtvh : ""
             }`}
             ref={btnRef}
           >
@@ -96,7 +96,7 @@ export default function HomeMain({ posts }) {
             <button
               className={style.btnOutline}
               onClick={async (e) => {
-                const TWEET_SKIP = FeedTweets.length;
+                const TWEET_SKIP = FeedTweets?.length;
                 try {
                   let response = await fetch(
                     `/api/v2/posts?skip=${TWEET_SKIP}&limit=${TWEET_LIMIT}`,

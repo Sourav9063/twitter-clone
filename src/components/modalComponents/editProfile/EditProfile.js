@@ -166,8 +166,8 @@ export default function EditProfile() {
                   const file = target.files[0];
 
                   new Compressor(file, {
-                    quality: 0.6,
-                    maxWidth: 300,
+                    quality: 0.4,
+                    maxWidth: 100,
                     success(result) {
                       setSelectedFile(result);
                     },
@@ -218,8 +218,8 @@ export default function EditProfile() {
                 if (target.files) {
                   const file = target.files[0];
                   new Compressor(file, {
-                    quality: 0.6,
-                    maxWidth: 600,
+                    quality: 0.4,
+                    maxWidth: 300,
                     success(result) {
                       setSelectedFile2(result);
                     },
