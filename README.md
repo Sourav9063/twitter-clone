@@ -1,4 +1,31 @@
-# twitter-clone
+![Screenshot (363)](https://github.com/Sourav9063/twitter-clone/assets/53114581/14af486a-42c8-4b60-a591-a703d83867ef)# twitter-clone
+# Screens
+
+![Screenshot (379)](https://github.com/Sourav9063/twitter-clone/assets/53114581/1551206f-6558-4d82-8dde-af2436c10303)
+![Screenshot (374)](https://github.com/Sourav9063/twitter-clone/assets/53114581/282c78af-70db-4e48-94e8-fe939d3fc7f5)
+![Screenshot (253)](https://github.com/Sourav9063/twitter-clone/assets/53114581/5f38dfd5-82ac-40fe-900d-a9763fffd163)
+![Screenshot (249)](https://github.com/Sourav9063/twitter-clone/assets/53114581/7cce2bb7-022e-447b-9218-66ee9762b062)
+![Screenshot (270)](https://github.com/Sourav9063/twitter-clone/assets/53114581/2b438c7a-f4de-4d26-8d03-1ba6ae1a66f2)
+![Screenshot (273)](https://github.com/Sourav9063/twitter-clone/assets/53114581/973d0955-e88a-4e00-82f2-4971fbe8863c)
+![Screenshot (274)](https://github.com/Sourav9063/twitter-clone/assets/53114581/2ac457b8-7ecb-445d-812c-4efd5c2cc61f)
+![Screenshot (293)](https://github.com/Sourav9063/twitter-clone/assets/53114581/861711a1-a9b2-488b-9a2d-6d20b9525fa6)
+![Screenshot (306)](https://github.com/Sourav9063/twitter-clone/assets/53114581/6c421765-fbdb-4936-bc0c-4371a07b524b)
+![Screenshot (321)](https://github.com/Sourav9063/twitter-clone/assets/53114581/88fb72aa-771e-4c0c-961e-f1f67860998c)
+![Screenshot (327)](https://github.com/Sourav9063/twitter-clone/assets/53114581/7c8bc40a-9d81-4ea7-8f43-b9b3d5ba4a3a)
+![Screenshot (328)](https://github.com/Sourav9063/twitter-clone/assets/53114581/925079ba-1a2c-4e04-9d87-a15a65300438)
+![Screenshot (368)](https://github.com/Sourav9063/twitter-clone/assets/53114581/afb70b07-ff65-49f0-8acc-e8aa68fcd9e7)
+![Screenshot (329)](https://github.com/Sourav9063/twitter-clone/assets/53114581/d8062c6c-2475-4447-ae5b-acc8800deaf4)
+![Screenshot (330)](https://github.com/Sourav9063/twitter-clone/assets/53114581/8fa306cd-9626-481d-9fdc-bcd3fab6d4ca)
+![Screenshot (343)](https://github.com/Sourav9063/twitter-clone/assets/53114581/c916103e-730f-45f0-9808-1828fed25b00)
+![Screenshot (340)](https://github.com/Sourav9063/twitter-clone/assets/53114581/4e93a7fb-8fd4-4bbd-8f27-e696995f7fac)
+![Screenshot (356)](https://github.com/Sourav9063/twitter-clone/assets/53114581/96b2ec4e-8449-4170-bb20-0ffddae280f3)
+![Screenshot (356)](https://github.com/Sourav9063/twitter-clone/assets/53114581/b46f306e-a8a2-418a-bb70-e2077dfca217)
+
+![Screenshot (355)](https://github.com/Sourav9063/twitter-clone/assets/53114581/3087a4ac-7f28-4843-9445-8e0dde0a5378)
+
+![Screenshot (363)](https://github.com/Sourav9063/twitter-clone/assets/53114581/a154135f-b4c5-42d5-b28c-f3d7348895dd)
+
+![Screenshot (366)](https://github.com/Sourav9063/twitter-clone/assets/53114581/0146f8e2-5449-4f75-b8f5-efd7cd437de8)
 
 ## Indices
 
