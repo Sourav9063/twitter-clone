@@ -2,6 +2,8 @@
 
 # [https://twitterbysourav.vercel.app/](https://twitterbysourav.vercel.app/)
 
+# [Demo Video](https://www.loom.com/share/4ad774dbdfd94d75b2102d2e5117a24b?sid=d1b4b30f-dba5-4ad4-87bc-d662d55866ab)
+
 # Screens
 
 ![Screenshot (379)](https://github.com/Sourav9063/twitter-clone/assets/53114581/1551206f-6558-4d82-8dde-af2436c10303)
