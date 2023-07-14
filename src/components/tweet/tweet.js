@@ -41,12 +41,17 @@ export default function Tweet(props) {
   } = props.tweet;
   const tweet = props.tweet;
   //
+  const text = tweetText || postText;
   const [commentsList, setCommentsList] = useState(tweet.commentsList);
   const [likesState, setLikesState] = useState(likes);
   const [retweetCount, setRetweetCount] = useState(tweet.retweets || 0);
   const [commentCount, setCommentCount] = useState(tweet.comments || 0);
   const [showRetweet, setShowRetweet] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
+  const [postTextState, setPostTextState] = useState({
+    postText: text.length > 150 ? text.slice(0, 150) : text,
+    showMore: text.length > 150 ? true : false,
+  });
   const session = useSession();
   const router = useRouter();
   // const [, setLiked] = useContext(LikedPostsContext);
@@ -132,7 +137,32 @@ export default function Tweet(props) {
               {/* <div className={style.hr}></div> */}
               {tweetText != EMPTY_TWEET_RETWEET && (
                 <div className={style.mainTweet}>
-                  <p>{postText || tweetText}</p>
+                  <p>
+                    {postTextState.postText}
+                    <span
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPostTextState((state) => {
+                          return {
+                            postText:
+                              state.postText.length > 150
+                                ? text.slice(0, 150)
+                                : text,
+                            showMore: !state.showMore,
+                          };
+                        });
+                      }}
+                      className={style.seeMore}
+                    >
+                      {`${
+                        postTextState.postText.length > 150
+                          ? " ...see less"
+                          : text.length > 150
+                          ? " ...see more"
+                          : ""
+                      }`}
+                    </span>
+                  </p>
                 </div>
               )}
               {(postImage && postImage != "") ||
