@@ -33,4 +33,7 @@ export default async function handler(req, res) {
       res.status(500).json({ message: "Internal Server Error" });
     }
   }
+  if (req.method === "OPTIONS") {
+    return res.status(200).send("ok");
+  }
 }

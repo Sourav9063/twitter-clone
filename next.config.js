@@ -30,11 +30,11 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://sourav9063.github.io/",
+            value: "https://sourav9063.github.io",
           },
           {
             key: "Access-Control-Allow-Methods",
-            value: "POST",
+            value: "POST, OPTIONS",
           },
           {
             key: "Access-Control-Allow-Headers",
@@ -43,6 +43,26 @@ const nextConfig = {
           },
         ],
       },
+      // {
+      //   // matching all API routes
+      //   source: "/api/email-sender/:path*",
+      //   headers: [
+      //     { key: "Access-Control-Allow-Credentials", value: "true" },
+      //     {
+      //       key: "Access-Control-Allow-Origin",
+      //       value: "http://localhost:3001",
+      //     },
+      //     {
+      //       key: "Access-Control-Allow-Methods",
+      //       value: "POST, OPTIONS",
+      //     },
+      //     {
+      //       key: "Access-Control-Allow-Headers",
+      //       value:
+      //         "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version",
+      //     },
+      //   ],
+      // },
     ];
   },
 };
