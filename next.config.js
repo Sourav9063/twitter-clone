@@ -30,7 +30,7 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://sourav9063.github.io",
+            value: "https://sourav9063.github.io/",
           },
           {
             key: "Access-Control-Allow-Methods",
