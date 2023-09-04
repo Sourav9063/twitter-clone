@@ -9,7 +9,7 @@
     background-color: var(--bg-hover);
 }
 
-.tweetInner{
+.tweetInner {
     display: flex;
 
 }
@@ -26,9 +26,10 @@
 
 }
 
-.image{
+.image {
     margin-right: .5rem;
 }
+
 .body {
     width: 100%;
     position: relative;
@@ -43,6 +44,7 @@
     justify-content: space-between;
     width: 100%;
 }
+
 /* .header {
 display: grid;
 grid-template-columns: 1fr 25px;
@@ -72,14 +74,15 @@ grid-template-columns: 1fr 25px;
     word-wrap: break-word;
     hyphens: auto;
     max-lines: 2; */
-    white-space: pre-wrap;        
-   white-space: -moz-pre-wrap;
-   white-space: -pre-wrap;    
-   white-space: -o-pre-wrap;   
-   word-wrap: break-word;     
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 
 
 }
+
 /* .mainTweet>p{
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -127,9 +130,11 @@ grid-template-columns: 1fr 25px;
     /* margin-right: .3rem; */
 
 }
-.names{
-   margin-bottom: 1rem;
+
+.names {
+    margin-bottom: 1rem;
 }
+
 .names>* {
     font-size: 1.2rem;
     margin-right: .3rem;
@@ -158,8 +163,9 @@ grid-template-columns: 1fr 25px;
     border-radius: 1000000px;
 
 }
+
 .retweet:hover {
-    color:rgb(28, 193, 137);
+    color: rgb(28, 193, 137);
     fill: currentColor;
     /* background-color: var(--hover-primary-trans-color);
     border-radius: 1000000px; */
@@ -167,7 +173,7 @@ grid-template-columns: 1fr 25px;
 
 
 .retweet:hover>svg {
-    background-color:rgba(28, 193, 138, 0.25);
+    background-color: rgba(28, 193, 138, 0.25);
     border-radius: 1000000px;
 
 }
@@ -201,7 +207,7 @@ grid-template-columns: 1fr 25px;
 
 }
 
-.date{
+.date {
     margin-block: .8rem;
 }
 
@@ -217,10 +223,10 @@ grid-template-columns: 1fr 25px;
     min-height: 110px;
     border-radius: 1rem;
     border: 1px var(--border-color-2) solid;
-  }
+}
 
 
-.commentsList{
+.commentsList {
     /* margin-left: 1rem; */
     padding: 1rem;
     border-radius: 1rem;
@@ -228,23 +234,33 @@ grid-template-columns: 1fr 25px;
     border: 1px solid var(--border-color);
     /* animation: grow 300ms ease-in    ; */
 }
-.commentsList:hover{
+
+.commentsList:hover {
     background-color: var(--bg-hover);
 }
-.commentsList>h2{
+
+.commentsList>h2 {
     margin-block: 1rem;
 }
-.commentsList>div{
+
+.commentsList>div {
     border: 1px solid var(--border-color-2);
     border-radius: 1rem;
 
 }
+
 @keyframes grow {
-    0%{
+    0% {
         height: 0;
     }
-    100%{
+
+    100% {
         height: fit-content;
     }
-    
+
+}
+
+.seeMore {
+    color: var(--primary-color);
+    cursor: pointer;
 }

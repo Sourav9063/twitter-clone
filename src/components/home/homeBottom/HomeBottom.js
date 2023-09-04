@@ -5,7 +5,10 @@ import { useContext } from "react";
 export function HomeBottom() {
   return (
     <div className={styles.authBottomBar}>
-      <div className={styles.left}></div>
+      <div className={styles.left}>
+        <p>*Test using this credentials</p>
+        <p>EMAIL: sourav.shellbeehaken@gmail.com PASSWORD: 12345678</p>
+      </div>
       <div className={styles.center}>
         <p className={styles.title}>Don’t miss what’s happening</p>
         <p className={styles.subtitle}>

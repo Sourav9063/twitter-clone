@@ -44,9 +44,9 @@ export default async function handler(req, res) {
 
     try {
       let info = await transporter.sendMail({
-        from: '"Twitter Clone" <sourav.shellbeehaken@gmail.com>',
+        from: '"Twitter by Sourav" <sourav.shellbeehaken@gmail.com>',
         to: email,
-        subject: "Email verification for Twitter Clone.",
+        subject: "Email verification for Twitter by Sourav.",
         text:
           "Your verification code: " +
           verifyString +
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
         <h2>Or</h2>
         <h2>Click this link:</h2>
         <a href="${BASE_URL}/?modal=verify&verifyString=${verifyString}&email=${email}&username=${username}">${BASE_URL}/?modal=verify&verifyString=${verifyString}&email=${email}&username=${username}</a>
-        <p style="color:red;">If you didn't signup for <a href="${BASE_URL}/">Twitter Clone</a> then ignore this email</p>
+        <p style="color:red;">If you didn't signup for <a href="${BASE_URL}/">Twitter by Sourav</a> then ignore this email</p>
         </div>`,
       });
 

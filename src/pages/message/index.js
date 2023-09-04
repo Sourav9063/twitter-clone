@@ -115,7 +115,7 @@ export default function Message({ receiver, messages }) {
     <>
       <Head>
         <title>Twitter</title>
-        <meta name="description" content="Message page of twitter clone" />
+        <meta name="description" content="Message page of Twitter by Sourav" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/fav2.ico" />
       </Head>
